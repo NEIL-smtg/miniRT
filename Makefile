@@ -35,4 +35,10 @@ clean:
 fclean : clean
 	$(RM) $(NAME)
 
+libclean:
+	make fclean -C $(LIBFT_DIR)
+
 re: fclean clean all
+
+norm:
+	@norminette -R CheckForbiddenSourceHeader $(SRCS)

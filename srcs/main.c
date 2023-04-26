@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/04/26 17:22:55 by suchua           ###   ########.fr       */
+/*   Updated: 2023/04/27 01:25:38 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ int	valid_scene(char *file)
 int	main(int ac, char **av)
 {
 	t_scene	scene;
+	t_mlx	mlx;
 
 	if (ac != 2)
 		return (arg_error(ac));
 	if (!valid_scene(av[1]))
 		return (1);
-	if (parse_scene(&scene, av[1]) == -1)
+	if (!parse_scene(&scene, av[1]))
 		return (1);
+	init_mlx(&mlx);
 	return (0);
 }

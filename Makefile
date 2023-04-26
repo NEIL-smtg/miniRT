@@ -1,10 +1,10 @@
-NAME			=	rt
+NAME			=	miniRT
 LIBFT_DIR		=	Libft/
 LIBFT			=	libft.a
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
-FILES			=	main
-# MLXFLAGS		=	-L lib/minilibx-linux/libmlx.a
+FILES			=	main error ft_atof init set_objs set_scene utils validater
+# MLXFLAGS		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 MLXFLAGS		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
 SRCS			=	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
 OBJS			=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
@@ -21,7 +21,7 @@ all:
 	make $(NAME)
 
 $(OBJS_DIR)%.o:$(SRCS_DIR)%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I $(INCL) -c $< -o $@
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)

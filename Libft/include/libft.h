@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:01:42 by suchua            #+#    #+#             */
-/*   Updated: 2023/04/01 05:09:58 by suchua           ###   ########.fr       */
+/*   Updated: 2023/04/06 19:49:36 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,12 @@ char	*gnl_strjoin(char *line, char *partial);
 
 //printf
 int		ft_printf(const char *format, ...);
+
+//new
+int		ft_isspace(char c);
+char	**ft_2d_strdup(char **src);
+char	**ft_2d_strndup(char **src, int n);
+void	ft_free2d(char **str);
+int		get_2d_arr_size(char **s);
 
 #endif

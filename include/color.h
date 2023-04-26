@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 15:42:49 by suchua            #+#    #+#             */
-/*   Updated: 2023/04/06 19:49:24 by suchua           ###   ########.fr       */
+/*   Created: 2023/04/26 16:32:02 by suchua            #+#    #+#             */
+/*   Updated: 2023/04/26 16:34:58 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef COLOR_H
+# define COLOR_H
 
-size_t	ft_strlen(const char *str)
+typedef struct s_rgb
 {
-	size_t	i;
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	get_2d_arr_size(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		++i;
-	return (i);
-}
+# endif

@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   set_scene.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 15:42:49 by suchua            #+#    #+#             */
-/*   Updated: 2023/04/06 19:49:24 by suchua           ###   ########.fr       */
+/*   Created: 2023/04/26 17:45:37 by suchua            #+#    #+#             */
+/*   Updated: 2023/04/26 17:49:31 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minirt.h"
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	get_2d_arr_size(char **s)
+void	set_ambient(t_scene *scene, char **line)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
-		++i;
-	return (i);
+	while (line[++i])
+		
+}
+
+void	set_cam(t_scene *scene, char **line)
+{
+
+}
+
+void	set_light(t_scene *scene, char **line)
+{
+
 }

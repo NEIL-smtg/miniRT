@@ -6,7 +6,7 @@
 #    By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 12:01:03 by suchua            #+#    #+#              #
-#    Updated: 2023/04/03 00:22:32 by suchua           ###   ########.fr        #
+#    Updated: 2023/04/06 19:47:16 by suchua           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ RM				=	rm -rf
 
 # FILES
 ATOITOA_FILES	=	ft_atoi ft_itoa
-IS_FILES		=	ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint
+IS_FILES		=	ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint ft_isspace
 LST_FILES		=	ft_lstadd_back ft_lstadd_front ft_lstclear ft_lstdelone \
 					ft_lstiter ft_lstlast ft_lstmap ft_lstnew ft_lstsize
 MEM_FILES		=	ft_calloc ft_memchr ft_memcmp ft_memcpy ft_memmove ft_memset

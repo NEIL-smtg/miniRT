@@ -6,55 +6,39 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/04/27 01:25:38 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/04 02:08:00 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+#include "../include/keys.h"
 
-int	arg_error(int ac)
+int	destroy_exit(t_mlx *mlx)
 {
-	if (ac < 3)
-		ft_putendl_fd("Lack of arguments", 2);
-	else
-		ft_putendl_fd("Too many arguments", 2);
-	ft_putendl_fd("Usage : ./miniRT <scenes.rt>", 2);
-	return (1);
+	mlx_destroy_window(mlx->mlx, mlx->win);
+	exit(0);
+	return (0);
 }
 
-int	valid_scene(char *file)
+int	key_on_pressed(int keycode, t_mlx *mlx)
 {
-	char	*tmp;
-	int		fd;
-
-	tmp = ft_strrchr(file, '.');
-	if (!tmp || ft_strncmp(tmp, ".rt", 4))
+	if (keycode == KEY_ESC)
 	{
-		ft_putendl_fd("Usage : ./miniRT <scenes.rt>", 2);
-		return (0);
+		mlx_destroy_window(mlx->mlx, mlx->win);
+		exit(0);
 	}
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		perror("file");
-		ft_putendl_fd("Usage : ./miniRT <scenes.rt>", 2);
-		return (0);
-	}
-	close(fd);
-	return (1);
+	return (1);	
 }
 
 int	main(int ac, char **av)
 {
-	t_scene	scene;
 	t_mlx	mlx;
+	t_scene	scene;
 
-	if (ac != 2)
-		return (arg_error(ac));
-	if (!valid_scene(av[1]))
+	if (!valid_arg(ac, av))
 		return (1);
-	if (!parse_scene(&scene, av[1]))
-		return (1);
-	init_mlx(&mlx);
+	// mlx_hook(mlx.win, KEY_PRESS, (1L << 0), key_on_pressed, &mlx);
+	// mlx_hook(mlx.win, CLOSE_WINDOW, (1L << 0), destroy_exit, &mlx);
+	// mlx_loop(mlx.mlx);
 	return (0);
 }

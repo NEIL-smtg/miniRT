@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 23:50:35 by suchua            #+#    #+#             */
-/*   Updated: 2023/04/27 01:28:17 by suchua           ###   ########.fr       */
+/*   Updated: 2023/04/27 03:56:11 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static double	get_decimal(char *s)
 	total = 0.0f;
 	while (s[i])
 	{
-		total += (s[i] - '0') / (i * 10);
+		total += (s[i] - '0') / pow(10, i);
 		++i;
 	}
 	return (total);
@@ -35,13 +35,13 @@ double	ft_atof(char *s)
 	int		i;
 	double	sign;
 
-	total = 0.0f;
+	total = 0.0;
 	sign = 1.0f;
 	i = 0;
 	while (ft_isspace(s[i]))
 		++i;
 	if (s[i] == '-')
-		sign *= -1;
+		sign *= -1.0f;
 	if (s[i] == '+' || s[i] == '-')
 		++i;
 	while (s[i] >= '0' && s[i] <= '9')

@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/04 01:42:27 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/23 00:55:31 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_vector
 
 typedef struct s_cy
 {
+    int         fix;
     t_pos   	center;
     t_vec		vec;
     double		d;
@@ -41,6 +42,7 @@ typedef struct s_cy
 
 typedef struct s_pl
 {
+    int         fix;
     t_pos		point;
     t_vec		vec;
     t_rgb		rgb;
@@ -49,6 +51,7 @@ typedef struct s_pl
 
 typedef struct s_sp
 {
+    int         fix;
     t_pos		center;
     double		d;
     t_rgb		rgb;

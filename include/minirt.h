@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/04 02:07:29 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/23 01:30:31 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@
 # include <fcntl.h>
 # include "scene.h"
 
-# define SPHERE		1
-# define PLANE		2
-# define CYLINDER	3
-
-typedef struct s_mlx
-{
-	void	*mlx;
-	void	*win;
-	int		width;
-	int		height;
-	t_scene	sc;
-}	t_mlx;
-
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
 ////////////////////////////////////////////////////////
@@ -40,7 +27,16 @@ typedef struct s_mlx
 //atof
 double		ft_atof(char *s);
 
-//valid arg
+//valid arg, getting inputs
 int			valid_arg(int ac, char **av);
+int			get_input(char *file, t_scene *sc);
+
+//setters
+int			set_ambient(t_amblight *al, char *line);
+int			set_camera(t_camera *cam, char *line);
+
+//checkers
+int			valid_rgb(char *s);
+int			valid_range(double from, double to, double nb);
 
 #endif

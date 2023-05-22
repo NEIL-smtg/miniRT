@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:53:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/04 02:05:34 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/22 20:33:13 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,20 @@ static int	prompt_save_error(void)
 static int	valid_rt(char *file)
 {
 	int	start;
+	int	fd;
 
 	start = ft_strlen(file) - 3;
 	if (start < 0 || ft_strncmp(".rt", file + start, 3))
 		return (prompt_invalid_file());
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putendl_fd("Error : No such file or directory.", 2);
+		return (0);
+	}
+	else
+		ft_putendl_fd("File received...", 1);
+	close(fd);
 	return (1);
 }
 

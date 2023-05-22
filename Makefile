@@ -3,18 +3,26 @@ LIBFT_DIR		=	Libft/
 LIBFT			=	libft.a
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
-FILES			=	main ft_atof color validator
-# MLXFLAGS		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
-MLXFLAGS		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
+FILES			=	main ft_atof color validator get_input checkers setters
+LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
+APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
 SRCS			=	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
 OBJS			=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 CC				=	gcc
 CFLAGS			=	-Wall -Werror -Wextra
-# CFLAGS			+=	-lm
-CFLAGS			+=	-fsanitize=address -g3
+MATH			=	-lm
+FSAN			=	-fsanitize=address -g3
 RM				=	rm -rf
 INCL			=	-I include/
 MLX_H			=	-I /usr/X11/include
+OS				=	$(shell uname -s)
+
+# Define the compilation commands for each operating system
+ifeq ($(OS),Darwin)
+    COMPILER = $(CC) $(CFLAGS) $(INCL) $(MLX_H) -o $(NAME) $(OBJS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
+else
+    COMPILER = $(CC) $(CFLAGS) $(INCL) -o $(NAME) $(OBJS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
+endif
 
 all:
 	@mkdir -p $(OBJS_DIR)
@@ -22,13 +30,13 @@ all:
 	make $(NAME)
 
 $(OBJS_DIR)%.o:$(SRCS_DIR)%.c
-	$(CC) $(CFLAGS) $(INCL) $(MLX_H) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCL) -c $< -o $@
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-$(NAME):$(OBJS)
-	$(CC) $(CFLAGS) $(INCL) $(MLX_H) $(MLXFLAGS) -o $(NAME) $(OBJS) $(LIBFT_DIR)$(LIBFT)
+$(NAME): $(OBJS)
+	$(COMPILER)
 
 clean:
 	$(RM) $(OBJS_DIR)

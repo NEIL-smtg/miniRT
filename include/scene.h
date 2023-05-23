@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/23 01:05:02 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/23 19:58:29 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
 	int		w;
 	int		h;
 }	t_mlx;
@@ -48,7 +49,6 @@ typedef struct s_light
 
 typedef struct s_scene
 {
-	t_mlx		mlx;
 	t_amblight	amblight;
 	t_camera	cam;
 	t_light		light;

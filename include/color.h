@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:32:02 by suchua            #+#    #+#             */
-/*   Updated: 2023/04/27 04:30:41 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/23 17:51:10 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,4 @@ typedef struct s_rgb
 
 int		rgb_to_int(t_rgb rgb);
 
-# endif
+#endif

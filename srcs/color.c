@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:56:07 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/04 01:49:48 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/23 17:48:23 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	rgb_to_int(t_rgb rgb)
 {
-	return(rgb.r << 16 | rgb.g << 8 | rgb.b);
+	return (rgb.r << 16 | rgb.g << 8 | rgb.b);
 }

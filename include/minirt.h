@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/23 01:30:31 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/23 19:59:35 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <errno.h>
 # include <fcntl.h>
 # include "scene.h"
+
+# define TITLE	"miniRT"
 
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
@@ -34,9 +36,16 @@ int			get_input(char *file, t_scene *sc);
 //setters
 int			set_ambient(t_amblight *al, char *line);
 int			set_camera(t_camera *cam, char *line);
+int			set_light(t_light *lg, char *line);
+int			set_cylinder(t_scene *sc, char *line, int type);
+int			set_sphere(t_scene *sc, char *line, int type);
+int			set_plane(t_scene *sc, char *line, int type);
 
 //checkers
 int			valid_rgb(char *s);
 int			valid_range(double from, double to, double nb);
+int			valid_xyz(char *s);
+int			valid_fov(int fov);
+int			valid_vec3(char *s);
 
 #endif

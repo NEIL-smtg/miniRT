@@ -3,7 +3,10 @@ LIBFT_DIR		=	Libft/
 LIBFT			=	libft.a
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
-FILES			=	main ft_atof color validator get_input checkers setters
+FILES			=	main utils/ft_atof \
+					color \
+					checker/validator checker/get_input checker/checkers checker/settings \
+					checker/set_cylinder checker/set_plane checker/set_sphere
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
 SRCS			=	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
@@ -19,13 +22,14 @@ OS				=	$(shell uname -s)
 
 # Define the compilation commands for each operating system
 ifeq ($(OS),Darwin)
-    COMPILER = $(CC) $(CFLAGS) $(INCL) $(MLX_H) -o $(NAME) $(OBJS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
+    COMPILER = $(CC) $(CFLAGS) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
 else
     COMPILER = $(CC) $(CFLAGS) $(INCL) -o $(NAME) $(OBJS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
 endif
 
 all:
 	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)checker $(OBJS_DIR)utils
 	@make $(LIBFT)
 	make $(NAME)
 
@@ -50,4 +54,4 @@ libclean:
 re: fclean libclean clean all
 
 norm:
-	@norminette -R CheckForbiddenSourceHeader $(SRCS)
+	@norminette -R CheckForbiddenSourceHeader $(SRCS) include/

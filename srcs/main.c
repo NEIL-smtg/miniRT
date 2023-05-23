@@ -6,106 +6,112 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/23 21:05:29 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/24 03:53:53 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minirt.h"
-#include "../include/keys.h"
+#include "minirt.h"
 
-static void	print_scene(t_scene *sc)
+void	calc_sphere(t_scene *sc, t_mlx *mlx)
 {
-	return ;
-	printf("A\t{\nfix : %d\nratio : %f\nrgb = %d,%d,%d\n}\n\n", sc->amblight.fix, sc->amblight.ratio, sc->amblight.rgb.r,sc->amblight.rgb.g,sc->amblight.rgb.b);
-	printf("Cam\t{\nfix : %d\npos : %f,%f,%f\nvec : %f,%f,%f\nfov = %f\n}\n\n", sc->cam.fix, sc->cam.pos.x,sc->cam.pos.y,sc->cam.pos.z, sc->cam.vec.x,sc->cam.vec.y,sc->cam.vec.z, sc->cam.fov);
-	printf("Light\t{\nfix : %d\npos : %f,%f,%f\nbrightness : %f\nrgb = %d,%d,%d\n}\n\n", sc->light.fix, sc->light.pos.x,sc->light.pos.y,sc->light.pos.z, sc->light.brightness, sc->light.rgb.r,sc->light.rgb.g,sc->light.rgb.b);
-	
-	t_pl	*plt = sc->pl;
-	int i = 0;
-	while (plt)
-	{
-		printf("PL_%d\t{\nfix : %d\npos : %f,%f,%f\nvec : %f,%f,%f\nrgb = %d,%d,%d\n}\n\n", i, plt->fix, plt->pos.x, plt->pos.y, plt->pos.z, plt->vec.x, plt->vec.y, plt->vec.z, plt->rgb.r, plt->rgb.g, plt->rgb.b);
-		plt = plt->next;
-		++i;
-	}
+	t_vec		sp_dir;
+	double		dot;
 
-	t_sp	*spt = sc->sp;
-	i = 0;
-	while (spt)
-	{
-		printf("SP_%d\t{\nfix : %d\npos : %f,%f,%f\ndiameter : %f\nrgb = %d,%d,%d\n}\n\n", i, spt->fix, spt->center.x, spt->center.y, spt->center.z, spt->d,  spt->rgb.r, spt->rgb.g, spt->rgb.b);
-		spt = spt->next;
-		++i;
-	}
-
-	t_cy	*clt = sc->cy;
-	i = 0;
-	while (clt)
-	{
-		printf("CY_%d\t{\nfix : %d\npos : %f,%f,%f\nvec : %f,%f,%f\nrgb = %d,%d,%d\ndiameter : %f, height : %f\n}\n\n", i, clt->fix, clt->center.x, clt->center.y, clt->center.z, clt->vec.x, clt->vec.y, clt->vec.z, clt->rgb.r, clt->rgb.g, clt->rgb.b, clt->d, clt->h);
-		clt = clt->next;
-		++i;
-	}
+	if (!sc->sp)
+		return ;
+	sp_dir = new_vec(
+			sc->sp->center.x - sc->cam.pos.x,
+			sc->sp->center.y - sc->cam.pos.y,
+			sc->sp->center.z - sc->cam.pos.z
+			);
+	sp_dir = normalize(sp_dir);
+	dot = dot_product(sp_dir, sc->cam.vec);
+	sc->sp->cd = perspective_projection(
+			sp_dir,
+			dot,
+			(double) mlx->w,
+			sc->cam.fov
+			);
 }
 
-t_vec	new_vec(double x, double y, double z)
+void	calc_plane(t_scene *sc, t_mlx *mlx)
 {
-	t_vec	new;
+	t_vec		pl_dir;
+	double		dot;
 
-	new.x = x;
-	new.y = y;
-	new.z = z;
-	return (new);
+	if (!sc->pl)
+		return ;
+	pl_dir = new_vec(
+			sc->pl->pos.x - sc->cam.pos.x,
+			sc->pl->pos.y - sc->cam.pos.y,
+			sc->pl->pos.z - sc->cam.pos.z
+			);
+	pl_dir = normalize(pl_dir);
+	dot = dot_product(pl_dir, sc->cam.vec);
+	sc->sp->cd = perspective_projection(
+			pl_dir,
+			dot,
+			(double) mlx->w,
+			sc->cam.fov
+			);
 }
 
-double	dot_product(t_vec normal, t_vec direction)
+void	draw_sphere(t_scene *sc, t_mlx *mlx)
 {
-	double	dx;
-	double	dy;
-	double	dz;
+	int	x;
+	int	y;
 
-	dx = direction.x * normal.x;
-	dy = direction.y * normal.y;
-	dz = direction.z * normal.z;
-	return (dx + dy + dz);
-}
-
-void	draw_plane(t_pl *pl, t_mlx *mlx)
-{
-	int		x;
-	int		y;
-	double	mag;
-	t_vec	normalized;
-
-	mag = sqrt(pow(pl->vec.x, 2) + pow(pl->vec.y, 2) + pow(pl->vec.z, 2));
-	normalized = new_vec(pl->vec.x / mag, pl->vec.y / mag, pl->vec.z / mag);
-	y = -1;
-	while (++y < mlx->h)
+	if (!sc->sp)
+		return  ;
+	x = sc->sp->cd.screen_x - sc->sp->d / 2 - 1;
+	while (++x <= sc->sp->cd.screen_x + sc->sp->d / 2)
 	{
-		x = -1;
-		while (++x < mlx->w)
+		y = sc->sp->cd.screen_y - sc->sp->d / 2 - 1;
+		while (++y <= sc->sp->cd.screen_y + sc->sp->d / 2)
 		{
-			if (dot_product(normalized, new_vec(x - pl->pos.x, y - pl->pos.y, -(pl->pos.z)))
-				<= 1e-6)
-			{
-				ft_printf("%d, %d\n", x, y);
-				mlx_pixel_put(mlx->mlx, mlx->win, x, y, rgb_to_int(pl->rgb));
-			}
+			int dx = x - sc->sp->cd.screen_x;
+			int dy = y - sc->sp->cd.screen_y;
+			if (pow(dx, 2) + pow(dy, 2) <= pow(sc->sp->d / 2, 2))
+				mlx_pixel_put(mlx->mlx, mlx->win, x, y, rgb_to_int(sc->sp->rgb));
 		}
+	}
+}
+
+void	draw_plane(t_scene *sc, t_mlx *mlx)
+{
+	double	x;
+	double	y;
+
+	if (!sc->pl)
+		return ;
+	printf("pl : %f %f\n", sc->pl->cd.screen_x, sc->pl->cd.screen_y);
+	x = sc->pl->cd.screen_x;
+	while (x < sc->pl->cd.screen_x + WIDTH)
+	{
+		y = sc->pl->cd.screen_y;
+		while (y < sc->pl->cd.screen_y + HEIGHT)
+		{
+			mlx_pixel_put(mlx->mlx, mlx->win, x, y, rgb_to_int(sc->pl->rgb));
+			++y;
+		}
+		++x;
 	}
 }
 
 void	drawing_start(t_scene *sc, t_mlx *mlx)
 {
-	draw_plane(sc->pl, mlx);
+	calc_plane(sc, mlx);
+	draw_plane(sc, mlx);
+	calc_sphere(sc, mlx);
+	draw_sphere(sc, mlx);
 }
 
 void	mlx_start(t_scene *sc)
 {
 	t_mlx	mlx;
 
-	mlx.w = 1920;
-	mlx.h = 1080;
+	mlx.w = WIDTH;
+	mlx.h = HEIGHT;
 	mlx.mlx = mlx_init();
 	mlx.win = mlx_new_window(mlx.mlx, mlx.w, mlx.h, TITLE);
 	drawing_start(sc, &mlx);
@@ -119,7 +125,6 @@ int	main(int ac, char **av)
 	if (!valid_arg(ac, av))
 		return (1);
 	get_input(av[1], &scene);
-	print_scene(&scene);
 	mlx_start(&scene);
 	return (0);
 }

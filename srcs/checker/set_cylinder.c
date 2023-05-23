@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:39:16 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/23 18:55:05 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/24 03:58:19 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	set_cylinder(t_scene *sc, char *line, int type)
 	char	**s;
 	t_cy	*new;
 
-	s = ft_split(line, 32);
+	s = rt_split(line);
 	if (get_2d_arr_size(s) != 6 || !valid_xyz(s[1])
 		|| !valid_vec3(s[2])
 		|| !valid_range(0, DBL_MAX, ft_atof(s[3]))

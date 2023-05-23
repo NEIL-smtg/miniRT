@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:32:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/23 18:47:01 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/24 03:58:14 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	set_plane(t_scene *sc, char *line, int type)
 {
 	char	**s;
 
-	s = ft_split(line, 32);
+	s = rt_split(line);
 	if (get_2d_arr_size(s) != 4 || !valid_xyz(s[1])
 		|| !valid_vec3(s[2]) || !valid_rgb(s[3]))
 	{

@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/23 17:53:04 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/24 03:17:27 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@
 
 # define LOWCASE	1
 # define UPCASE		2
+
+
+//	global coordinate
+typedef struct s_cd
+{
+	double	screen_x;
+	double	screen_y;
+}	t_cd;
 
 typedef struct s_pos
 {
@@ -40,6 +48,7 @@ typedef struct s_cy
 	double		d;
 	double		h;
 	t_rgb		rgb;
+	t_cd		cd;
 	struct s_cy	*next;
 }	t_cy;
 
@@ -49,6 +58,7 @@ typedef struct s_pl
 	t_pos		pos;
 	t_vec		vec;
 	t_rgb		rgb;
+	t_cd		cd;
 	struct s_pl	*next;
 }	t_pl;
 
@@ -58,6 +68,7 @@ typedef struct s_sp
 	t_pos		center;
 	double		d;
 	t_rgb		rgb;
+	t_cd		cd;
 	struct s_sp	*next;
 }	t_sp;
 

@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/24 17:27:07 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/25 00:00:45 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,5 @@ int			valid_vec3(char *s);
 t_vec		new_vec(double x, double y, double z);
 double		dot_product(t_vec v1, t_vec v2);
 t_vec		normalize(t_vec vec);
-t_cd		*perspective_projection(t_vec dir, double dot, double fov);
 
 #endif

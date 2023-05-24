@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/24 01:17:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/25 00:08:47 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_amblight
 typedef struct s_camera
 {
 	int			fix;
-	t_pos		pos;
+	t_vec		pos;
 	t_vec		vec;
 	double		fov;
 }	t_camera;
@@ -42,7 +42,7 @@ typedef struct s_camera
 typedef struct s_light
 {
 	int			fix;
-	t_pos		pos;
+	t_vec		pos;
 	double		brightness;
 	t_rgb		rgb;
 }	t_light;

@@ -3,7 +3,7 @@ LIBFT_DIR		=	Libft/
 LIBFT			=	libft.a
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
-FILES			=	main utils/ft_atof utils/rt_split \
+FILES			=	main utils/ft_atof utils/rt_split utils/print_screen\
 					color \
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
@@ -46,13 +46,13 @@ $(NAME): $(OBJS)
 clean:
 	$(RM) $(OBJS_DIR)
 
-fclean : clean libclean
+fclean : clean
 	$(RM) $(NAME)
 
 libclean:
 	make fclean -C $(LIBFT_DIR)
 
-re: fclean libclean clean all
+re: fclean clean all
 
 norm:
 	@norminette -R CheckForbiddenSourceHeader $(SRCS) include/

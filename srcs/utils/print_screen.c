@@ -6,14 +6,14 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/24 02:03:47 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/24 15:38:42 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 void	print_scene(t_scene *sc)
 {
-	return ;
 	printf("A\t{\nfix : %d\nratio : %f\nrgb = %d,%d,%d\n}\n\n", sc->amblight.fix, sc->amblight.ratio, sc->amblight.rgb.r,sc->amblight.rgb.g,sc->amblight.rgb.b);
 	printf("Cam\t{\nfix : %d\npos : %f,%f,%f\nvec : %f,%f,%f\nfov = %f\n}\n\n", sc->cam.fix, sc->cam.pos.x,sc->cam.pos.y,sc->cam.pos.z, sc->cam.vec.x,sc->cam.vec.y,sc->cam.vec.z, sc->cam.fov);
 	printf("Light\t{\nfix : %d\npos : %f,%f,%f\nbrightness : %f\nrgb = %d,%d,%d\n}\n\n", sc->light.fix, sc->light.pos.x,sc->light.pos.y,sc->light.pos.z, sc->light.brightness, sc->light.rgb.r,sc->light.rgb.g,sc->light.rgb.b);

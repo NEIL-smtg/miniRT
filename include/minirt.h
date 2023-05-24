@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/24 03:57:26 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/24 17:27:07 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,19 @@
 # include "scene.h"
 
 # define TITLE	"miniRT"
-# define HEIGHT	720
-# define WIDTH	1080
-# define M_PI	3.14159265358979323846
+# define HEIGHT	540
+# define WIDTH	960
+
+# ifndef M_PI
+	# define M_PI	3.14159265358979323846
+# endif
 
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
 ////////////////////////////////////////////////////////
 
 //	utils
+void		print_scene(t_scene *sc);
 double		ft_atof(char *s);
 char		**rt_split(char const *s);
 
@@ -55,9 +59,7 @@ int			valid_vec3(char *s);
 //vector
 t_vec		new_vec(double x, double y, double z);
 double		dot_product(t_vec v1, t_vec v2);
-double		get_focal_length(double rad, double width);
 t_vec		normalize(t_vec vec);
-t_cd		perspective_projection(t_vec dir, double dot, double width,
-			double fov);
+t_cd		*perspective_projection(t_vec dir, double dot, double fov);
 
 #endif

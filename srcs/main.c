@@ -6,104 +6,127 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/24 03:53:53 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/24 17:18:17 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	calc_sphere(t_scene *sc, t_mlx *mlx)
+t_cd	*calc_2d_coordinate(t_camera cam, t_pos pos)
 {
-	t_vec		sp_dir;
-	double		dot;
+	t_cd	*new;
+	t_vec	direction;
+	double	dot;
 
-	if (!sc->sp)
-		return ;
-	sp_dir = new_vec(
-			sc->sp->center.x - sc->cam.pos.x,
-			sc->sp->center.y - sc->cam.pos.y,
-			sc->sp->center.z - sc->cam.pos.z
-			);
-	sp_dir = normalize(sp_dir);
-	dot = dot_product(sp_dir, sc->cam.vec);
-	sc->sp->cd = perspective_projection(
-			sp_dir,
-			dot,
-			(double) mlx->w,
-			sc->cam.fov
-			);
+	direction = new_vec(
+				pos.x - cam.pos.x,
+				pos.y - cam.pos.y,
+				pos.z - cam.pos.z
+				);
+	direction = normalize(direction);
+	dot = dot_product(direction, cam.vec);
+	if (dot <= 0.0f)
+		return (NULL);
+	new = perspective_projection(direction, dot, cam.fov);
+	return (new);
 }
 
-void	calc_plane(t_scene *sc, t_mlx *mlx)
+void	draw_sphere(t_sp *sp, t_mlx *mlx)
 {
-	t_vec		pl_dir;
-	double		dot;
+	int		x;
+	int		y;
+	double	dx;
+	double	dy;
 
-	if (!sc->pl)
-		return ;
-	pl_dir = new_vec(
-			sc->pl->pos.x - sc->cam.pos.x,
-			sc->pl->pos.y - sc->cam.pos.y,
-			sc->pl->pos.z - sc->cam.pos.z
-			);
-	pl_dir = normalize(pl_dir);
-	dot = dot_product(pl_dir, sc->cam.vec);
-	sc->sp->cd = perspective_projection(
-			pl_dir,
-			dot,
-			(double) mlx->w,
-			sc->cam.fov
-			);
-}
-
-void	draw_sphere(t_scene *sc, t_mlx *mlx)
-{
-	int	x;
-	int	y;
-
-	if (!sc->sp)
-		return  ;
-	x = sc->sp->cd.screen_x - sc->sp->d / 2 - 1;
-	while (++x <= sc->sp->cd.screen_x + sc->sp->d / 2)
+	x = sp->cd->screen_x - sp->d / 2 - 1;
+	while (++x <= sp->cd->screen_x + sp->d / 2)
 	{
-		y = sc->sp->cd.screen_y - sc->sp->d / 2 - 1;
-		while (++y <= sc->sp->cd.screen_y + sc->sp->d / 2)
+		y = sp->cd->screen_y - sp->d / 2 - 1;
+		while (++y <= sp->cd->screen_y + sp->d / 2)
 		{
-			int dx = x - sc->sp->cd.screen_x;
-			int dy = y - sc->sp->cd.screen_y;
-			if (pow(dx, 2) + pow(dy, 2) <= pow(sc->sp->d / 2, 2))
-				mlx_pixel_put(mlx->mlx, mlx->win, x, y, rgb_to_int(sc->sp->rgb));
+			dx = x - sp->cd->screen_x;
+			dy = y - sp->cd->screen_y;
+			if (pow(dx, 2) + pow(dy, 2) <= pow(sp->d / 2, 2))
+				mlx_pixel_put(mlx->mlx, mlx->win, x, y, rgb_to_int(sp->rgb));
 		}
 	}
 }
 
-void	draw_plane(t_scene *sc, t_mlx *mlx)
+void	draw_plane(t_pl *pl, t_mlx *mlx)
 {
 	double	x;
 	double	y;
 
-	if (!sc->pl)
-		return ;
-	printf("pl : %f %f\n", sc->pl->cd.screen_x, sc->pl->cd.screen_y);
-	x = sc->pl->cd.screen_x;
-	while (x < sc->pl->cd.screen_x + WIDTH)
+	x = pl->cd->screen_x;
+	while (x < pl->cd->screen_x + WIDTH)
 	{
-		y = sc->pl->cd.screen_y;
-		while (y < sc->pl->cd.screen_y + HEIGHT)
+		y = pl->cd->screen_y;
+		while (y < pl->cd->screen_y + HEIGHT)
 		{
-			mlx_pixel_put(mlx->mlx, mlx->win, x, y, rgb_to_int(sc->pl->rgb));
+			mlx_pixel_put(mlx->mlx, mlx->win, x, y, rgb_to_int(pl->rgb));
 			++y;
 		}
 		++x;
 	}
 }
 
+void	draw_cylinder(t_cy *cy, t_mlx *mlx)
+{
+	int     x;
+	int		y;
+	double	angle;
+	double	step = 0.1;
+
+	// Draw the circle at the center position
+	for (angle = 0.0; angle < 2 * M_PI; angle += step)
+	{
+		x = cy->cd->screen_x + cy->d / 2 * cos(angle);
+		y = cy->cd->screen_y + cy->d / 2 * sin(angle);
+
+		mlx_pixel_put(mlx->mlx, mlx->win, x, y, rgb_to_int(cy->rgb)); // Example: Set color to white
+	}
+
+	// Draw vertical lines connecting the top and bottom points
+	int top_y = cy->cd->screen_y - cy->h / 2;
+	int bottom_y = cy->cd->screen_y + cy->h / 2;
+
+	for (x = cy->cd->screen_x - cy->d / 2; x <= cy->cd->screen_x + cy->d / 2; x++)
+	{
+		mlx_pixel_put(mlx->mlx, mlx->win, x, top_y, rgb_to_int(cy->rgb)); // Example: Set color to white
+		mlx_pixel_put(mlx->mlx, mlx->win, x, bottom_y, rgb_to_int(cy->rgb)); // Example: Set color to white
+	}
+}
+
 void	drawing_start(t_scene *sc, t_mlx *mlx)
 {
-	calc_plane(sc, mlx);
-	draw_plane(sc, mlx);
-	calc_sphere(sc, mlx);
-	draw_sphere(sc, mlx);
+	t_pl	*t1;
+	t_sp	*t2;
+	t_cy	*t3;
+
+	t1 = sc->pl;
+	t2 = sc->sp;
+	t3 = sc->cy;
+	while (t1)
+	{
+		t1->cd = calc_2d_coordinate(sc->cam, t1->pos);
+		if (t1->cd)
+			draw_plane(t1, mlx);
+		t1 = t1->next;
+	}
+	while (t2)
+	{
+		t2->cd = calc_2d_coordinate(sc->cam, t2->center);
+		if (t2->cd)
+			draw_sphere(t2, mlx);
+		t2 = t2->next;
+	}
+	// while (t3)
+	// {
+	// 	t3->cd = calc_2d_coordinate(sc->cam, t3->center);
+	// 	if (t3->cd)
+	// 		draw_cylinder(t3, mlx);
+	// 	t3 = t3->next;
+	// }
 }
 
 void	mlx_start(t_scene *sc)

@@ -6,74 +6,65 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/25 00:17:55 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/25 23:47:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	mlx_start(t_scene *sc)
+void	mlx_start(t_mlx *mlx)
 {
-	t_mlx	mlx;
+	double	aspect_ratio;
 
-	return ;
-	mlx.w = WIDTH;
-	mlx.h = HEIGHT;
-	mlx.mlx = mlx_init();
-	mlx.win = mlx_new_window(mlx.mlx, mlx.w, mlx.h, TITLE);
-	drawing_start(sc, &mlx);
-	mlx_loop(mlx.mlx);
-}
+	aspect_ratio = 16.0 / 9.0;	
+	mlx->w = 400;
+	mlx->h = (int) (mlx->w * aspect_ratio);
 
-static	t_mat	get_transform(t_vec w)
-{
-	t_vec	u;
-	t_vec	v;
-	t_mat	mat;
+	t_vec	origin = new_vec(0, 0, 0);
+	double	viewport_height = 2.0;
+	double	viewport_width = aspect_ratio * viewport_height;
+	double	focal_len = 1.0;
+	t_vec	horizontal = new_vec(viewport_width, 0, 0);
+	t_vec	vertical = new_vec(0, viewport_height, 0);
+	t_vec	corner;
+	
+	corner = new_vec(origin.x - horizontal.x / 2, origin.y - vertical.y / 2, origin.z - focal_len);
+	printf("%f %f\n", corner.x, corner.y);
 
-	u = new_vec(0, 1, 0);
-	if (w.z == 1.0)
-		v = new_vec(1, 0, 0);
-	else if (w.z == -1.0)
-		v = new_vec(-1, 0, 0);
-	else
+	t_img	img;
+
+	mlx->mlx = mlx_init();
+	img.img_ptr = mlx_new_image(mlx->mlx, mlx->w, mlx->h);
+	img.data_addr = mlx_get_data_addr(img.img_ptr, &img.bpp, &img.line_size, &img.endian);
+	
+	int		x;
+	int		y;
+	int		size = img.bpp / 8;
+
+	y = mlx->h;
+	while (--y >= 0)
 	{
-		u = normalize(new_vec(w.y, -w.x, 0));
-		v = cross_product(u, w);
+		x = mlx->w;
+		while (--x >= 0)
+		{
+			int	offset = (y * img.line_size) + (x * size);
+			img.data_addr[offset + 2] = 255;
+			img.data_addr[offset + 1] = 0;
+			img.data_addr[offset] = 0;
+		}
 	}
-	mat = new_mat(u, v, w);
-	return (mat_transposition(mat));
-}
-
-t_vec	mat_transformation(t_mat a, t_vec v)
-{
-	t_mat	t;
-	t_vec	new;
-
-	t = mat_transposition(a);
-	new.x = dot_product(t.r1, v);
-	new.y = dot_product(t.r2, v);
-	new.z = dot_product(t.r3, v);
-	return (new);
-}
-
-void	transform_scaling(t_scene *sc, t_mat transform)
-{
-	transform_geometric_objs(sc, transform);
-	sc->cam.pos = mat_transformation(transform, sc->cam.pos);
-	sc->cam.vec = mat_transformation(transform, sc->cam.vec);
+	mlx->win = mlx_new_window(mlx->mlx, mlx->w, mlx->h, "miniRT");
+	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img_ptr, 0, 0);
 }
 
 int	main(int ac, char **av)
 {
 	t_scene	scene;
-	t_mat	transform;
+	t_mlx	mlx;
 
 	if (!valid_arg(ac, av))
 		return (1);
 	get_input(av[1], &scene);
-	transform = get_transform(scene.cam.vec);
-	transform_scaling(&scene, transform);
-	mlx_start(&scene);
+	mlx_start(&mlx);
 	return (0);
 }

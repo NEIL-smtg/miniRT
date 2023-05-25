@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/24 16:57:02 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/25 23:15:34 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ t_vec	normalize(t_vec vec)
 		));
 }
 
-t_cd	*perspective_projection(t_vec dir, double dot, double fov)
-{
-	t_cd	*new;
-	double	focal_length;
+// t_cd	*perspective_projection(t_vec dir, double dot, double fov)
+// {
+// 	t_cd	*new;
+// 	double	focal_length;
 
-	new = ft_calloc(1, sizeof(t_cd));
-	focal_length = get_focal_length(fov);
-	new->screen_x = (double) (WIDTH / 2) + (focal_length * dir.x / dot);
-	new->screen_y = (double) (HEIGHT / 2) + (focal_length * dir.y / dot);
-	return (new);
-}
+// 	new = ft_calloc(1, sizeof(t_cd));
+// 	focal_length = get_focal_length(fov);
+// 	new->screen_x = (double) (WIDTH / 2) + (focal_length * dir.x / dot);
+// 	new->screen_y = (double) (HEIGHT / 2) + (focal_length * dir.y / dot);
+// 	return (new);
+// }

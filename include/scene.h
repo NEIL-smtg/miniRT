@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/25 00:08:47 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/25 23:31:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 # define SCENE_H
 
 # include "shape.h"
+
+typedef	struct s_img
+{
+	void	*img_ptr;
+	char	*data_addr;
+	int		bpp;
+	int		line_size;
+	int		endian;
+}	t_img;
 
 typedef struct s_mlx
 {

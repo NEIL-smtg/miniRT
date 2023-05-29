@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 01:14:04 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/24 03:59:30 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/28 19:22:35 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,18 @@ int	set_ambient(t_amblight *al, char *line)
 	return (1);
 }
 
-static double	get_radian(int angle)
+static int	valid_cam(char **sp)
 {
-	return ((double) angle * M_PI / 180);
+	int	flag;
+
+	flag = 1;
+	if (get_2d_arr_size(sp) != 4 || !valid_xyz(sp[1])
+		|| !valid_vec3(sp[2]) || !valid_fov(ft_atoi(sp[3])))
+	{
+		flag = 0;
+	}
+	ft_free2d(sp);
+	return (flag);
 }
 
 int	set_camera(t_camera *cam, char *line)
@@ -50,13 +59,9 @@ int	set_camera(t_camera *cam, char *line)
 	cam->fix = 0;
 	if (*line == 'C')
 		cam->fix = 1;
-	sp = rt_split(line);
-	if (get_2d_arr_size(sp) != 4 || !valid_xyz(sp[1])
-		|| !valid_vec3(sp[2]) || !valid_fov(ft_atoi(sp[3])))
-	{
-		ft_free2d(sp);
+	if (!valid_cam(rt_split(line)))
 		return (0);
-	}
+	sp = rt_split(line);
 	cam->fov = get_radian(ft_atoi(sp[3]));
 	xyz = ft_split(sp[1], ',');
 	cam->pos.x = ft_atof(xyz[0]);

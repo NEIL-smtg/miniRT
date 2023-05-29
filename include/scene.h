@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/25 23:31:41 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/28 19:20:11 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,6 @@
 # define SCENE_H
 
 # include "shape.h"
-
-typedef	struct s_img
-{
-	void	*img_ptr;
-	char	*data_addr;
-	int		bpp;
-	int		line_size;
-	int		endian;
-}	t_img;
-
-typedef struct s_mlx
-{
-	void	*mlx;
-	void	*win;
-	void	*img;
-	int		w;
-	int		h;
-}	t_mlx;
 
 typedef struct s_amblight
 {
@@ -65,5 +47,29 @@ typedef struct s_scene
 	t_pl		*pl;
 	t_sp		*sp;
 }	t_scene;
+
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*data_addr;
+	int		bpp;
+	int		line_size;
+	int		endian;
+}	t_img;
+
+typedef struct s_viewport
+{
+	double	w;
+	double	h;
+	double	focal;
+	double	aspect_ratio;
+	void	*mlx;
+	void	*win;
+	t_vec	horizontal;
+	t_vec	vertical;
+	t_vec	origin;
+	t_vec	corner;
+	t_img	*img;
+}	t_viewport;
 
 #endif

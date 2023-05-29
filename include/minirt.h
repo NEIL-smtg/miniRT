@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/25 00:00:45 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/28 19:20:53 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # include <fcntl.h>
 # include "scene.h"
 
+# ifndef M_PI
+#  define M_PI	3.14159265358979323846
+# endif
+
 # define TITLE	"miniRT"
 # define HEIGHT	540
 # define WIDTH	960
-
-# ifndef M_PI
-	# define M_PI	3.14159265358979323846
-# endif
 
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
@@ -60,5 +60,9 @@ int			valid_vec3(char *s);
 t_vec		new_vec(double x, double y, double z);
 double		dot_product(t_vec v1, t_vec v2);
 t_vec		normalize(t_vec vec);
+double		get_focal_length(double rad, double width);
+t_vec		get_raydir(double u, double v, t_viewport vp);
+void		print_vector(t_vec v, char *name);
+double		get_radian(int angle);
 
 #endif

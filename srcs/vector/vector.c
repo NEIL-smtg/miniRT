@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/25 23:15:34 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/28 17:00:25 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ double	dot_product(t_vec v1, t_vec v2)
 }
 
 //	calculate focal length
-double	get_focal_length(double rad)
+double	get_focal_length(double rad, double width)
 {
-	return ((double) (WIDTH / 2) / tan(rad / 2));
+	return ((WIDTH / 2) / tan(rad / 2));
 }
 
 t_vec	normalize(t_vec vec)
@@ -52,14 +52,21 @@ t_vec	normalize(t_vec vec)
 		));
 }
 
-// t_cd	*perspective_projection(t_vec dir, double dot, double fov)
-// {
-// 	t_cd	*new;
-// 	double	focal_length;
+t_vec	get_raydir(double u, double v, t_viewport vp)
+{
+	t_vec	corner;
+	t_vec	hor;
+	t_vec	ver;
+	t_vec	origin;
 
-// 	new = ft_calloc(1, sizeof(t_cd));
-// 	focal_length = get_focal_length(fov);
-// 	new->screen_x = (double) (WIDTH / 2) + (focal_length * dir.x / dot);
-// 	new->screen_y = (double) (HEIGHT / 2) + (focal_length * dir.y / dot);
-// 	return (new);
-// }
+	corner = vp.corner;
+	hor = vp.horizontal;
+	ver = vp.vertical;
+	origin = vp.origin;
+	return (new_vec
+		(
+			corner.x + u * hor.x + v * ver.x - origin.x,
+			corner.y + u * hor.y + v * ver.y - origin.y,
+			corner.z + u * hor.z + v * ver.z - origin.z
+		));
+}

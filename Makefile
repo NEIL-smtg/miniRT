@@ -7,7 +7,7 @@ FILES			=	main utils/ft_atof utils/rt_split utils/print_screen\
 					color \
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
-					vector/vector
+					vector/vector vector/vector2
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
 SRCS			=	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
@@ -25,7 +25,7 @@ OS				=	$(shell uname -s)
 ifeq ($(OS),Darwin)
     COMPILER = $(CC) $(CFLAGS) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
 else
-    COMPILER = $(CC) $(CFLAGS) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
+    COMPILER = $(CC) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
 endif
 
 all:
@@ -35,7 +35,7 @@ all:
 	make $(NAME)
 
 $(OBJS_DIR)%.o:$(SRCS_DIR)%.c
-	$(CC) $(CFLAGS) $(INCL) -c $< -o $@
+	$(CC) $(INCL) -c $< -o $@
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)

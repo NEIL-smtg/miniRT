@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/24 03:58:06 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/28 17:39:21 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	splst_add_back(t_sp **sp, t_sp *new)
 	}
 }
 
-int		set_sphere(t_scene *sc, char *line, int type)
+int	set_sphere(t_scene *sc, char *line, int type)
 {
 	char	**s;
 

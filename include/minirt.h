@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/28 19:20:53 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/30 18:10:15 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,8 @@ double		get_focal_length(double rad, double width);
 t_vec		get_raydir(double u, double v, t_viewport vp);
 void		print_vector(t_vec v, char *name);
 double		get_radian(int angle);
+t_vec		vec_mul(double scalar, t_vec v);
+t_vec		cross_product(t_vec a, t_vec b);
+
 
 #endif

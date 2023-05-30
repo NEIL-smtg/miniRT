@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:00:07 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/28 19:20:44 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/30 18:32:04 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,23 @@ void	print_vector(t_vec v, char *name)
 double	get_radian(int angle)
 {
 	return ((double) angle * M_PI / 180);
+}
+
+t_vec	vec_mul(double scalar, t_vec v)
+{
+	return (new_vec(
+			scalar * v.x,
+			scalar * v.y,
+			scalar * v.z
+		));
+}
+
+t_vec	cross_product(t_vec a, t_vec b)
+{
+	t_vec	res;
+
+	res.x = a.y * b.z - a.z * b.y;
+	res.y = a.z * b.x - a.x * b.z;
+	res.z = a.x * b.y - a.y * b.x;
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/28 19:20:11 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/30 20:30:11 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_viewport
 	void	*win;
 	t_vec	horizontal;
 	t_vec	vertical;
+	t_vec	forward;
 	t_vec	origin;
 	t_vec	corner;
 	t_img	*img;

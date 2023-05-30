@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/28 17:00:25 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/30 17:00:12 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ double	dot_product(t_vec v1, t_vec v2)
 //	calculate focal length
 double	get_focal_length(double rad, double width)
 {
-	return ((WIDTH / 2) / tan(rad / 2));
+	return ((width / 2) / tan(rad / 2));
 }
 
 t_vec	normalize(t_vec vec)

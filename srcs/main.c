@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/28 19:14:01 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/30 20:56:30 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	hit_sp(t_sp *sp, t_vec origin, t_vec raydir)
 	a = dot_product(raydir, raydir);
 	b = 2.0 * dot_product(oc, raydir);
 	c = dot_product(oc, oc) - pow(sp->d / 2, 2);
-	discriminant = b * b - 4 * a * c;
+	discriminant = pow(b, 2) - 4 * a * c;
 	return (discriminant > 0);
 }
 
@@ -104,20 +104,42 @@ void	mlx_start(t_viewport *vp, t_scene sc)
 	mlx_loop(vp->mlx);
 }
 
+void	init_vector(t_viewport *vp, t_camera cam)
+{
+	if (cam.vec.x == 0.0f)
+		vp->horizontal = new_vec(vp->w, 0, 0);
+	else
+		vp->horizontal = cross_product(new_vec(vp->w, 0 ,0), cam.vec);
+	if (cam.vec.y == 0.0f)
+		vp->vertical = new_vec(0, vp->h, 0);
+	else
+		vp->vertical = cross_product(new_vec(0, vp->h, 0), cam.vec);
+	if (cam.vec.z == 0.0f)
+		vp->forward = new_vec(0, 0, vp->focal);
+	else
+		vp->forward = cross_product(new_vec(0, 0, vp->focal), cam.vec);
+	vp->corner = new_vec(
+		vp->origin.x - vp->horizontal.x / 2.0 - vp->vertical.x / 2.0 - vp->forward.x,
+		vp->origin.y - vp->horizontal.y / 2.0 - vp->vertical.y / 2.0 - vp->forward.y,
+		vp->origin.z - vp->horizontal.z / 2.0 - vp->vertical.z / 2.0 - vp->forward.z
+	);
+}
+
 void	init_viewport(t_viewport *vp, t_camera cam)
 {
 	vp->aspect_ratio = 16.0 / 9.0;
 	vp->h = HEIGHT;
 	vp->w = HEIGHT * vp->aspect_ratio;
 	vp->focal = get_focal_length(cam.fov, vp->w);
-	vp->horizontal = new_vec(vp->w, 0, 0);
-	vp->vertical = new_vec(0, vp->h, 0);
 	vp->origin = cam.pos;
-	vp->corner = new_vec(
-			vp->origin.x - vp->w / 2,
-			vp->origin.y - vp->h / 2,
-			vp->origin.z - vp->focal
-			);
+	init_vector(vp, cam);
+	// vp->horizontal = new_vec(vp->w, 0, 0);
+	// vp->vertical = new_vec(0, vp->h, 0);
+	// vp->corner = new_vec(
+	// 		vp->origin.x - vp->horizontal.x / 2,
+	// 		vp->origin.y - vp->vertical.y / 2,
+	// 		vp->origin.z - vp->focal
+	// 		);
 }
 
 int	main(int ac, char **av)

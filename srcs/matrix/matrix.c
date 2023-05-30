@@ -6,21 +6,11 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:03 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/24 23:58:28 by suchua           ###   ########.fr       */
+/*   Updated: 2023/05/30 18:09:29 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
-
-t_vec	cross_product(t_vec a, t_vec b)
-{
-	t_vec	res;
-
-	res.x = a.y * b.z - a.z * b.y;
-	res.y = a.z * b.x - a.x * b.z;
-	res.z = a.x * b.y - a.y * b.x;
-	return (res);
-}
 
 t_mat	new_mat(t_vec v1, t_vec v2, t_vec v3)
 {

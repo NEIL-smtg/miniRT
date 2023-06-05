@@ -6,11 +6,12 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:00:07 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/30 18:32:04 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:32:10 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vector.h"
+#include <stdio.h>
 
 void	print_vector(t_vec v, char *name)
 {

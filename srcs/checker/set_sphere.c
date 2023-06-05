@@ -6,24 +6,23 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/28 17:39:21 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:26:48 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <float.h>
 
-static t_sp	*new_sp(char **s, int type)
+static t_obj	*new_sp(char **s, int type)
 {
-	t_sp	*new;
+	t_obj	*new;
 	char	**xyz;
 
-	new = ft_calloc(1, sizeof(t_sp));
+	new = ft_calloc(1, sizeof(t_obj));
 	if (!new)
 		return (NULL);
-	new->fix = 0;
-	if (type == UPCASE)
-		new->fix = 1;
+	new->type = SPHERE;
+	new->fix = type - 1;
 	xyz = ft_split(s[1], ',');
 	new->center.x = ft_atof(xyz[0]);
 	new->center.y = ft_atof(xyz[1]);
@@ -39,23 +38,6 @@ static t_sp	*new_sp(char **s, int type)
 	return (new);
 }
 
-static void	splst_add_back(t_sp **sp, t_sp *new)
-{
-	t_sp	*last;
-
-	if (!new)
-		return ;
-	if (!sp || !*sp)
-		*sp = new;
-	else
-	{
-		last = *sp;
-		while (last->next)
-			last = last->next;
-		last->next = new;
-	}
-}
-
 int	set_sphere(t_scene *sc, char *line, int type)
 {
 	char	**s;
@@ -69,7 +51,7 @@ int	set_sphere(t_scene *sc, char *line, int type)
 		ft_putendl_fd("Error\nInvalid arguments for sphere!", 2);
 		return (0);
 	}
-	splst_add_back(&(sc->sp), new_sp(s, type));
+	objlst_addback(&(sc->obj), new_sp(s, type));
 	ft_free2d(s);
 	return (1);
 }

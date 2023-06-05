@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/25 00:08:30 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:18:03 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,23 @@
 # define LOWCASE	1
 # define UPCASE		2
 
-//	global coordinate
-
-typedef struct s_cy
+enum	e_type
 {
-	int			fix;
-	t_vec		center;
-	t_vec		vec;
-	double		d;
-	double		h;
-	t_rgb		rgb;
-	struct s_cy	*next;
-}	t_cy;
+	SPHERE,
+	CYLINDER,
+	PLANE
+};
 
-typedef struct s_pl
+typedef struct s_obj
 {
-	int			fix;
-	t_vec		pos;
-	t_vec		vec;
-	t_rgb		rgb;
-	struct s_pl	*next;
-}	t_pl;
-
-typedef struct s_sp
-{
-	int			fix;
-	t_vec		center;
-	double		d;
-	t_rgb		rgb;
-	struct s_sp	*next;
-}	t_sp;
+	int						fix;
+	enum e_type				type;
+	t_vec					center;
+	t_vec					dir;
+	double					d;
+	double					h;
+	t_rgb					rgb;
+	struct s_obj			*next;
+}	t_obj;
 
 #endif

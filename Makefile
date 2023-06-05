@@ -3,11 +3,14 @@ LIBFT_DIR		=	Libft/
 LIBFT			=	libft.a
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
-FILES			=	main utils/ft_atof utils/rt_split utils/print_screen\
+
+FILES			=	main utils/ft_atof utils/rt_split utils/utils\
 					color \
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
-					vector/vector vector/vector2
+					vector/vector vector/vector2 \
+					matrix/matrix
+
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
 SRCS			=	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
@@ -31,6 +34,7 @@ endif
 all:
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)checker $(OBJS_DIR)utils $(OBJS_DIR)vector
+	@mkdir -p $(OBJS_DIR)matrix
 	@make $(LIBFT)
 	make $(NAME)
 

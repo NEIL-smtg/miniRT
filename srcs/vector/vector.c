@@ -6,11 +6,11 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/30 17:00:12 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:30:32 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vector.h"
 
 t_vec	new_vec(double x, double y, double z)
 {
@@ -34,39 +34,19 @@ double	dot_product(t_vec v1, t_vec v2)
 	return (x + y + z);
 }
 
-//	calculate focal length
-double	get_focal_length(double rad, double width)
+double	normalize_divisor(t_vec v)
 {
-	return ((width / 2) / tan(rad / 2));
+	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
 }
 
 t_vec	normalize(t_vec vec)
 {
 	double	dir_len;
 
-	dir_len = sqrt(pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
+	dir_len = normalize_divisor(vec);
 	return (new_vec(
 			vec.x / dir_len,
 			vec.y / dir_len,
 			vec.z / dir_len
-		));
-}
-
-t_vec	get_raydir(double u, double v, t_viewport vp)
-{
-	t_vec	corner;
-	t_vec	hor;
-	t_vec	ver;
-	t_vec	origin;
-
-	corner = vp.corner;
-	hor = vp.horizontal;
-	ver = vp.vertical;
-	origin = vp.origin;
-	return (new_vec
-		(
-			corner.x + u * hor.x + v * ver.x - origin.x,
-			corner.y + u * hor.y + v * ver.y - origin.y,
-			corner.z + u * hor.z + v * ver.z - origin.z
 		));
 }

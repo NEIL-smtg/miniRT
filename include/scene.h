@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/30 20:30:11 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:19:31 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SCENE_H
 
 # include "shape.h"
+# include "matrix.h"
 
 typedef struct s_amblight
 {
@@ -43,9 +44,7 @@ typedef struct s_scene
 	t_amblight	amblight;
 	t_camera	cam;
 	t_light		light;
-	t_cy		*cy;
-	t_pl		*pl;
-	t_sp		*sp;
+	t_obj		*obj;
 }	t_scene;
 
 typedef struct s_img
@@ -65,11 +64,8 @@ typedef struct s_viewport
 	double	aspect_ratio;
 	void	*mlx;
 	void	*win;
-	t_vec	horizontal;
-	t_vec	vertical;
-	t_vec	forward;
+	t_mat	transform;
 	t_vec	origin;
-	t_vec	corner;
 	t_img	*img;
 }	t_viewport;
 

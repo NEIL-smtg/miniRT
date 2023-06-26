@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/02 23:46:23 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/27 02:38:52 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,30 @@
 
 # include "vector.h"
 
-typedef struct s_mat
+typedef struct s_mat3
 {
-	t_vec	r1;
-	t_vec	r2;
-	t_vec	r3;
-}	t_mat;
+	t_vec3	r1;
+	t_vec3	r2;
+	t_vec3	r3;
+}	t_mat3;
 
-t_mat	get_transformation_mat(t_vec cam_dir);
-t_vec	mat_transform(t_mat transform, t_vec v);
-t_mat	new_mat(t_vec v1, t_vec v2, t_vec v3);
-t_mat	mat_transposition(t_mat mat);
+typedef struct s_mat4
+{
+	t_vec4	r1;
+	t_vec4	r2;
+	t_vec4	r3;
+	t_vec4	r4;
+}	t_mat4;
+
+//create new matrix
+t_mat3	new_mat3(t_vec3 v1, t_vec3 v2, t_vec3 v3);
+t_mat4	new_mat4(t_vec4 v1, t_vec4 v2, t_vec4 v3, t_vec4 v4);
+
+t_mat3	get_transformation_mat(t_vec3 cam_dir);
+t_vec3	mat_transform(t_mat3 transform, t_vec3 v);
+t_mat3	mat_transposition(t_mat3 mat);
+
+
+t_vec4	mat4_mul(t_mat4 a, t_vec4 v);
 
 #endif

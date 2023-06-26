@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:06:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/02 23:31:22 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/27 02:48:23 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,36 @@
 
 # include <math.h>
 
-typedef struct s_vector
+typedef struct s_vec3
 {
 	double	x;
 	double	y;
 	double	z;
-}	t_vec;
+}	t_vec3;
+
+typedef struct s_vec4
+{
+	double	x;
+	double	y;
+	double	z;
+	double	w;
+}	t_vec4;
 
 //vector
-t_vec		new_vec(double x, double y, double z);
-double		dot_product(t_vec v1, t_vec v2);
-t_vec		normalize(t_vec vec);
-double		normalize_divisor(t_vec v);
-void		print_vector(t_vec v, char *name);
+t_vec3		new_vec3(double x, double y, double z);
+t_vec4		new_vec4(double x, double y, double z, double w);
+void		print_vec3(t_vec3 v, char *name);
 double		get_radian(int angle);
-t_vec		vec_mul(double scalar, t_vec v);
-t_vec		cross_product(t_vec a, t_vec b);
+
+// convertion
+t_vec3		convert_to_3d(t_vec4 v);
+t_vec4		convert_to_4d(t_vec3 v);
+
+//calculation
+t_vec3		normalize(t_vec3 vec);
+double		normalize_divisor(t_vec3 v);
+t_vec3		vec3_mul(double scalar, t_vec3 v);
+double		vec3_dot(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_cross(t_vec3 a, t_vec3 b);
 
 #endif

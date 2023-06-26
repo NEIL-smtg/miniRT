@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/02 23:19:31 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/26 21:49:06 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ typedef struct s_amblight
 typedef struct s_camera
 {
 	int			fix;
-	t_vec		pos;
-	t_vec		vec;
+	t_vec3		pos;
+	t_vec3		dir;
 	double		fov;
 }	t_camera;
 
 typedef struct s_light
 {
 	int			fix;
-	t_vec		pos;
+	t_vec3		pos;
 	double		brightness;
 	t_rgb		rgb;
 }	t_light;
@@ -64,8 +64,8 @@ typedef struct s_viewport
 	double	aspect_ratio;
 	void	*mlx;
 	void	*win;
-	t_mat	transform;
-	t_vec	origin;
+	t_mat3	transform;
+	t_vec3	origin;
 	t_img	*img;
 }	t_viewport;
 

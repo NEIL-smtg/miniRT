@@ -8,8 +8,8 @@ FILES			=	main utils/ft_atof utils/rt_split utils/utils\
 					color \
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
-					vector/vector vector/vector2 \
-					matrix/matrix
+					vector/vector vector/vector2 vector/convert\
+					matrix/matrix matrix/matrix4_mul
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz

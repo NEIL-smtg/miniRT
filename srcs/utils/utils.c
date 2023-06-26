@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/05 02:15:04 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/26 22:01:19 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	print_rgb(t_rgb rgb)
 		rgb.r, rgb.g, rgb.b);
 }
 
-static void	print_vec(t_vec v, int type)
+static void	print_vec(t_vec3 v, int type)
 {
 	if (type == 1)
 		printf("\tposition : %f, %f, %f\n", v.x, v.y, v.z);
@@ -38,7 +38,7 @@ static void	print_setting(t_scene *sc)
 	print_rgb(sc->light.rgb);
 	printf("Camera\t{\n");
 	print_vec(sc->cam.pos, 1);
-	print_vec(sc->cam.vec, 2);
+	print_vec(sc->cam.dir, 2);
 	printf("\tfov : %f rad\n}\n\n", sc->cam.fov);
 }
 

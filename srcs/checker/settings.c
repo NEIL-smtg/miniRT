@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 01:14:04 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/28 19:22:35 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/26 21:49:39 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int	set_camera(t_camera *cam, char *line)
 	cam->pos.z = ft_atof(xyz[2]);
 	ft_free2d(xyz);
 	xyz = ft_split(sp[2], ',');
-	cam->vec.x = ft_atof(xyz[0]);
-	cam->vec.y = ft_atof(xyz[1]);
-	cam->vec.z = ft_atof(xyz[2]);
+	cam->dir.x = ft_atof(xyz[0]);
+	cam->dir.y = ft_atof(xyz[1]);
+	cam->dir.z = ft_atof(xyz[2]);
 	ft_free2d(xyz);
 	ft_free2d(sp);
 	return (1);

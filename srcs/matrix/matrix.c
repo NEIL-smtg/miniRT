@@ -6,80 +6,74 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:03 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/05 02:14:29 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/26 22:01:42 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
 
-t_mat	new_mat(t_vec v1, t_vec v2, t_vec v3)
+t_mat3	new_mat3(t_vec3 v1, t_vec3 v2, t_vec3 v3)
 {
-	t_mat	new;
+	t_mat3	new;
 
-	new.r1 = new_vec(v1.x, v1.y, v1.z);
-	new.r2 = new_vec(v2.x, v2.y, v2.z);
-	new.r3 = new_vec(v3.x, v3.y, v3.z);
+	new.r1 = new_vec3(v1.x, v1.y, v1.z);
+	new.r2 = new_vec3(v2.x, v2.y, v2.z);
+	new.r3 = new_vec3(v3.x, v3.y, v3.z);
 	return (new);
 }
 
-t_mat	mat_transposition(t_mat mat)
+t_mat4	new_mat4(t_vec4 v1, t_vec4 v2, t_vec4 v3, t_vec4 v4)
 {
-	t_mat	new;
+	t_mat4	new;
 
-	new.r1 = new_vec(new.r1.x, new.r2.x, new.r3.x);
-	new.r2 = new_vec(new.r1.y, new.r2.y, new.r3.y);
-	new.r3 = new_vec(new.r1.z, new.r2.z, new.r3.z);
+	new.r1 = new_vec4(v1.x, v1.y, v1.z, v1.w);
+	new.r2 = new_vec4(v2.x, v2.y, v2.z, v2.w);
+	new.r3 = new_vec4(v3.x, v3.y, v3.z, v3.w);
+	new.r4 = new_vec4(v4.x, v4.y, v4.z, v4.w);
 	return (new);
 }
 
-// t_mat	get_transformation_mat(t_vec cam_dir)
-// {
-// 	t_vec	u;
-// 	t_vec	w;
-// 	t_vec	v;
-// 	t_mat	mat;
-
-// 	w = normalize(cam_dir);
-// 	u = new_vec(w.z, 0, -w.x);
-// 	if (normalize_divisor(u) == 0)
-// 		u = new_vec(-w.y, w.x, 0);
-// 	u = normalize(u);
-// 	v = cross_product(w, u);
-// 	mat = new_mat(u, v, w);
-// 	return (mat_transposition(mat));
-// }
-
-t_mat	get_transformation_mat(t_vec cam_dir)
+t_mat3	mat_transposition(t_mat3 mat)
 {
-	t_vec	u;
-	t_vec	v;
-	t_vec	w;
-	t_mat	mat;
+	t_mat3	new;
+
+	new.r1 = new_vec3(new.r1.x, new.r2.x, new.r3.x);
+	new.r2 = new_vec3(new.r1.y, new.r2.y, new.r3.y);
+	new.r3 = new_vec3(new.r1.z, new.r2.z, new.r3.z);
+	return (new);
+}
+
+t_mat3	get_transformation_mat(t_vec3 cam_dir)
+{
+	t_vec3	u;
+	t_vec3	v;
+	t_vec3	w;
+	t_mat3	mat;
 
 	w = normalize(cam_dir);
-	u = new_vec(0, 1, 0);
+	u = new_vec3(0, 1, 0);
 	if (1.0 == w.z)
-		v = new_vec(1, 0, 0);
+		v = new_vec3(1, 0, 0);
 	else if (-1.0 == w.z)
-		v = new_vec(-1, 0, 0);
+		v = new_vec3(-1, 0, 0);
 	else
 	{
-		u = new_vec(w.y, -w.x, 0);
+		u = new_vec3(w.y, -w.x, 0);
 		u = normalize(u);
-		v = cross_product(w, u);
+		v = vec3_cross(w, u);
 	}
-	mat = new_mat(u, v, w);
+	mat = new_mat3(u, v, w);
 	return (mat_transposition(mat));
 }
 
-t_vec	mat_transform(t_mat transform, t_vec v)
+t_vec3	mat_transform(t_mat3 transform, t_vec3 v)
 {
-	t_vec	new;
-	t_mat	a;
+	t_vec3	new;
+	t_mat3	a;
 
 	a = mat_transposition(transform);
-	new.x = dot_product(a.r1, v);
-	new.y = dot_product(a.r2, v);
-	new.z = dot_product(a.r3, v);
+	new.x = vec3_dot(a.r1, v);
+	new.y = vec3_dot(a.r2, v);
+	new.z = vec3_dot(a.r3, v);
 	return (new);
 }

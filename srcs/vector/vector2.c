@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:00:07 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/27 02:47:59 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/27 17:25:23 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,13 @@ t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 	res.y = a.z * b.x - a.x * b.z;
 	res.z = a.x * b.y - a.y * b.x;
 	return (res);
+}
+
+t_vec3	vec3_sub(t_vec3 a, t_vec3 b)
+{
+	return (new_vec3(
+		a.x - b.x,
+		a.y - b.y,
+		a.z - b.z
+	));
 }

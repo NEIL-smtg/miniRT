@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/26 21:49:06 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/27 18:42:59 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_scene
 
 typedef struct s_img
 {
-	void	*img_ptr;
+	void	*ptr;
 	char	*data_addr;
 	int		bpp;
 	int		line_size;
@@ -66,7 +66,13 @@ typedef struct s_viewport
 	void	*win;
 	t_mat3	transform;
 	t_vec3	origin;
-	t_img	*img;
+	t_img	img;
 }	t_viewport;
+
+typedef struct s_ray
+{
+	t_vec3	dir;
+	t_vec3	origin;
+}	t_ray;
 
 #endif

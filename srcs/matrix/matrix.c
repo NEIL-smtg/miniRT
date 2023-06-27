@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:03 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/26 22:01:42 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/27 15:38:18 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ t_mat3	mat_transposition(t_mat3 mat)
 {
 	t_mat3	new;
 
-	new.r1 = new_vec3(new.r1.x, new.r2.x, new.r3.x);
-	new.r2 = new_vec3(new.r1.y, new.r2.y, new.r3.y);
-	new.r3 = new_vec3(new.r1.z, new.r2.z, new.r3.z);
+	new.r1 = new_vec3(mat.r1.x, mat.r2.x, mat.r3.x);
+	new.r2 = new_vec3(mat.r1.y, mat.r2.y, mat.r3.y);
+	new.r3 = new_vec3(mat.r1.z, mat.r2.z, mat.r3.z);
 	return (new);
 }
 

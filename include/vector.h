@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:06:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/27 02:48:23 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/27 17:41:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ double		normalize_divisor(t_vec3 v);
 t_vec3		vec3_mul(double scalar, t_vec3 v);
 double		vec3_dot(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_cross(t_vec3 a, t_vec3 b);
+t_vec3		vec3_sub(t_vec3 a, t_vec3 b);
 
 #endif

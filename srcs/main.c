@@ -6,11 +6,35 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/27 19:32:49 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/29 20:10:55 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_mat3	get_transform_matrix(t_camera cam)
+{
+	t_vec3	right;
+	t_vec3	up;
+	t_vec3	forward;
+
+	forward = normalize(cam.dir);
+	up = new_vec3(0, 1, 0);
+	if (forward.z == 1.0)
+		right = new_vec3(1, 0, 0);
+	else if (forward.z == -1.0)
+		right = new_vec3(-1, 0, 0);
+	else
+	{
+		up = normalize(new_vec3(forward.y, -forward.x, 0));
+		right = vec3_cross(right, forward);
+	}
+	return (new_mat3(
+		up,
+		right,
+		forward
+	));
+}
 
 void	init_viewport(t_viewport *vp, t_camera cam)
 {
@@ -19,140 +43,64 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->w = HEIGHT * vp->aspect_ratio;
 	vp->origin = cam.pos;
 	vp->focal = get_focal_length(cam.fov, vp->w);
-	vp->transform = get_transformation_mat(cam.dir);
+	vp->transform_mat = get_transform_matrix(cam);
 }
 
-void	set_camera_view(t_mat3 transform, t_scene *sc)
+t_vec3	convert_to_cam(t_mat3 transform_mat, t_vec3 v)
+{
+	t_vec3	res;
+
+	res.x = vec3_dot(transform_mat.r1, v);
+	res.y = vec3_dot(transform_mat.r2, v);
+	res.z = vec3_dot(transform_mat.r3, v);
+	return (res);
+}
+
+void	world_to_camera(t_mat3 transform_mat, t_scene *sc)
 {
 	t_obj	*tmp;
 
-	sc->light.pos = mat_transform(transform, sc->light.pos);
-	sc->cam.pos = mat_transform(transform, sc->cam.pos);
-	sc->cam.dir = mat_transform(transform, sc->cam.dir);
+	sc->cam.pos = convert_to_cam(transform_mat, sc->cam.pos);
+	sc->cam.dir = convert_to_cam(transform_mat, sc->cam.dir);
+	sc->light.pos = convert_to_cam(transform_mat, sc->light.pos);
 	tmp = sc->obj;
 	while (tmp)
 	{
-		tmp->center = mat_transform(transform, tmp->center);
+		tmp->center = convert_to_cam(transform_mat, tmp->center);
 		if (tmp->type != SPHERE)
-			tmp->dir = mat_transform(transform, tmp->dir);
+			tmp->dir = convert_to_cam(transform_mat, tmp->dir);
 		tmp = tmp->next;
 	}
 }
 
-void	print_mat4(t_mat4 mat)
+t_vec3	get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin)
 {
-	t_vec4	r1;
-	t_vec4	r2;
-	t_vec4	r3;
-	t_vec4	r4;
-	
-	r1 = mat.r1;
-	r2 = mat.r2;
-	r3 = mat.r3;
-	r4 = mat.r4;
-	printf("row 1 = %f, %f, %f, %f\n", r1.x, r1.y, r1.z, r1.w);
-	printf("row 2 = %f, %f, %f, %f\n", r2.x, r2.y, r2.z, r2.w);
-	printf("row 3 = %f, %f, %f, %f\n", r3.x, r3.y, r3.z, r3.w);
-	printf("row 4 = %f, %f, %f, %f\n", r4.x, r4.y, r4.z, r4.w);
-}
+	t_vec3	pixel_coord;
 
-t_mat4	get_proj_matrix(t_viewport vp)
-{
-	double	near;
-	double	far;
-	double	frustrum_depth;
-
-	near = 0.1f;
-	far = 100.0f;
-	frustrum_depth = far - near;
-	return (
-		new_mat4(
-			new_vec4(1.0f / (vp.aspect_ratio * vp.focal), 0, 0, 0),
-			new_vec4(0, 1.0f / vp.focal, 0, 0),
-			new_vec4(0, 0, -(far + near) / frustrum_depth, -1.0f),
-			new_vec4(0, 0, -(2.0f * far * near) / frustrum_depth, 0)
-		)	
-	);
-}
-
-t_mat4	get_view_matrix(t_camera cam)
-{
-	t_vec3	right;
-	t_vec3	up;
-	t_vec3	forward;
-
-	forward = normalize(new_vec3(-cam.dir.x, -cam.dir.y, -cam.dir.z));
-	up = new_vec3(0, 1, 0);
-	right = normalize(vec3_cross(up, forward));
-	up = vec3_cross(forward, right);
-	return (new_mat4(
-		new_vec4(right.x, up.x, forward.x, -vec3_dot(right, cam.pos)),
-		new_vec4(right.y, up.y, forward.y, -vec3_dot(up, cam.pos)),
-		new_vec4(right.z, up.z, forward.z, -vec3_dot(forward, cam.pos)),
-		new_vec4(0, 0, 0, 1)
-	));
-}
-
-void	convert_settings_to_cam_view(t_mat4 view_mat, t_scene *sc)
-{
-	t_vec4	tmp_c;
-	t_vec4	tmp_n;
-
-	tmp_c = convert_to_4d(sc->cam.pos);
-	tmp_n = convert_to_4d(sc->cam.dir);
-	sc->cam.pos = convert_to_3d(mat4_mul(view_mat, tmp_c));
-	sc->cam.dir = convert_to_3d(mat4_mul(view_mat, tmp_n));
-	tmp_c = convert_to_4d(sc->light.pos);
-	sc->light.pos = convert_to_3d(mat4_mul(view_mat, tmp_c));
-}
-
-void	convert_to_cam_view(t_mat4 view_mat, t_scene *sc)
-{
-	t_obj	*tmp;
-	t_vec4	tmp_c;
-	t_vec4	tmp_n;
-
-	convert_settings_to_cam_view(view_mat, sc);
-	tmp = sc->obj;
-	while (tmp)
-	{
-		tmp_c = convert_to_4d(tmp->center);
-		if (tmp->type != SPHERE)
-			tmp_n = convert_to_4d(tmp->dir);
-		tmp->center = convert_to_3d(mat4_mul(view_mat, tmp_c));
-		if (tmp->type != SPHERE)
-			tmp->dir = convert_to_3d(mat4_mul(view_mat, tmp_n));
-		tmp = tmp->next;
-	}
-}
-
-t_vec3	get_ray_dir(int pixel[2], t_viewport vp)
-{
-	return (normalize(new_vec3(
-		(double) pixel[0] - vp.w / 2,
-		(double) pixel[1] - vp.h / 2,
-		vp.focal
-	)));
+	pixel_coord.x = (double) pixel[0] - vp->w / 2.0;
+	pixel_coord.y = (double) pixel[1] - vp->h / 2.0;
+	pixel_coord.z = vp->focal;
+	return (normalize(pixel_coord));
 }
 
 double	solve_quadratic(double a, double b, double c)
 {
 	double	discriminant;
-	double	sqrt_d;
 	double	t1;
 	double	t2;
 
-	discriminant = pow(b, 2) * 4 * a * c;
-	if (discriminant < 0)
+	discriminant = pow(b, 2) - 4.0 * a * c;
+	if (discriminant <= 0.0f || (2.0 * a) <= 1e-6)
 		return (-1.0);
-	sqrt_d = sqrt(discriminant);
-	t1 = (-b - sqrt_d) / (2 * a);
-	t2 = (-b + sqrt_d) / (2 * a);
-	if (t1 > 0 && t2 > 0)
-		return (fmin(t1, t2));
-	else if (t1 > 0)
+	t1 = (-b - sqrt(discriminant) / (2.0 * a));
+	t2 = (-b + sqrt(discriminant) / (2.0 * a));
+	if (t1 > 0.0f && t2 > 0.0f && t1 < t2)
 		return (t1);
-	else if (t2 > 0)
+	if (t1 > 0.0f && t2 > 0.0f && t2 < t1)
+		return (t2);
+	if (t1 > 0.0f)
+		return (t1);
+	if (t2 > 0.0f)
 		return (t2);
 	return (-1.0);
 }
@@ -165,33 +113,10 @@ double	sphere_intersection(t_ray ray, t_obj *obj)
 	obj_vec = vec3_sub(obj->center, ray.origin);
 	dist = solve_quadratic(
 		vec3_dot(ray.dir, ray.dir),
-		2.0f * vec3_dot(obj_vec, ray.dir),
+		-2.0f * vec3_dot(obj_vec, ray.dir),
 		vec3_dot(obj_vec, obj_vec) - pow(obj->d / 2.0f, 2)
 	);
 	return (dist);
-}
-
-t_obj	*fill_pixel(t_ray ray, t_obj *obj)
-{
-	double	d[2];
-	t_obj	*closest;
-
-	d[1] = INFINITY;
-	closest = NULL;
-	while (obj)
-	{
-		if (obj->type == SPHERE)
-		{
-			d[0] = sphere_intersection(ray, obj);
-			if (d[0] != -1.0 && d[0] < d[1])
-			{
-				d[1] = d[0];
-				closest = obj;
-			}
-		}
-		obj = obj->next;
-	}
-	return (closest);
 }
 
 void	fill_color(t_rgb color, t_viewport *vp, int pixel[2])
@@ -201,26 +126,25 @@ void	fill_color(t_rgb color, t_viewport *vp, int pixel[2])
 
 	data = (unsigned char *) vp->img.data_addr;
 	index = (pixel[1] * vp->img.line_size + pixel[0] * (vp->img.bpp / 8));
-	data[index] = (unsigned int) rgb_to_int(color);
-	data[index + 1] = (unsigned int) rgb_to_int(color);
-	data[index + 2] = (unsigned int) rgb_to_int(color);
+	data[index] = (unsigned char) color.b;
+	data[index + 1] = (unsigned char) color.g;
+	data[index + 2] = (unsigned char) color.r;
 }
 
 void	render(t_viewport *vp, t_scene sc)
 {
 	int		pixel[2];
 	t_ray	ray;
-	t_obj	*closest;
 
-	pixel[1] = -1;
 	ray.origin = sc.cam.pos;
-	while (++pixel[1] < vp->h)
+	pixel[1] = -1;
+	while (++pixel[1] < (int) vp->h)
 	{
 		pixel[0] = -1;
-		while (++pixel[0] < vp->w)
+		while (++pixel[0] < (int) vp->w)
 		{
-			ray.dir = get_ray_dir(pixel, *vp);
-			if (sphere_intersection(ray, sc.obj) != -1)
+			ray.dir = get_ray_dir(pixel, vp, ray.origin);
+			if (sphere_intersection(ray, sc.obj) != -1.0)
 				fill_color(sc.obj->rgb, vp, pixel);
 		}
 	}
@@ -244,14 +168,13 @@ int	main(int ac, char **av)
 {
 	t_scene		scene;
 	t_viewport	vp;
-	t_mat4		view_mat;
 	
 	if (!valid_arg(ac, av))
 		return (1);
 	get_input(av[1], &scene);
 	init_viewport(&vp, scene.cam);
-	view_mat = get_view_matrix(scene.cam);
-	convert_to_cam_view(view_mat, &scene);
+	// print_scene(&scene);
+	world_to_camera(vp.transform_mat, &scene);
 	print_scene(&scene);
 	create_mlx(&vp);
 	render(&vp, scene);

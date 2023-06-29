@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/27 02:38:52 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/29 15:05:03 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_mat4	new_mat4(t_vec4 v1, t_vec4 v2, t_vec4 v3, t_vec4 v4);
 t_mat3	get_transformation_mat(t_vec3 cam_dir);
 t_vec3	mat_transform(t_mat3 transform, t_vec3 v);
 t_mat3	mat_transposition(t_mat3 mat);
-
 
 t_vec4	mat4_mul(t_mat4 a, t_vec4 v);
 

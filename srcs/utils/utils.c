@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/26 22:01:19 by suchua           ###   ########.fr       */
+/*   Updated: 2023/06/29 15:05:57 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,21 @@ void	print_scene(t_scene *sc)
 double	get_focal_length(double rad, double width)
 {
 	return ((width / 2) / tan(rad / 2));
+}
+
+void	print_mat4(t_mat4 mat)
+{
+	t_vec4	r1;
+	t_vec4	r2;
+	t_vec4	r3;
+	t_vec4	r4;
+
+	r1 = mat.r1;
+	r2 = mat.r2;
+	r3 = mat.r3;
+	r4 = mat.r4;
+	printf("row 1 = %f, %f, %f, %f\n", r1.x, r1.y, r1.z, r1.w);
+	printf("row 2 = %f, %f, %f, %f\n", r2.x, r2.y, r2.z, r2.w);
+	printf("row 3 = %f, %f, %f, %f\n", r3.x, r3.y, r3.z, r3.w);
+	printf("row 4 = %f, %f, %f, %f\n", r4.x, r4.y, r4.z, r4.w);
 }

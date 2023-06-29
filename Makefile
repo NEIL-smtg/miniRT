@@ -26,7 +26,7 @@ OS				=	$(shell uname -s)
 
 # Define the compilation commands for each operating system
 ifeq ($(OS),Darwin)
-    COMPILER = $(CC) $(FSAN) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
+    COMPILER = $(CC) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
 else
     COMPILER = $(CC) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
 endif

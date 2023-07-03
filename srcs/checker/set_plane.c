@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:32:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/02 23:25:31 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/02 01:27:57 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static t_obj	*new_pl(char **s, int type)
 int	set_plane(t_scene *sc, char *line, int type)
 {
 	char	**s;
+	t_obj	*new;
 
 	s = rt_split(line);
 	if (get_2d_arr_size(s) != 4 || !valid_xyz(s[1])
@@ -53,7 +54,9 @@ int	set_plane(t_scene *sc, char *line, int type)
 		ft_free2d(s);
 		return (0);
 	}
-	objlst_addback(&(sc->obj), new_pl(s, type));
+	new = new_pl(s, type);
+	new->get_intersects = plane_intersection;
+	objlst_addback(&(sc->obj), new);
 	ft_free2d(s);
 	return (1);
 }

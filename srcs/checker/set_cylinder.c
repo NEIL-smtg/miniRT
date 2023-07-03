@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:39:16 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/02 23:24:28 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/01 23:43:55 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	set_cylinder(t_scene *sc, char *line, int type)
 	}
 	new = init_new_part1(s, type);
 	new->type = CYLINDER;
+	new->get_intersects = cylinder_intersection;
 	new->d = ft_atof(s[3]);
 	new->h = ft_atof(s[4]);
 	objlst_addback(&(sc->obj), new);

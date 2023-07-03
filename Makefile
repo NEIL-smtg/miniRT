@@ -9,7 +9,9 @@ FILES			=	main utils/ft_atof utils/rt_split utils/utils\
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
 					vector/vector vector/vector2 vector/convert\
-					matrix/matrix matrix/matrix4_mul
+					matrix/matrix matrix/matrix4_mul \
+					render \
+					geometry/sphere geometry/plane geometry/cylinder
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
@@ -28,13 +30,13 @@ OS				=	$(shell uname -s)
 ifeq ($(OS),Darwin)
     COMPILER = $(CC) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
 else
-    COMPILER = $(CC) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
+    COMPILER = $(CC) $(FSAN) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
 endif
 
 all:
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)checker $(OBJS_DIR)utils $(OBJS_DIR)vector
-	@mkdir -p $(OBJS_DIR)matrix
+	@mkdir -p $(OBJS_DIR)matrix $(OBJS_DIR)geometry
 	@make $(LIBFT)
 	make $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/02 23:26:48 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/01 15:50:18 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static t_obj	*new_sp(char **s, int type)
 	new = ft_calloc(1, sizeof(t_obj));
 	if (!new)
 		return (NULL);
+	new->get_intersects = sphere_intersection;
 	new->type = SPHERE;
 	new->fix = type - 1;
 	xyz = ft_split(s[1], ',');

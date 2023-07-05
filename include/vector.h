@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:06:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/01 23:55:12 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/05 23:05:12 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_vec4		convert_to_4d(t_vec3 v);
 
 //calculation
 t_vec3		normalize(t_vec3 vec);
-double		normalize_divisor(t_vec3 v);
+double		vec3_len(t_vec3 v);
 t_vec3		vec3_mul(double scalar, t_vec3 v);
 double		vec3_dot(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_cross(t_vec3 a, t_vec3 b);

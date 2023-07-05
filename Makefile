@@ -9,7 +9,8 @@ FILES			=	main utils/ft_atof utils/rt_split utils/utils\
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
 					vector/vector vector/vector2 vector/convert\
-					matrix/matrix matrix/matrix4_mul \
+					matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
+					matrix/view_matrix \
 					render \
 					geometry/sphere geometry/plane geometry/cylinder
 

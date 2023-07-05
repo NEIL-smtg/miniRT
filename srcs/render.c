@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/02 01:49:00 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/06 02:16:47 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 
 t_vec3	get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin)
 {
-	t_vec3	pixel_coord;
-
-	pixel_coord.x = (double) pixel[0] - vp->w / 2.0;
-	pixel_coord.y = (double) pixel[1] - vp->h / 2.0;
-	pixel_coord.z = vp->focal;
-	return (normalize(pixel_coord));
+	double	ndc_x;
+	double	ndc_y;
+	double	screen_x;
+	double	screen_y;
+	
+	ndc_x = (2.0f * pixel[0]) / vp->w - 1.0f;
+	ndc_y = 1.0f - (2.0f * pixel[1]) / vp->h;
+	screen_x = ndc_x * vp->aspect_ratio * vp->focal;
+	screen_y = ndc_y * vp->focal;
+	return (normalize(new_vec3(
+			screen_x,
+			screen_y,
+			-1.0f
+		)));
 }
 
 t_rgb	get_closest_obj_color(t_ray ray, t_obj *obj)
@@ -75,7 +83,7 @@ void	render(t_viewport *vp, t_scene sc)
 			color = get_closest_obj_color(ray, sc.obj);
 			fill_color(color, vp, pixel);
 		}
-		printf("Progress : %.2f%%\n", (double) pixel[1] / vp->h * 100);
+		// printf("Progress : %.2f%%\n", (double) pixel[1] / vp->h * 100);
 	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);
 	printf("DONE\n");

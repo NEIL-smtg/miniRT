@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/01 15:36:05 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/06 02:17:08 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 /////////////////FUNCTION PROTOTYPE/////////////////////
 ////////////////////////////////////////////////////////
 
+//	transformation
+void		world_to_camera(t_mat4 inv_view_mat, t_scene *sc);
+t_mat4		get_view_matrix(t_camera cam);
+
 //	render
 void		render(t_viewport *vp, t_scene sc);
 
@@ -35,6 +39,7 @@ void		print_scene(t_scene *sc);
 double		ft_atof(char *s);
 char		**rt_split(char const *s);
 double		get_focal_length(double rad, double width);
+void		print_mat4(t_mat4 mat);
 
 //valid arg, getting inputs
 int			valid_arg(int ac, char **av);

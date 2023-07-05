@@ -12,7 +12,7 @@
 
 #include "matrix.h"
 
-t_vec4	mat4_mul(t_mat4 a, t_vec4 v)
+t_vec4	mat44_mul_mat41(t_mat4 a, t_vec4 v)
 {
 	t_vec4	res;
 

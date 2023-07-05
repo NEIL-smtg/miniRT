@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/26 21:44:48 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/05 23:05:37 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ double	vec3_dot(t_vec3 v1, t_vec3 v2)
 	return (x + y + z);
 }
 
-double	normalize_divisor(t_vec3 v)
+double	vec3_len(t_vec3 v)
 {
 	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
 }
@@ -54,7 +54,7 @@ t_vec3	normalize(t_vec3 vec)
 {
 	double	dir_len;
 
-	dir_len = normalize_divisor(vec);
+	dir_len = vec3_len(vec);
 	return (new_vec3(
 			vec.x / dir_len,
 			vec.y / dir_len,

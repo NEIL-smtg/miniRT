@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:39:16 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/01 23:43:55 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/07 22:21:00 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	set_cylinder(t_scene *sc, char *line, int type)
 		|| !valid_rgb(s[5]))
 	{
 		ft_free2d(s);
-		ft_putendl_fd("Error\nInvalid arguments for cylinder!", 2);
+		ft_putstr_fd("Error\nInvalid arguments for cylinder!", 2);
 		return (0);
 	}
 	new = init_new_part1(s, type);

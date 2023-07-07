@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:32:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/02 01:27:57 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/07 22:21:27 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	set_plane(t_scene *sc, char *line, int type)
 	if (get_2d_arr_size(s) != 4 || !valid_xyz(s[1])
 		|| !valid_vec3(s[2]) || !valid_rgb(s[3]))
 	{
-		ft_putendl_fd("Error\nInvalid arguments for plane!", 2);
+		ft_putstr_fd("Error\nInvalid arguments for plane!", 2);
 		ft_free2d(s);
 		return (0);
 	}

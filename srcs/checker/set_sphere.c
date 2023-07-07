@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/01 15:50:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/07 22:21:33 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	set_sphere(t_scene *sc, char *line, int type)
 		|| !valid_rgb(s[3]))
 	{
 		ft_free2d(s);
-		ft_putendl_fd("Error\nInvalid arguments for sphere!", 2);
+		ft_putstr_fd("Error\nInvalid arguments for sphere!", 2);
 		return (0);
 	}
 	objlst_addback(&(sc->obj), new_sp(s, type));

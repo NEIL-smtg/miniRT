@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   settings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 01:14:04 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/26 21:49:39 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/07 22:23:47 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	set_ambient(t_amblight *al, char *line)
 	if (get_2d_arr_size(s) != 3 || !valid_range(0, 1, ft_atof(s[1]))
 		|| !valid_rgb(s[2]))
 	{
+		ft_putstr_fd("Error !!\nInvalid arguments for ambient.", 2);
 		ft_free2d(s);
 		return (0);
 	}
@@ -60,7 +61,10 @@ int	set_camera(t_camera *cam, char *line)
 	if (*line == 'C')
 		cam->fix = 1;
 	if (!valid_cam(rt_split(line)))
+	{
+		ft_putstr_fd("Error !!\nInvalid arguments for camera.", 2);
 		return (0);
+	}
 	sp = rt_split(line);
 	cam->fov = get_radian(ft_atoi(sp[3]));
 	xyz = ft_split(sp[1], ',');
@@ -105,7 +109,10 @@ int	set_light(t_light *lg, char *line)
 	if (*line == 'L')
 		lg->fix = 1;
 	if (!valid_light(rt_split(line)))
+	{
+		ft_putstr_fd("Error !!\nInvalid arguments for light.", 2);
 		return (0);
+	}
 	sp = rt_split(line);
 	xyz = ft_split(sp[1], ',');
 	lg->pos.x = ft_atof(xyz[0]);

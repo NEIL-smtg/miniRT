@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/06 02:14:53 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/07 22:17:42 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	main(int ac, char **av)
 
 	if (!valid_arg(ac, av))
 		return (1);
-	get_input(av[1], &scene);
+	if (!get_input(av[1], &scene))
+		return (1);
 	print_scene(&scene);
 	init_viewport(&vp, scene.cam);
 	world_to_camera(vp.inv_view_mat, &scene);

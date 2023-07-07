@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:44:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/03 22:45:09 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/07 22:23:59 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,24 @@ static int	process_line(char *line, t_scene *sc)
 	return (1);
 }
 
+static int	line_error(int line)
+{
+	ft_putstr_fd(" line : [", 2);
+	ft_putnbr_fd(line, 2);
+	ft_putendl_fd("]", 2);
+	return (0);
+}
+
 int	get_input(char *file, t_scene *sc)
 {
 	int		fd;
 	char	*line;
 	int		ret;
+	int		i;
 
 	sc->obj = NULL;
 	fd = open(file, O_RDONLY);
+	i = 1;
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -65,8 +75,9 @@ int	get_input(char *file, t_scene *sc)
 			break ;
 		ret = process_line(line, sc);
 		free(line);
+		++i;
 		if (!ret)
-			return (0);
+			return (line_error(i));
 	}
 	return (1);
 }

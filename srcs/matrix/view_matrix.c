@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/10 16:13:49 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/11 04:09:56 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_mat4	get_view_matrix(t_camera cam)
 	view_mat.r4 = new_vec4(
 			-vec3_dot(right, cam.pos),
 			-vec3_dot(up, cam.pos),
-			-vec3_dot(forward, cam.pos),
+			-vec3_dot(vec3_mul(-1.0f, forward), cam.pos),
 			1.0f
 			);
 	return (mat4_transposition(view_mat));
@@ -56,18 +56,16 @@ static t_vec3	convert_to_view_space(t_mat4 view_mat, t_vec3 v)
 void	world_to_camera(t_mat4 inv_view_mat, t_scene *sc)
 {
 	t_obj	*tmp;
-	t_mat4	tp_ivm;
 
-	tp_ivm = mat4_transposition(inv_view_mat);
 	sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
-	sc->cam.dir = convert_to_view_space(tp_ivm, sc->cam.dir);
+	sc->cam.dir = convert_to_view_space(inv_view_mat, sc->cam.dir);
 	sc->light.pos = convert_to_view_space(inv_view_mat, sc->light.pos);
 	tmp = sc->obj;
 	while (tmp)
 	{
 		tmp->center = convert_to_view_space(inv_view_mat, tmp->center);
 		if (tmp->type != SPHERE)
-			tmp->dir = convert_to_view_space(tp_ivm, tmp->dir);
+			tmp->dir = convert_to_view_space(inv_view_mat, tmp->dir);
 		tmp = tmp->next;
 	}
 }

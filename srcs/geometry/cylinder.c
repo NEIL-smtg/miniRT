@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:10:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/10 23:00:06 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/11 04:54:04 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shape.h"
 #include <stdio.h>
-
-typedef struct s_cyvars
-{
-	t_vec3	oc;
-	t_vec3	vec_h;
-	t_vec3	vec_r;
-	double	proj_h;
-	double	proj_r;
-}	t_cyvars;
 
 double	above_cylinder(t_ray ray, t_obj *obj, t_vec3 oc)
 {
@@ -32,16 +23,21 @@ double	above_cylinder(t_ray ray, t_obj *obj, t_vec3 oc)
 	top_normal = vec3_mul(obj->h, obj->dir);
 	top_center = vec3_add(obj->center, top_normal);
 	oc = vec3_sub(top_center, ray.origin);
-	proj_ray_normal = vec3_dot(ray.dir, obj->dir);
+	proj_ray_normal = vec3_dot(ray.dir, top_normal);
 	if (proj_ray_normal == 0.0f)
 		return (INFINITY);
-	t = vec3_dot(oc, obj->dir) / proj_ray_normal;
+	t = vec3_dot(oc, top_normal) / proj_ray_normal;
 	if (t <= 0.0f)
 		return (INFINITY);
-	t = vec3_len(vec3_sub(vec3_mul(t, ray.dir), top_center));
-	if (t > obj->d / 2)
-		return (INFINITY);
-	return (t);
+	// t = vec3_len(vec3_sub(vec3_mul(t, ray.dir), top_center));
+	// if (t > obj->d / 2)
+	// 	return (INFINITY);
+	// return (t);
+	t_vec3 intersection = vec3_add(ray.origin, vec3_mul(t, ray.dir));
+    double dist = vec3_len(vec3_sub(intersection, top_center));
+    if (dist > obj->d / 2.0)
+        return INFINITY;
+    return t;
 }
 
 double	below_cylinder(t_ray ray, t_obj *obj, t_vec3 oc)
@@ -53,13 +49,18 @@ double	below_cylinder(t_ray ray, t_obj *obj, t_vec3 oc)
 	proj_ray_normal = vec3_dot(ray.dir, obj->dir);
 	if (proj_ray_normal == 0.0f)
 		return (INFINITY);
-	t = vec3_dot(oc, obj->dir) / proj_ray_normal;
+	t = -vec3_dot(oc, obj->dir) / proj_ray_normal;
 	if (t <= 0.0f)
 		return (INFINITY);
-	proj_r = vec3_len(vec3_sub(vec3_mul(t, ray.dir), oc));
-	if (proj_r > obj->d / 2)
-		return (INFINITY);
-	return (proj_r);
+	// proj_r = vec3_len(vec3_sub(vec3_mul(t, ray.dir), oc));
+	// if (proj_r > obj->d / 2)
+	// 	return (INFINITY);
+	// return (proj_r);
+	t_vec3 intersection = vec3_add(ray.origin, vec3_mul(t, ray.dir));
+    double dist = vec3_len(vec3_sub(intersection, obj->center));
+    if (dist > obj->d / 2.0)
+        return INFINITY;
+    return t;
 }
 
 t_vec3	get_ray_projection2d(t_ray ray, t_obj *obj)
@@ -114,16 +115,16 @@ double	cylinder_intersection(t_ray ray, t_obj *obj)
 	t_vec3	oi;
 
 	intersection = vec3_add(ray.origin, vec3_mul(t, ray.dir));
-	h = vec3_dot(vec3_sub(vec3_sub(intersection, ray.origin), oc), obj->dir);
+	h = vec3_dot(vec3_sub(intersection, obj->center), obj->dir);
 	if (h == 0.0f || h == obj->h)
 		return (INFINITY);
 	if (h < 0.0f)
 		return (below_cylinder(ray, obj, oc));
 	if (h > obj->h)
 		return (above_cylinder(ray, obj, oc));
-	c = vec3_sub(intersection, vec3_add(obj->center, vec3_mul(h, obj->dir)));
-	r = vec3_len(c);
-	if (r > obj->d / 2.0)
-		return (INFINITY);
+	// oi = vec3_sub(intersection, obj->center);
+	// r = vec3_len(vec3_sub(oi, vec3_mul(h, obj->dir)));
+	// if (r > obj->d / 2.0)
+	// 	return (INFINITY);
 	return (t);
 }

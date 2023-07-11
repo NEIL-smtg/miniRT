@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/11 03:41:53 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:39:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,18 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->h = HEIGHT;
 	vp->w = HEIGHT * vp->aspect_ratio;
 	vp->origin = cam.pos;
-	vp->focal = tan(cam.fov / 2.0);
-	vp->view_mat = get_view_matrix(cam);
-	vp->inv_view_mat = inverse_mat4(vp->view_mat);
+	// vp->focal = get_focal_length(cam.fov, vp->w);
+	vp->focal = tan(cam.fov / 2);
+	
+	double halfWidth = vp->aspect_ratio * vp->focal;
+
+	// Calculate the center point of the near plane
+	t_vec3 center = vec3_add(cam.pos, cam.dir);
+
+	// Calculate the corner points of the near plane
+	vp->p0 = vec3_add(center, new_vec3(-halfWidth, vp->focal, 0));
+	vp->p1 = vec3_add(center, new_vec3(halfWidth, vp->focal, 0));
+	vp->p2 = vec3_add(center, new_vec3(-halfWidth, -vp->focal, 0));
 }
 
 void	create_mlx(t_viewport *vp)
@@ -47,7 +56,7 @@ int	main(int ac, char **av)
 		return (1);
 	print_scene(&scene);
 	init_viewport(&vp, scene.cam);
-	world_to_camera(vp.inv_view_mat, &scene);
+	// world_to_camera(vp.inv_view_mat, &scene);
 	print_scene(&scene);
 	create_mlx(&vp);
 	render(&vp, scene);

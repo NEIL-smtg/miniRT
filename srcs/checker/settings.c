@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 01:14:04 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/07 22:23:47 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/15 01:14:14 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	set_ambient(t_amblight *al, char *line)
 	}
 	al->ratio = ft_atof(s[1]);
 	color = ft_split(s[2], ',');
-	al->rgb.r = ft_atoi(color[0]);
-	al->rgb.g = ft_atoi(color[1]);
-	al->rgb.b = ft_atoi(color[2]);
+	al->rgb.r = ft_atof(color[0]);
+	al->rgb.g = ft_atof(color[1]);
+	al->rgb.b = ft_atof(color[2]);
 	ft_free2d(color);
 	ft_free2d(s);
 	return (1);
@@ -121,9 +121,9 @@ int	set_light(t_light *lg, char *line)
 	ft_free2d(xyz);
 	lg->brightness = ft_atof(sp[2]);
 	xyz = ft_split(sp[3], ',');
-	lg->rgb.r = ft_atoi(xyz[0]);
-	lg->rgb.g = ft_atoi(xyz[1]);
-	lg->rgb.b = ft_atoi(xyz[2]);
+	lg->rgb.r = ft_atof(xyz[0]);
+	lg->rgb.g = ft_atof(xyz[1]);
+	lg->rgb.b = ft_atof(xyz[2]);
 	ft_free2d(xyz);
 	ft_free2d(sp);
 	return (1);

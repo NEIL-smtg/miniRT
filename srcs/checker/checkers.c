@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 01:15:10 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/23 18:36:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/15 01:12:51 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	valid_rgb(char *s)
 		ft_free2d(sp);
 		return (0);
 	}
-	r = ft_atoi(sp[0]);
-	g = ft_atoi(sp[1]);
-	b = ft_atoi(sp[2]);
+	r = ft_atof(sp[0]);
+	g = ft_atof(sp[1]);
+	b = ft_atof(sp[2]);
 	ft_free2d(sp);
 	return (r >= 0 && r <= 255 && g >= 0
 		&& g <= 255 && b >= 0 && b <= 255);

@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:32:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/07 22:21:27 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/15 01:13:38 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static t_obj	*new_pl(char **s, int type)
 	new->dir.z = ft_atof(xyz[2]);
 	ft_free2d(xyz);
 	xyz = ft_split(s[3], ',');
-	new->rgb.r = ft_atoi(xyz[0]);
-	new->rgb.g = ft_atoi(xyz[1]);
-	new->rgb.b = ft_atoi(xyz[2]);
+	new->rgb.r = ft_atof(xyz[0]);
+	new->rgb.g = ft_atof(xyz[1]);
+	new->rgb.b = ft_atof(xyz[2]);
 	new->next = NULL;
 	ft_free2d(xyz);
 	return (new);

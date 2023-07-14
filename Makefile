@@ -5,14 +5,14 @@ SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
 
 FILES			=	main utils/ft_atof utils/rt_split utils/utils\
-					color \
+					color/color color/diffuse_color \
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
 					vector/vector vector/vector2 vector/convert\
 					matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
 					matrix/view_matrix \
 					render \
-					geometry/sphere geometry/plane geometry/cylinder
+					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal\
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
@@ -35,7 +35,7 @@ else
 endif
 
 all:
-	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/color
 	@mkdir -p $(OBJS_DIR)checker $(OBJS_DIR)utils $(OBJS_DIR)vector
 	@mkdir -p $(OBJS_DIR)matrix $(OBJS_DIR)geometry
 	@make $(LIBFT)

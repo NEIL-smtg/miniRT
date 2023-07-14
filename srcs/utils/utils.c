@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/11 19:06:24 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/15 01:14:37 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_rgb(t_rgb rgb)
 {
-	printf("\trgb : %d, %d, %d\n}\n\n",
+	printf("\trgb : %f, %f, %f\n}\n\n",
 		rgb.r, rgb.g, rgb.b);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/04 01:30:20 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/15 00:57:27 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,8 @@ double	solve_quadratic(double a, double b, double c);
 double	sphere_intersection(t_ray ray, t_obj *obj);
 double	plane_intersection(t_ray ray, t_obj *obj);
 double	cylinder_intersection(t_ray ray, t_obj *obj);
+
+//	getting surface normal for rendering the correct color
+t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t);
 
 #endif

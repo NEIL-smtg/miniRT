@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 02:31:31 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/18 00:59:10 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->p1 = vec3_add(center, new_vec3(halfWidth, vp->focal, 0));
 	vp->p2 = vec3_add(center, new_vec3(-halfWidth, -vp->focal, 0));
 
-	// vp->view_mat = get_view_matrix(cam);
-	// vp->inv_view_mat = inverse_mat4(vp->view_mat);
+	vp->view_mat = get_view_matrix(cam);
+	vp->inv_view_mat = inverse_mat4(vp->view_mat);
 }
 
 void	create_mlx(t_viewport *vp)
@@ -57,10 +57,10 @@ int	main(int ac, char **av)
 		return (1);
 	if (!get_input(av[1], &scene))
 		return (1);
-	print_scene(&scene);
-	init_viewport(&vp, scene.cam);
-	// world_to_camera(vp.inv_view_mat, &scene);
 	// print_scene(&scene);
+	init_viewport(&vp, scene.cam);
+	world_to_camera(vp.inv_view_mat, &scene);
+	print_scene(&scene);
 	create_mlx(&vp);
 	render(&vp, scene);
 	mlx_loop(vp.mlx);

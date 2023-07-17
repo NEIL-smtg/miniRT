@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/17 22:05:14 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/17 23:55:51 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ static t_rgb	get_diffuse_color(t_light light, t_obj *obj, \
 
 	light_dir = normalize(vec3_sub(light.pos, inter));
 	angle = vec3_dot(light_dir, surface_normal);
+	// if (obj->type == PLANE)
+	// 	printf("angle = %f\n", angle);
 	diffuse.r = light.rgb.r * light.brightness * angle;
 	diffuse.g = light.rgb.g * light.brightness * angle;
 	diffuse.b = light.rgb.b * light.brightness * angle;
@@ -91,11 +93,6 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
 	diffuse = get_diffuse_color(sc.light, obj, inter, surface_normal);
 	specular = get_specular_light(sc, surface_normal, inter, obj->rgb);
-	// return (new_rgb(
-	// 		get_ambient(sc.amblight, 'r') * obj->rgb.r + diffuse.r + specular.r ,
-	// 		get_ambient(sc.amblight, 'g') * obj->rgb.g + diffuse.g + specular.g ,
-	// 		get_ambient(sc.amblight, 'b') * obj->rgb.b + diffuse.b + specular.b 
-	// 	));
 	return (new_rgb(
 			get_ambient(sc.amblight, 'r') + diffuse.r + specular.r + obj->rgb.r,
 			get_ambient(sc.amblight, 'g') + diffuse.g + specular.g + obj->rgb.g,

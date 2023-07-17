@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 04:07:15 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/15 20:03:58 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,9 @@ void	fill_color(t_rgb color, t_viewport *vp, int pixel[2])
 	unsigned char	*data;
 	int				index;
 
-	if (color.r > 255.0f)
-		color.r = 255.0f;
-	if (color.g > 255.0f)
-		color.g = 255.0f;
-	if (color.b > 255.0f)
-		color.b = 255.0f;
+	color = clamp(color, 0.0f, 255.0f);
 	data = (unsigned char *) vp->img.data_addr;
-	index = (pixel[1] * vp->img.line_size + pixel[0] * (vp->img.bpp / 8));
+	index = pixel[1] * vp->img.line_size + pixel[0] * (vp->img.bpp / 8);
 	data[index] = (unsigned char) color.b;
 	data[index + 1] = (unsigned char) color.g;
 	data[index + 2] = (unsigned char) color.r;
@@ -101,7 +96,7 @@ void	render(t_viewport *vp, t_scene sc)
 			ray.dir = get_ray_dir(pixel, vp, ray.origin);
 			t = get_closest_obj(ray, sc.obj, &closest);
 			if (closest)
-				fill_color(get_final_color(sc, ray, closest, t), vp, pixel);
+				fill_color(phong_shading(sc, ray, closest, t), vp, pixel);
 		}
 	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);

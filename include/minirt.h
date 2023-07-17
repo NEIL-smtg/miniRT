@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 01:02:16 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/15 19:55:44 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ int			valid_fov(int fov);
 int			valid_vec3(char *s);
 
 //colors
-t_rgb		get_final_color(t_scene sc, t_ray ray, t_obj *obj, double t);
+t_rgb		phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t);
 
 #endif

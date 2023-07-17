@@ -5,7 +5,7 @@ SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
 
 FILES			=	main utils/ft_atof utils/rt_split utils/utils\
-					color/color color/diffuse_color \
+					color/color color/phong color/shadows\
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
 					vector/vector vector/vector2 vector/convert\

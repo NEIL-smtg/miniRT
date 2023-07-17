@@ -1,27 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   shadows.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 16:32:02 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 20:01:57 by suchua           ###   ########.fr       */
+/*   Created: 2023/07/15 20:23:07 by suchua            #+#    #+#             */
+/*   Updated: 2023/07/15 20:23:12 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#include "minirt.h"
 
-typedef struct s_rgb
-{
-	double	r;
-	double	g;
-	double	b;
-}	t_rgb;
-
-// int		rgb_to_int(t_rgb rgb);
-t_rgb	new_rgb(double r, double g, double b);
-t_rgb	clamp(t_rgb color, double from, double to);
-
-#endif

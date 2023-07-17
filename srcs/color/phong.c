@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 20:57:17 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/17 22:05:14 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ static double	get_ambient(t_amblight am, char type)
 static t_vec3	reflect(t_vec3 incident, t_vec3 surface_normal)
 {
 	double	dot;
+	t_vec3	ref;
 
 	dot = vec3_dot(incident, surface_normal);
-	return (normalize(vec3_sub(
-				incident,
-				vec3_mul(2.0 * dot, surface_normal)
-			)));
+	ref = vec3_sub(incident, vec3_mul(2.0 * dot, surface_normal));
+	return (normalize(ref));
 }
 
 static t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
@@ -51,6 +50,7 @@ static t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
 	t_vec3	light_dir;
 	double	term;
 
+	sc.light.pos = vec3_mul(-1, sc.light.pos);
 	view_dir = normalize(vec3_sub(sc.cam.pos, inter));
 	light_dir = normalize(vec3_sub(sc.light.pos, inter));
 	angle = vec3_dot(
@@ -59,26 +59,11 @@ static t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
 			);
 	angle = fmax(0.0f, angle);
 	return (new_rgb(
-			sc.light.rgb.r * sc.light.brightness * 1.0 * pow(angle, 5),
-			sc.light.rgb.g * sc.light.brightness * 1.0 * pow(angle, 5),
-			sc.light.rgb.b * sc.light.brightness * 1.0 * pow(angle, 5)
+			sc.light.rgb.r * sc.light.brightness * 1.0 * pow(angle, 11),
+			sc.light.rgb.g * sc.light.brightness * 1.0 * pow(angle, 11),
+			sc.light.rgb.b * sc.light.brightness * 1.0 * pow(angle, 11)
 		));
 }
-
-// static t_rgb get_specular_light(t_scene sc, t_vec3 surface_normal, t_vec3 inter, t_rgb obj)
-// {
-// 	t_vec3 view_dir = normalize(vec3_sub(sc.cam.pos, inter));
-// 	t_vec3 light_dir = normalize(vec3_sub(sc.light.pos, inter));
-// 	t_vec3 halfwayVector = normalize(vec3_add(light_dir, view_dir));
-// 	double angle = pow(fmax(0.0, vec3_dot(halfwayVector, surface_normal)), 5);
-	
-// 	return new_rgb(
-// 		sc.light.rgb.r * sc.light.brightness * 1.0f * obj.r * angle,
-// 		sc.light.rgb.g * sc.light.brightness * 1.0f * obj.g * angle,
-// 		sc.light.rgb.b * sc.light.brightness * 1.0f * obj.b * angle
-// 	);
-// }
-
 
 static t_rgb	get_diffuse_color(t_light light, t_obj *obj, \
 		t_vec3 inter, t_vec3 surface_normal)
@@ -88,12 +73,10 @@ static t_rgb	get_diffuse_color(t_light light, t_obj *obj, \
 	double	angle;
 
 	light_dir = normalize(vec3_sub(light.pos, inter));
-	angle = fmax(0.0f, vec3_dot(light_dir, surface_normal));
-	if (angle == 0.0f)
-		return (new_rgb(0, 0, 0));
-	diffuse.r = light.rgb.r * light.brightness * obj->rgb.r * angle;
-	diffuse.g = light.rgb.g * light.brightness * obj->rgb.g * angle;
-	diffuse.b = light.rgb.b * light.brightness * obj->rgb.b * angle;
+	angle = vec3_dot(light_dir, surface_normal);
+	diffuse.r = light.rgb.r * light.brightness * angle;
+	diffuse.g = light.rgb.g * light.brightness * angle;
+	diffuse.b = light.rgb.b * light.brightness * angle;
 	return (diffuse);
 }
 
@@ -109,9 +92,9 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 	diffuse = get_diffuse_color(sc.light, obj, inter, surface_normal);
 	specular = get_specular_light(sc, surface_normal, inter, obj->rgb);
 	// return (new_rgb(
-	// 		get_ambient(sc.amblight, 'r') + diffuse.r + specular.r,
-	// 		get_ambient(sc.amblight, 'g') + diffuse.g + specular.g,
-	// 		get_ambient(sc.amblight, 'b') + diffuse.b + specular.b
+	// 		get_ambient(sc.amblight, 'r') * obj->rgb.r + diffuse.r + specular.r ,
+	// 		get_ambient(sc.amblight, 'g') * obj->rgb.g + diffuse.g + specular.g ,
+	// 		get_ambient(sc.amblight, 'b') * obj->rgb.b + diffuse.b + specular.b 
 	// 	));
 	return (new_rgb(
 			get_ambient(sc.amblight, 'r') + diffuse.r + specular.r + obj->rgb.r,

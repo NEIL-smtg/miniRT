@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:10:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/11 21:21:52 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/17 16:08:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,39 +90,27 @@ t_vec3	get_oc_projection2d(t_vec3 oc, t_vec3 obj_dir)
 double	cylinder_intersection(t_ray ray, t_obj *obj)
 {
 	t_vec3	oc;
-	t_vec3	rd2d;
-	t_vec3	oc2d;
+	t_vec3	u;
+	t_vec3	v;
 	double	t;
-
-	oc = vec3_sub(obj->center, ray.origin);
-	rd2d = get_ray_projection2d(ray, obj);
-	oc2d = get_oc_projection2d(oc, obj->dir);
+	
+	oc = vec3_sub(ray.origin, obj->center);
+	u =	vec3_mul(vec3_dot(ray.dir, obj->dir), obj->dir);
+	u = vec3_sub(ray.dir, u);
+	v = vec3_mul(vec3_dot(oc, obj->dir), obj->dir);
+	v = vec3_sub(oc, v);
 	t = solve_quadratic(
-		vec3_dot(rd2d, rd2d),
-		-2 * vec3_dot(rd2d, oc2d),
-		vec3_dot(oc2d, oc2d) - pow(obj->d / 2.0, 2)
+		vec3_dot(u, u),
+		2 * vec3_dot(u, v),
+		vec3_dot(v, v) - pow(obj->d / 2.0, 2)
 	);
 	if (t == INFINITY)
 		return (INFINITY);
-	t /= vec3_dot(ray.dir, rd2d);
-
-	t_vec3	intersection;
+	t_vec3	inter;
 	double	h;
-	double	r;
-	t_vec3	c;
-	t_vec3	oi;
-
-	intersection = vec3_add(ray.origin, vec3_mul(t, ray.dir));
-	h = vec3_dot(vec3_sub(intersection, obj->center), obj->dir);
-	if (h == 0.0f || h == obj->h)
+	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
+	h = vec3_dot(vec3_sub(inter, oc), obj->dir);
+	if (h < 0.0f || h > obj->h)
 		return (INFINITY);
-	if (h < 0.0f)
-		return (below_cylinder(ray, obj, oc));
-	if (h > obj->h)  
-		return (above_cylinder(ray, obj, oc));
-	// oi = vec3_sub(intersection, obj->center);
-	// r = vec3_len(vec3_sub(oi, vec3_mul(h, obj->dir)));
-	// if (r > obj->d / 2.0)
-	// 	return (INFINITY);
 	return (t);
 }

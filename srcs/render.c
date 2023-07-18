@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/18 00:59:03 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/19 01:36:28 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ t_vec3	get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin)
 	// screen_pt = vec3_add(screen_pt, vp->p0);
 	// screen_pt = vec3_add(screen_pt , vec3_mul(v, vec3_sub(vp->p2, vp->p0)));
 	// raydir = vec3_sub(screen_pt, cam_origin);
-	// // tmp = vec3_add(new_vec3(u * vp->w, 0, 0), new_vec3(0, v * vp->h, 0));
-	// // raydir = vec3_add(vp->lowerleft, vec3_sub(tmp, cam_origin));
 	// return (normalize(raydir));
 }
 

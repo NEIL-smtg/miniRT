@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/18 21:47:25 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/19 00:37:27 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
 	diffuse = get_diffuse_color(sc.light, obj, inter, surface_normal);
 	specular = get_specular_light(sc, surface_normal, inter, obj->rgb);
+	if (obj->type == PLANE)
+	{
+		diffuse.r *= DIFFUSE_TERM;
+		diffuse.g *= DIFFUSE_TERM;
+		diffuse.b *= DIFFUSE_TERM;
+	}
 	return (new_rgb(
 			get_ambient(sc.amblight, 'r') + diffuse.r + specular.r + obj->rgb.r,
 			get_ambient(sc.amblight, 'g') + diffuse.g + specular.g + obj->rgb.g,

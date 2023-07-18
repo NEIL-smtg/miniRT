@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/18 20:47:36 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/19 01:36:17 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->h = HEIGHT;
 	vp->w = HEIGHT * vp->aspect_ratio;
 	vp->origin = cam.pos;
-	// vp->focal = get_focal_length(cam.fov, vp->w);
+	vp->focal = get_focal_length(cam.fov, vp->w);
 	vp->focal = tan(cam.fov / 2);
 	
 	double halfWidth = vp->aspect_ratio * vp->focal;

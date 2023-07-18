@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:23:07 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/17 22:22:45 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/18 14:33:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 t_rgb	shawdows(t_vec3 inter, t_scene sc, t_obj *objlst, t_obj *closest)
 {
-	
+	return (new_rgb(0, 0, 0));
 }

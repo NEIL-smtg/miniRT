@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/11 04:09:56 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/18 21:16:15 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_mat4	get_view_matrix(t_camera cam)
 	view_mat.r4 = new_vec4(
 			-vec3_dot(right, cam.pos),
 			-vec3_dot(up, cam.pos),
-			-vec3_dot(vec3_mul(-1.0f, forward), cam.pos),
+			-vec3_dot(forward, cam.pos) * -1.0f,
 			1.0f
 			);
 	return (mat4_transposition(view_mat));

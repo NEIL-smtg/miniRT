@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/17 23:55:51 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/18 21:47:25 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
 	t_vec3	light_dir;
 	double	term;
 
-	sc.light.pos = vec3_mul(-1, sc.light.pos);
 	view_dir = normalize(vec3_sub(sc.cam.pos, inter));
 	light_dir = normalize(vec3_sub(sc.light.pos, inter));
 	angle = vec3_dot(
@@ -74,8 +73,7 @@ static t_rgb	get_diffuse_color(t_light light, t_obj *obj, \
 
 	light_dir = normalize(vec3_sub(light.pos, inter));
 	angle = vec3_dot(light_dir, surface_normal);
-	// if (obj->type == PLANE)
-	// 	printf("angle = %f\n", angle);
+	angle = fmax(0.0f, angle);
 	diffuse.r = light.rgb.r * light.brightness * angle;
 	diffuse.g = light.rgb.g * light.brightness * angle;
 	diffuse.b = light.rgb.b * light.brightness * angle;

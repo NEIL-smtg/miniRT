@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:11:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/19 01:23:22 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/19 20:31:52 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ double	solve_quadratic(double a, double b, double c)
 	double	t2;
 
 	discriminant = pow(b, 2) - 4.0 * a * c;
-	if (discriminant <= 0.0f || (2.0 * a) <= 1e-6)
+	if (discriminant <= 0.0f || (2.0 * a) == 0.0f)
 		return (INFINITY);
 	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
 	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-	if (t1 > 0.0f && t2 > 0.0f && t1 < t2)
-		return (t1);
-	if (t1 > 0.0f && t2 > 0.0f && t2 < t1)
-		return (t2);
+	if (t1 > 0.0f && t2 > 0.0f)
+		return (fmin(t1, t2));
 	if (t1 > 0.0f)
 		return (t1);
 	if (t2 > 0.0f)

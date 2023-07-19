@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:56:07 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 20:02:34 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/19 18:19:31 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,33 @@ t_rgb	clamp(t_rgb color, double from, double to)
 		color.b = from;
 	else if (color.b > to)
 		color.b = to;
+	return (color);
+}
+
+t_rgb	rgb_mul(t_rgb c1, t_rgb c2)
+{
+	t_rgb	new;
+
+	new.r = c1.r * c2.r;
+	new.g = c1.g * c2.g;
+	new.b = c1.b * c2.b;
+	return (new);
+}
+
+t_rgb	rgb_add(t_rgb c1, t_rgb c2)
+{
+	t_rgb	new;
+
+	new.r = c1.r + c2.r;
+	new.g = c1.g + c2.g;
+	new.b = c1.b + c2.b;
+	return (new);
+}
+
+t_rgb	rgb_scale(double scale, t_rgb color)
+{
+	color.r *= scale;
+	color.g *= scale;
+	color.b *= scale;
 	return (color);
 }

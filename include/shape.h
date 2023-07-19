@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/19 00:37:14 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/19 18:30:16 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 #  define EPS 1e-6
 # endif
 
-# define DIFFUSE_TERM 0.2
+# define PL_DIFFUSE_TERM 0.25
+# define PL_SPECULAR_TERM 5.0
 
 typedef struct s_ray
 {

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:10:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/19 01:52:00 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/19 21:31:18 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shape.h"
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 double	above_cylinder(t_ray ray, t_obj *obj, t_vec3 oc)
 {
@@ -58,7 +59,7 @@ t_vec3	get_projection(t_vec3 v, t_vec3 obj_dir)
 	t_vec3	proj;
 
 	proj = vec3_cross(v, obj_dir);
-	proj = vec3_cross(proj, obj_dir);
+	proj = vec3_cross(obj_dir, proj);
 	return (proj);
 }
 
@@ -74,12 +75,12 @@ double	outside_cylinder(t_ray ray, t_obj *obj, t_vec3 oc)
 	oc2d = (get_projection(oc, obj->dir));
 	t = solve_quadratic(
 		vec3_dot(rd2d, rd2d),
-		-2.0f * vec3_dot(rd2d, oc2d),
+		-2.0f * vec3_dot(oc2d, rd2d),
 		vec3_dot(oc2d, oc2d) - pow(obj->d / 2.0, 2)
 	);
 	if (t == INFINITY)
 		return (INFINITY);
-	// t /= vec3_dot(rd2d, ray.dir);
+	t /= vec3_dot(rd2d, ray.dir);
 	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
 	h = vec3_dot(vec3_sub(inter, obj->center), obj->dir);
 	if (h == 0.0f || h == obj->h)

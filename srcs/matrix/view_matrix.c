@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/19 01:44:42 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/19 21:28:06 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ void	world_to_camera(t_mat4 inv_view_mat, t_scene *sc)
 	t_obj	*tmp;
 
 	sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
-	sc->cam.dir = convert_to_view_space(inv_view_mat, sc->cam.dir);
+	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
 	sc->light.pos = convert_to_view_space(inv_view_mat, sc->light.pos);
 	tmp = sc->obj;
 	while (tmp)
 	{
 		tmp->center = convert_to_view_space(inv_view_mat, tmp->center);
 		if (tmp->type != SPHERE)
-			tmp->dir = convert_to_view_space(inv_view_mat, tmp->dir);
+			tmp->dir = normalize(convert_to_view_space(inv_view_mat, tmp->dir));
 		tmp = tmp->next;
 	}
 }

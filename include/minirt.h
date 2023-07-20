@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/20 19:18:00 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/21 02:13:48 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ double		ft_atof(char *s);
 char		**rt_split(char const *s);
 double		get_focal_length(double rad, double width);
 void		print_mat4(t_mat4 mat);
+void		clean_img(t_viewport *vp);
 
 //valid arg, getting inputs
 int			valid_arg(int ac, char **av);

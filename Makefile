@@ -13,7 +13,7 @@ FILES			=	main utils/ft_atof utils/rt_split utils/utils\
 					matrix/view_matrix \
 					render \
 					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal\
-					transformation/movement
+					transformation/movement transformation/rotation
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz

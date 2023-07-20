@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/19 21:22:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/21 02:30:51 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ double	vec3_dot(t_vec3 v1, t_vec3 v2)
 	y = v1.y * v2.y;
 	z = v1.z * v2.z;
 	return (x + y + z);
+}
+
+double	vec4_dot(t_vec4 v1, t_vec4 v2)
+{
+	double	x;
+	double	y;
+	double	z;
+	double	w;
+
+	x = v1.x * v2.x;
+	y = v1.y * v2.y;
+	z = v1.z * v2.z;
+	w = v1.w * v2.w;
+	return (x + y + z + w);
 }
 
 double	vec3_len(t_vec3 v)

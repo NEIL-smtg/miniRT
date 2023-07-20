@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/20 19:40:51 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/21 03:10:44 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,7 @@ t_vec3	convert_to_view_space(t_mat4 view_mat, t_vec3 v)
 
 	p = vec4_from_vec3(v, 1.0f);
 	after = mat44_mul_mat41(view_mat, p);
-	res = new_vec3(
-			after.x,
-			after.y,
-			after.z
-			);
+	res = vec3_from_vec4(after);
 	if (after.w == 0.0f)
 		return (res);
 	return (vec3_mul(1 / after.w, res));
@@ -75,14 +71,14 @@ void	rotation_transformation(t_mat4 inv_view_mat, t_scene *sc)
 	t_obj	*tmp;
 
 	// sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
-	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
-	// sc->light.pos = convert_to_view_space(inv_view_mat, sc->light.pos);
-	// tmp = sc->obj;
-	// while (tmp)
-	// {
-	// 	tmp->center = convert_to_view_space(inv_view_mat, tmp->center);
-	// 	if (tmp->type != SPHERE)
-	// 		tmp->dir = normalize(convert_to_view_space(inv_view_mat, tmp->dir));
-	// 	tmp = tmp->next;
-	// }
+	// sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
+	sc->light.pos = convert_to_view_space(inv_view_mat, sc->light.pos);
+	tmp = sc->obj;
+	while (tmp)
+	{
+		tmp->center = convert_to_view_space(inv_view_mat, tmp->center);
+		if (tmp->type != SPHERE)
+			tmp->dir = normalize(convert_to_view_space(inv_view_mat, tmp->dir));
+		tmp = tmp->next;
+	}
 }

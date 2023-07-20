@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/20 18:09:41 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/21 02:15:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	key_hook(int keycode, t_viewport *vp)
 		// system("leaks miniRT");
 		exit(1);
 	}
+	clean_img(vp);
 	if (keycode == KEY_D)
 		ft_right(vp);
 	else if (keycode == KEY_A)

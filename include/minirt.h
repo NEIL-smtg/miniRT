@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 19:55:44 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/20 19:18:00 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 //	transformation
 void		world_to_camera(t_mat4 inv_view_mat, t_scene *sc);
 t_mat4		get_view_matrix(t_camera cam);
+void		rotation_transformation(t_mat4 inv_view_mat, t_scene *sc);
+t_vec3		convert_to_view_space(t_mat4 view_mat, t_vec3 v);
 
 //	render
 void		render(t_viewport *vp, t_scene sc);
@@ -60,6 +62,16 @@ int			valid_range(double from, double to, double nb);
 int			valid_xyz(char *s);
 int			valid_fov(int fov);
 int			valid_vec3(char *s);
+
+// transformation
+void		ft_forward(t_viewport *vp);
+void		ft_backward(t_viewport *vp);
+void		ft_right(t_viewport *vp);
+void		ft_left(t_viewport *vp);
+void		ft_up(t_viewport *vp);
+void		ft_down(t_viewport *vp);
+void		ft_panning_right(t_viewport *vp);
+void		ft_panning_left(t_viewport *vp);
 
 //colors
 t_rgb		phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t);

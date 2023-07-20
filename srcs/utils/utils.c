@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 01:14:37 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/20 19:32:25 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,26 @@ void	print_scene(t_scene *sc)
 	t_obj	*tmp;
 
 	print_setting(sc);
-	printf("############## Shapes ##############\n");
-	tmp = sc->obj;
-	while (tmp)
-	{
-		if (tmp->type == SPHERE)
-			printf("SPHERE\t{\n");
-		else if (tmp->type == PLANE)
-			printf("PLANE\t{\n");
-		else
-			printf("CYLINDER\t{\n");
-		print_vec(tmp->center, 1);
-		if (tmp->type != SPHERE)
-			print_vec(tmp->dir, 2);
-		if (tmp->type != PLANE)
-			printf("\tdiameter : %f\n", tmp->d);
-		if (tmp->type == CYLINDER)
-			printf("\theight : %f\n", tmp->h);
-		print_rgb(tmp->rgb);
-		tmp = tmp->next;
-	}
+	// printf("############## Shapes ##############\n");
+	// tmp = sc->obj;
+	// while (tmp)
+	// {
+	// 	if (tmp->type == SPHERE)
+	// 		printf("SPHERE\t{\n");
+	// 	else if (tmp->type == PLANE)
+	// 		printf("PLANE\t{\n");
+	// 	else
+	// 		printf("CYLINDER\t{\n");
+	// 	print_vec(tmp->center, 1);
+	// 	if (tmp->type != SPHERE)
+	// 		print_vec(tmp->dir, 2);
+	// 	if (tmp->type != PLANE)
+	// 		printf("\tdiameter : %f\n", tmp->d);
+	// 	if (tmp->type == CYLINDER)
+	// 		printf("\theight : %f\n", tmp->h);
+	// 	print_rgb(tmp->rgb);
+	// 	tmp = tmp->next;
+	// }
 }
 
 //	calculate focal length

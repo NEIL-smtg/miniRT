@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/20 16:28:25 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/20 18:09:41 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "keys.h"
 
 void	init_viewport(t_viewport *vp, t_camera cam)
 {
@@ -35,7 +36,7 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->inv_view_mat = inverse_mat4(vp->view_mat);
 }
 
-void	create_mlx(t_viewport *vp)
+void	create_mlx(t_viewport *vp, t_scene *scene)
 {
 	vp->mlx = mlx_init();
 	vp->win = mlx_new_window(vp->mlx, (int) vp->w, (int) vp->h, TITLE);
@@ -46,6 +47,43 @@ void	create_mlx(t_viewport *vp)
 			&vp->img.line_size,
 			&vp->img.endian
 			);
+	vp->scene = scene;
+}
+
+int	key_hook(int keycode, t_viewport *vp)
+{
+	// printf("%f\n", vp->scene->cam.pos.y);
+	if (keycode == KEY_ESC)
+	{
+		mlx_destroy_window(vp->mlx, vp->win);
+		// system("leaks miniRT");
+		exit(1);
+	}
+	if (keycode == KEY_D)
+		ft_right(vp);
+	else if (keycode == KEY_A)
+		ft_left(vp);
+	else if (keycode == KEY_W)
+		ft_forward(vp);
+	else if (keycode == KEY_S)
+		ft_backward(vp);
+	else if (keycode == KEY_UP)
+		ft_up(vp);
+	else if (keycode == KEY_DOWN)
+		ft_down(vp);
+	// else if (keycode == KEY_PLUS)
+	// 	ft_edit(vp);
+	else if (keycode == KEY_Q)
+		ft_panning_left(vp);
+	else if (keycode == KEY_E)
+		ft_panning_right(vp);
+	return (0);
+}
+
+int	ft_close(t_viewport *vp)
+{
+	mlx_destroy_window(vp->mlx, vp->win);
+	exit (0);
 }
 
 int	main(int ac, char **av)
@@ -61,8 +99,10 @@ int	main(int ac, char **av)
 	init_viewport(&vp, scene.cam);
 	world_to_camera(vp.inv_view_mat, &scene);
 	print_scene(&scene);
-	create_mlx(&vp);
+	create_mlx(&vp, &scene);
 	render(&vp, scene);
+	mlx_hook(vp.win, 2, (1L << 0), key_hook, &vp);
+	mlx_hook(vp.win, 17, (1L << 0), ft_close, &vp);
 	mlx_loop(vp.mlx);
 	return (0);
 }

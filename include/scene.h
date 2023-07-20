@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 19:56:41 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/20 16:51:18 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ typedef struct s_viewport
 	t_mat3	transform_mat;
 	t_mat4	view_mat;
 	t_mat4	inv_view_mat;
-	t_vec3	p0,p1,p2,lowerleft;
+	t_vec3	lowerleft;
+	t_vec3	p0;
+	t_vec3	p1;
+	t_vec3	p2;
+	t_scene	*scene;
 }	t_viewport;
 
 #endif

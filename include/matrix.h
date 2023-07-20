@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/06 00:43:31 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/20 19:49:07 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,11 @@ t_mat4	mat4_transposition(t_mat4 m);
 
 t_vec4	mat44_mul_mat41(t_mat4 a, t_vec4 v);
 t_mat4	inverse_mat4(t_mat4 mat);
+
+t_vec3	vec3_from_vec4(t_vec4 v);
+t_mat3	get_rotation_mat(t_mat4 view_mat);
+t_mat3	mat33_mul_mat33(t_mat3 a, t_mat3 b);
+t_mat4	replace_rotation_view_mat(t_mat3 rot, t_mat4 view_mat);
+t_vec3	mat33_mul_mat31(t_mat3 a, t_vec3 b);
 
 #endif

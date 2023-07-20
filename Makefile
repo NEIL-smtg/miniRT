@@ -13,6 +13,7 @@ FILES			=	main utils/ft_atof utils/rt_split utils/utils\
 					matrix/view_matrix \
 					render \
 					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal\
+					transformation/movement
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
@@ -37,7 +38,7 @@ endif
 all:
 	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/color
 	@mkdir -p $(OBJS_DIR)checker $(OBJS_DIR)utils $(OBJS_DIR)vector
-	@mkdir -p $(OBJS_DIR)matrix $(OBJS_DIR)geometry
+	@mkdir -p $(OBJS_DIR)matrix $(OBJS_DIR)geometry $(OBJS_DIR)transformation
 	@make $(LIBFT)
 	make $(NAME)
 

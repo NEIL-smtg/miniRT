@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/20 16:18:33 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/20 19:40:51 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_mat4	get_view_matrix(t_camera cam)
 	return (mat4_transposition(view_mat));
 }
 
-static t_vec3	convert_to_view_space(t_mat4 view_mat, t_vec3 v)
+t_vec3	convert_to_view_space(t_mat4 view_mat, t_vec3 v)
 {
 	t_vec4	p;
 	t_vec4	after;
@@ -68,4 +68,21 @@ void	world_to_camera(t_mat4 inv_view_mat, t_scene *sc)
 			tmp->dir = normalize(convert_to_view_space(inv_view_mat, tmp->dir));
 		tmp = tmp->next;
 	}
+}
+
+void	rotation_transformation(t_mat4 inv_view_mat, t_scene *sc)
+{
+	t_obj	*tmp;
+
+	// sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
+	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
+	// sc->light.pos = convert_to_view_space(inv_view_mat, sc->light.pos);
+	// tmp = sc->obj;
+	// while (tmp)
+	// {
+	// 	tmp->center = convert_to_view_space(inv_view_mat, tmp->center);
+	// 	if (tmp->type != SPHERE)
+	// 		tmp->dir = normalize(convert_to_view_space(inv_view_mat, tmp->dir));
+	// 	tmp = tmp->next;
+	// }
 }

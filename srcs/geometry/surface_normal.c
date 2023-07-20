@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   surface_normal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:31:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/19 00:31:11 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/20 15:00:51 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 static t_vec3	get_cy_surface_normal(t_ray ray, t_obj *obj, \
 		t_vec3 inter, double t)
 {
-	double	m;
-	t_vec3	oc;
+	t_vec3	oi;
+	double	h;
+	t_vec3	projection;
 	t_vec3	n;
 
-	oc = vec3_sub(obj->center, ray.origin);
-	m = vec3_dot(ray.dir, vec3_mul(t, obj->dir));
-	m += vec3_dot(oc, obj->dir);
-	n = vec3_sub(inter, obj->center);
-	n = vec3_sub(n, vec3_mul(m, obj->dir));
-	return (normalize(n));	
+	oi = vec3_sub(inter, obj->center);
+	h = vec3_dot(oi, obj->dir);
+	projection = vec3_mul(h, obj->dir);
+	n = vec3_sub(oi, projection);
+	return (normalize(n));
 }
 
 t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t)

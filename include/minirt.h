@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 00:07:41 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 17:57:10 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include "scene.h"
 # include "quaternion.h"
+# include <stdbool.h>
 
 # define TITLE	"miniRT"
 # define HEIGHT	540
@@ -33,9 +34,12 @@ void		world_to_camera(t_mat4 inv_view_mat, t_scene *sc);
 t_mat4		get_view_matrix(t_camera cam);
 void		rotation_transformation(t_mat4 inv_view_mat, t_scene *sc);
 t_vec3		convert_to_view_space(t_mat4 view_mat, t_vec3 v);
+void		ft_edit(t_viewport *vp);
+int			mouse_event(int button, int x, int y, t_viewport *vp);
 
 //	render
 void		render(t_viewport *vp, t_scene sc);
+void		render_edit(t_viewport *vp, t_scene sc);
 
 //	utils
 void		print_scene(t_scene *sc);

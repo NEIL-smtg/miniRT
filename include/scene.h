@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/20 16:51:18 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:48:38 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "shape.h"
 # include "matrix.h"
+# include <stdbool.h>
 
 typedef struct s_amblight
 {
@@ -64,6 +65,7 @@ typedef struct s_viewport
 	double	aspect_ratio;
 	void	*mlx;
 	void	*win;
+	bool	edit;
 	t_vec3	origin;
 	t_img	img;
 	t_mat3	transform_mat;

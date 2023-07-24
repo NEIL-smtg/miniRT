@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:47:09 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/24 02:46:10 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 18:01:20 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,38 @@
 
 void	ft_forward(t_viewport *vp)
 {
-	vp->scene->cam.pos.z -= 1.0f;
-	render(vp, *vp->scene);
+	vp->scene->cam.pos.z -= 0.5;
+	// render(vp, *vp->scene);
 }
 
 void	ft_backward(t_viewport *vp)
 {
-	vp->scene->cam.pos.z += 1.0f;
-	render(vp, *vp->scene);
+	vp->scene->cam.pos.z += 0.5;
+	// render(vp, *vp->scene);
 }
 
 void	ft_right(t_viewport *vp)
 {
-	vp->scene->cam.pos.x += 1.0f;
-	render(vp, *vp->scene);
+	vp->scene->cam.pos.x += 0.5;
+	// render(vp, *vp->scene);
 }
 
 void	ft_left(t_viewport *vp)
 {
-	vp->scene->cam.pos.x -= 1.0f;
-	render(vp, *vp->scene);
+	vp->scene->cam.pos.x -= 0.5;
+	// render(vp, *vp->scene);
 }
 
 void	ft_up(t_viewport *vp)
 {
-	vp->scene->cam.pos.y += 1.0f;
-	render(vp, *vp->scene);
+	vp->scene->cam.pos.y += 0.5;
+	// render(vp, *vp->scene);
 }
 
 void	ft_down(t_viewport *vp)
 {
-	vp->scene->cam.pos.y -= 1.0f;
-	render(vp, *vp->scene);
+	vp->scene->cam.pos.y -= 0.5;
+	// render(vp, *vp->scene);
 }
 
 void	ft_panning_right(t_viewport *vp)
@@ -60,7 +60,7 @@ void	ft_panning_right(t_viewport *vp)
 	vp->inv_view_mat = inverse_mat4(vp->view_mat);
 	rotation_transformation(vp->inv_view_mat, vp->scene);
 	// print_scene(vp->scene);
-	render(vp, *vp->scene);
+	// render(vp, *vp->scene);
 }
 
 void	ft_panning_left(t_viewport *vp)
@@ -75,6 +75,6 @@ void	ft_panning_left(t_viewport *vp)
 	vp->inv_view_mat = inverse_mat4(vp->view_mat);
 	world_to_camera(vp->inv_view_mat, vp->scene);
 	// print_scene(vp->scene);
-	render(vp, *vp->scene);
+	// render(vp, *vp->scene);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:30:36 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/20 17:29:23 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/24 15:31:29 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@
 #  define KEY_RIGHT 124
 #  define KEY_DOWN 125
 #  define KEY_UP 126
+#  define KEY_SHIFT 258
 
 # else
 

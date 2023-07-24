@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:47:09 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/21 03:22:31 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 02:46:10 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,37 +50,31 @@ void	ft_down(t_viewport *vp)
 
 void	ft_panning_right(t_viewport *vp)
 {
-	t_mat4	rotation;
-	t_mat4	view_rot;
+	t_quat	q;
 
-	rotation = get_x_rotation_mat(get_radian(5));
-	view_rot = mat44_mul_mat44(vp->view_mat, rotation);
-	// vp->scene->cam.pos = convert_to_view_space(view_rot, vp->scene->cam.pos);
-	vp->scene->cam.dir = convert_to_view_space(view_rot, vp->scene->cam.dir);
-	vp->scene->cam.dir = normalize(vp->scene->cam.dir);
+	printf("e clicked\n");
+	q = get_quaternion(get_radian(10), get_cam_up(vp->view_mat));
+	// vp->scene->cam.pos = rotate(vp->scene->cam.pos, q);
+	vp->scene->cam.dir = normalize(rotate(vp->scene->cam.dir, q));
 	vp->view_mat = get_view_matrix(vp->scene->cam);
 	vp->inv_view_mat = inverse_mat4(vp->view_mat);
-	// print_mat4(vp->inv_view_mat);
-	world_to_camera(view_rot, vp->scene);
-	printf("e clicked\n");
+	rotation_transformation(vp->inv_view_mat, vp->scene);
 	// print_scene(vp->scene);
 	render(vp, *vp->scene);
 }
 
 void	ft_panning_left(t_viewport *vp)
 {
-	t_mat4	rotation;
-	t_mat4	view_rot;
+	t_quat	q;
 
-	rotation = get_x_rotation_mat(get_radian(-5));
-	view_rot = mat44_mul_mat44(vp->view_mat, rotation);
-	// vp->scene->cam.pos = convert_to_view_space(view_rot, vp->scene->cam.pos);
-	vp->scene->cam.dir = convert_to_view_space(view_rot, vp->scene->cam.dir);
-	vp->scene->cam.dir = normalize(vp->scene->cam.dir);
+	printf("q clicked\n");
+	q = get_quaternion(get_radian(-10), get_cam_up(vp->view_mat));
+	vp->scene->cam.pos = rotate(vp->scene->cam.pos, q);
+	vp->scene->cam.dir = normalize(rotate(vp->scene->cam.dir, q));
 	vp->view_mat = get_view_matrix(vp->scene->cam);
 	vp->inv_view_mat = inverse_mat4(vp->view_mat);
-	rotation_transformation(view_rot, vp->scene);
-	printf("q clicked\n");
+	world_to_camera(vp->inv_view_mat, vp->scene);
+	// print_scene(vp->scene);
 	render(vp, *vp->scene);
 }
 

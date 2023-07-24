@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/21 02:13:48 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 00:07:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include "scene.h"
+# include "quaternion.h"
 
 # define TITLE	"miniRT"
 # define HEIGHT	540

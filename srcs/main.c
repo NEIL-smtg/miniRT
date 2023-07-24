@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/21 02:15:05 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/21 19:05:45 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(int ac, char **av)
 	// print_scene(&scene);
 	init_viewport(&vp, scene.cam);
 	world_to_camera(vp.inv_view_mat, &scene);
-	print_scene(&scene);
+	print_scene(&scene);	
 	create_mlx(&vp, &scene);
 	render(&vp, scene);
 	mlx_hook(vp.win, 2, (1L << 0), key_hook, &vp);

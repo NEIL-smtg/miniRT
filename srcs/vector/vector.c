@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/21 02:30:51 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 02:29:03 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,27 @@ double	vec4_dot(t_vec4 v1, t_vec4 v2)
 	z = v1.z * v2.z;
 	w = v1.w * v2.w;
 	return (x + y + z + w);
+}
+
+double	vec4_len(t_vec4 v)
+{
+	double	res;
+
+	res = pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2) + pow(v.w, 2);
+	return (sqrt(res));
+}
+
+t_vec4	vec4_normalize(t_vec4 vec)
+{
+	double	dir_len;
+
+	dir_len = vec4_len(vec);
+	return (new_vec4(
+			vec.x / dir_len,
+			vec.y / dir_len,
+			vec.z / dir_len,
+			vec.w / dir_len
+		));
 }
 
 double	vec3_len(t_vec3 v)

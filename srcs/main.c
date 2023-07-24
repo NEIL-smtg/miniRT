@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/21 19:05:45 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 21:57:03 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "keys.h"
 
 void	init_viewport(t_viewport *vp, t_camera cam)
 {
@@ -52,11 +51,10 @@ void	create_mlx(t_viewport *vp, t_scene *scene)
 
 int	key_hook(int keycode, t_viewport *vp)
 {
-	// printf("%f\n", vp->scene->cam.pos.y);
+	printf("%d\n", keycode);
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(vp->mlx, vp->win);
-		// system("leaks miniRT");
 		exit(1);
 	}
 	clean_img(vp);
@@ -72,12 +70,8 @@ int	key_hook(int keycode, t_viewport *vp)
 		ft_up(vp);
 	else if (keycode == KEY_DOWN)
 		ft_down(vp);
-	// else if (keycode == KEY_PLUS)
-	// 	ft_edit(vp);
-	else if (keycode == KEY_Q)
-		ft_panning_left(vp);
-	else if (keycode == KEY_E)
-		ft_panning_right(vp);
+	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
+		ft_panning(keycode, vp);
 	return (0);
 }
 

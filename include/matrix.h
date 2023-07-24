@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 00:43:27 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 20:25:48 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ t_vec3	mat33_mul_mat31(t_mat3 a, t_vec3 b);
 t_mat4	mat44_mul_mat44(t_mat4 a, t_mat4 b);
 
 //	rotation
-t_mat4	get_x_rotation_mat(double theta);
-t_mat4	get_y_rotation_mat(double theta);
 t_vec3	get_cam_up(t_mat4 view_mat);
+t_vec3	get_cam_forward(t_mat4 view_mat);
+t_vec3	get_cam_right(t_mat4 view_mat);
 
 
 #endif

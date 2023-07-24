@@ -3,39 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 01:43:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 02:44:29 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 20:46:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
+#include "minirt.h"
 
-t_mat4	get_x_rotation_mat(double theta)
+void	origin_translation(t_scene *sc, t_vec3 rot_center, enum e_rotation rot)
 {
-	t_mat4	rot;
+	t_vec3	translate;
+	t_obj	*tmp;
 
-	rot.r1 = new_vec4(1, 0, 0 ,0);
-	rot.r2 = new_vec4(0, cos(theta), -sin(theta), 0);
-	rot.r3 = new_vec4(0, sin(theta), cos(theta), 0);
-	rot.r4 = new_vec4(0, 0, 0, 1);
-	return (rot);
+	translate = rot_center;
+	if (rot == to_origin)
+		translate = vec3_mul(-1, rot_center);
+	tmp = sc->obj;
+	while (tmp)
+	{
+		tmp->center = vec3_add(tmp->center, translate);
+		tmp = tmp->next;
+	}
+	sc->cam.pos = vec3_add(sc->cam.pos, translate);
+	sc->light.pos = vec3_add(sc->light.pos, translate);
 }
 
-t_mat4	get_y_rotation_mat(double theta)
+t_vec3	get_cam_right(t_mat4 view_mat)
 {
-	t_mat4	rot;
-
-	rot.r1 = new_vec4(cos(theta), 0, -sin(theta) ,0);
-	rot.r2 = new_vec4(0, 1, 0, 0);
-	rot.r3 = new_vec4(sin(theta), 0, cos(theta), 0);
-	rot.r4 = new_vec4(0, 0, 0, 1);
-	return (rot);
+	view_mat = mat4_transposition(view_mat);
+	return (vec3_from_vec4(view_mat.r1));
 }
 
 t_vec3	get_cam_up(t_mat4 view_mat)
 {
 	view_mat = mat4_transposition(view_mat);
 	return (vec3_from_vec4(view_mat.r2));
+}
+
+t_vec3	get_cam_forward(t_mat4 view_mat)
+{
+	view_mat = mat4_transposition(view_mat);
+	return (vec3_from_vec4(view_mat.r3));
 }

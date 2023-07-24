@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   quaternion.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 23:43:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 00:32:57 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:11:53 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef QUATERNION_H
 # define QUATERNION_H
 
-# include "matrix.h"
+# include "minirt.h"
 
 typedef struct s_quaternion
 {
@@ -23,5 +23,6 @@ typedef struct s_quaternion
 
 t_quat	get_quaternion(double rad, t_vec3 dir);
 t_vec3	rotate(t_vec3 pt, t_quat q);
+void	quaternion_rotation(t_quat q, t_viewport *vp);
 
 #endif

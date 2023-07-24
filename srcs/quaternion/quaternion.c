@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quaternion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 23:43:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 02:35:26 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:34:32 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "quaternion.h"
 #include <math.h>
+#include "quaternion.h"
+#include "minirt.h"
 
 // q = (w, x, y, z)
 // q* = (w, -x, -y, -z)
@@ -24,12 +25,8 @@ t_quat	get_quaternion(double rad, t_vec3 dir)
 	c = cos(rad / 2);
 	s = sin(rad / 2);
 	q.quaternion = vec4_from_vec3(vec3_mul(s, dir), c);
-	q.conjugate = q.quaternion;
-	q.conjugate.x = -q.conjugate.x;
-	q.conjugate.y = -q.conjugate.y;
-	q.conjugate.z = -q.conjugate.z;
-	q.quaternion = vec4_normalize(q.quaternion);
-	q.conjugate = vec4_normalize(q.conjugate);
+	q.conjugate = vec4_mul(-1.0f, q.quaternion);
+	q.conjugate.w *= -1.0f;
 	return (q);
 }
 
@@ -49,7 +46,22 @@ t_vec3	rotate(t_vec3 pt, t_quat q)
 	t_vec4	p;
 
 	p = vec4_from_vec3(pt, 1);
-	p = qmul(q.quaternion, p);
-	p = qmul(p, q.conjugate);
+	p = qmul(qmul(q.quaternion, p), q.conjugate);
 	return (vec3_from_vec4(p));
+}
+
+void	quaternion_rotation(t_quat q, t_viewport *vp)
+{
+	t_obj	*obj;
+
+	obj = vp->scene->obj;
+	while (obj)
+	{
+		obj->center = rotate(obj->center, q);
+		if (obj->type != SPHERE)
+			obj->dir = normalize(rotate(obj->dir, q));
+		obj = obj->next;
+	}
+	vp->scene->light.pos = rotate(vp->scene->light.pos, q);
+	vp->scene->cam.dir = normalize(rotate(vp->scene->cam.dir, q));
 }

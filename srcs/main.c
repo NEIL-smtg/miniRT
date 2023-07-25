@@ -6,12 +6,11 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 18:37:43 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:03:15 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "keys.h"
 
 void	init_viewport(t_viewport *vp, t_camera cam)
 {
@@ -53,8 +52,12 @@ void	create_mlx(t_viewport *vp, t_scene *scene)
 
 void	movement(int keycode, t_viewport *vp)
 {
-	if (vp->edit == false)
-		return ;
+	printf("%d\n", keycode);
+	if (keycode == KEY_ESC)
+	{
+		mlx_destroy_window(vp->mlx, vp->win);
+		exit(1);
+	}
 	clean_img(vp);
 	if (keycode == KEY_D)
 		ft_right(vp);
@@ -68,29 +71,8 @@ void	movement(int keycode, t_viewport *vp)
 		ft_up(vp);
 	else if (keycode == KEY_DOWN)
 		ft_down(vp);
-	else if (keycode == KEY_Q)
-		ft_panning_left(vp);
-	else if (keycode == KEY_E)
-		ft_panning_right(vp);
-	else
-		return ;
-	render_edit(vp, *vp->scene);
-}
-
-int	key_hook(int keycode, t_viewport *vp)
-{
-	// printf("%d\n", keycode);
-	if (keycode == KEY_ESC)
-	{
-		mlx_destroy_window(vp->mlx, vp->win);
-		exit(1);
-	}
-	else if (keycode == KEY_SHIFT)
-		ft_edit(vp);
-	else if (keycode == KEY_R && vp->edit == true)
-		render(vp, *vp->scene);
-	else
-		movement(keycode, vp);
+	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
+		ft_panning(keycode, vp);
 	return (0);
 }
 
@@ -115,7 +97,7 @@ int	main(int ac, char **av)
 	print_scene(&scene);
 	create_mlx(&vp, &scene);
 	render(&vp, scene);
-	mlx_hook(vp.win, 2, (1L << 0), key_hook, &vp);
+	mlx_hook(vp.win, 2, (1L << 0), movement, &vp);
 	mlx_hook(vp.win, 17, (1L << 0), ft_close, &vp);
 	mlx_loop(vp.mlx);
 	return (0);

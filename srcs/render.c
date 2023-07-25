@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 17:49:03 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:02:05 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	render(t_viewport *vp, t_scene sc)
 			t = get_closest_obj(ray, sc.obj, &closest);
 			if (closest)
 				fill_color(phong_shading(sc, ray, closest, t), vp, pixel);
+			// else
+			// 	fill_color(rgb_scale(sc.amblight.ratio, sc.amblight.rgb), vp, pixel);
 		}
 	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);

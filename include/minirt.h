@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 17:57:10 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:59:47 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 # include <fcntl.h>
 # include "scene.h"
 # include "quaternion.h"
-# include <stdbool.h>
+# include "keys.h"
 
-# define TITLE	"miniRT"
-# define HEIGHT	540
-# define WIDTH	960
+# define TITLE			"miniRT"
+# define HEIGHT			540
+# define WIDTH			960
+# define ANGLE_ROTATION	10
 
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
@@ -76,8 +77,15 @@ void		ft_right(t_viewport *vp);
 void		ft_left(t_viewport *vp);
 void		ft_up(t_viewport *vp);
 void		ft_down(t_viewport *vp);
-void		ft_panning_right(t_viewport *vp);
-void		ft_panning_left(t_viewport *vp);
+void		ft_cam_panning(int keycode, t_viewport *vp);
+
+enum	e_rotation
+{
+	to_origin,
+	revert	
+};
+
+void		origin_translation(t_scene *sc, t_vec3 rot_center, enum e_rotation rot);
 
 //colors
 t_rgb		phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t);

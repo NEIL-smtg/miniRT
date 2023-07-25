@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:10:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/20 15:00:05 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/25 18:48:35 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ double	outside_cylinder(t_ray ray, t_obj *obj, t_vec3 oc)
 	rd2d = normalize(get_projection(ray.dir, obj->dir));
 	oc2d = (get_projection(oc, obj->dir));
 	t = solve_quadratic(
-		vec3_dot(rd2d, rd2d),
-		-2.0f * vec3_dot(oc2d, rd2d),
-		vec3_dot(oc2d, oc2d) - pow(obj->d / 2.0, 2)
-	);
+			vec3_dot(rd2d, rd2d),
+			-2.0f * vec3_dot(oc2d, rd2d),
+			vec3_dot(oc2d, oc2d) - pow(obj->d / 2.0, 2)
+			);
 	if (t == INFINITY)
 		return (INFINITY);
 	t /= vec3_dot(rd2d, ray.dir);

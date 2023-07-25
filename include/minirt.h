@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/25 10:59:47 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:37:27 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ int			mouse_event(int button, int x, int y, t_viewport *vp);
 
 //	render
 void		render(t_viewport *vp, t_scene sc);
+t_vec3		get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin);
+double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest);
+void		fill_color(t_rgb color, t_viewport *vp, int pixel[2]);
 void		render_edit(t_viewport *vp, t_scene sc);
 
 //	utils

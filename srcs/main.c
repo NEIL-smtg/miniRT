@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/25 11:03:15 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:17:02 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->origin = cam.pos;
 	vp->focal = get_focal_length(cam.fov, vp->w);
 	vp->focal = tan(cam.fov / 2);
-	
 	double halfWidth = vp->aspect_ratio * vp->focal;
 
 	// Calculate the center point of the near plane
@@ -50,9 +49,10 @@ void	create_mlx(t_viewport *vp, t_scene *scene)
 	vp->edit = false;
 }
 
-void	movement(int keycode, t_viewport *vp)
+int	movement(int keycode, t_viewport *vp)
 {
-	printf("%d\n", keycode);
+	// printf("%d\n", keycode);
+	// vp->edit = false;
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(vp->mlx, vp->win);
@@ -71,8 +71,12 @@ void	movement(int keycode, t_viewport *vp)
 		ft_up(vp);
 	else if (keycode == KEY_DOWN)
 		ft_down(vp);
+	else if (keycode == KEY_SHIFT)
+		ft_edit(vp);
+	else if (keycode == KEY_R && vp->edit == true)
+		render(vp, *vp->scene);
 	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
-		ft_panning(keycode, vp);
+		ft_cam_panning(keycode, vp);
 	return (0);
 }
 

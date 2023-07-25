@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/24 19:09:45 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:50:35 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,59 +19,8 @@ int	get_user_command(void)
 	printf("TYPE AN ELEMENT TO EDIT : ");
 	comm = get_next_line(0);
 	if (!ft_strncmp(comm, "sp", 2))
-		return(1);
+		return (1);
 	return (0);
-}
-
-static t_vec3	get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin)
-{
-	double	ndc_x;
-	double	ndc_y;
-	double	screen_x;
-	double	screen_y;
-
-	ndc_x = (2.0f * pixel[0]) / vp->w - 1.0f;
-	ndc_y = 1.0f - (2.0f * pixel[1]) / vp->h;
-	screen_x = ndc_x * vp->aspect_ratio * vp->focal;
-	screen_y = ndc_y * vp->focal;
-	return (normalize(new_vec3(
-				screen_x,
-				screen_y,
-				-1.0f
-			)));
-}
-
-static double	get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest)
-{
-	t_obj	*tmp_obj;
-	double	dist[2];
-
-	tmp_obj = obj;
-	dist[0] = INFINITY;
-	while (tmp_obj)
-	{
-		dist[1] = tmp_obj->get_intersects(ray, tmp_obj);
-		if (dist[1] != INFINITY && dist[1] < dist[0])
-		{
-			*closest = tmp_obj;
-			dist[0] = dist[1];
-		}
-		tmp_obj = tmp_obj->next;
-	}
-	return (dist[0]);
-}
-
-static void	fill_color(t_rgb color, t_viewport *vp, int pixel[2])
-{
-	unsigned char	*data;
-	int				index;
-
-	color = clamp(color, 0.0f, 255.0f);
-	data = (unsigned char *) vp->img.data_addr;
-	index = pixel[1] * vp->img.line_size + pixel[0] * (vp->img.bpp / 8);
-	data[index] = (unsigned char) color.b;
-	data[index + 1] = (unsigned char) color.g;
-	data[index + 2] = (unsigned char) color.r;
 }
 
 void	render_edit(t_viewport *vp, t_scene sc)
@@ -94,17 +43,111 @@ void	render_edit(t_viewport *vp, t_scene sc)
 			ray.dir = get_ray_dir(pixel, vp, ray.origin);
 			t = get_closest_obj(ray, sc.obj, &closest);
 			if (closest)
+			{
 				fill_color(closest->rgb, vp, pixel);
+			}
 		}
 	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);
 	// printf("EXIT EDITING MODE\n");
 }
 
+// void	ft_get_input_sp(t_obj	*closest)
+// {
+// 	char	*tmp;
+// 	int		i;
+
+// 	i = 0;
+// 	printf("%u\n", closest->type);
+	// while (i < 7)
+	// {
+		// if (i == 1)
+		// {
+		// 	// printf("sp x coordinate : ");
+		// 	write(1, "sp x coordinate : ", 18);
+		// }
+		// else if (i == 2)
+		// 	printf("sp y coordinate : ");
+		// else if (i == 3)
+		// 	printf("sp z coordinate : ");
+		// else if (i == 4)
+		// 	printf("sp diameter : ");
+		// else if (i == 5)
+		// 	printf("sp red color num : ");
+		// else if (i == 6)
+		// 	printf("sp green color num : ");
+		// else if (i == 7)
+		// 	printf("sp blue color num : ");
+		// tmp = get_next_line(0);
+		// if (!tmp)
+		// 	break ;
+		// if (*tmp == '\0')
+		// 	break ;
+		// if (ft_chck_input(tmp))
+		// {
+		// 	write(2, "Error\n", 6);
+		// 	exit (0);
+		// }
+		// if (i == 1)
+		// 	closest->center.x = ft_atof(tmp);
+		// else if (i == 2)
+		// 	closest->center.y = ft_atof(tmp);
+		// else if (i == 3)
+		// 	closest->center.z = ft_atof(tmp);
+		// else if (i == 4)
+		// 	closest->d = ft_atof(tmp);
+		// else if (i == 5)
+		// 	closest->rgb.r = ft_atof(tmp);
+		// else if (i == 6)
+		// 	closest->rgb.g = ft_atof(tmp);
+		// else if (i == 7)
+		// 	closest->rgb.b = ft_atof(tmp);
+	// 	i++;
+	// }
+// 	printf("sp diameter : ");
+// 	// tmp = get_next_line(0);
+// 	closest->d = ft_atof(tmp);
+// }
+
+// void	edit_element(t_obj	*closest)
+// {
+// 	printf("%u\n", closest->type);
+// 	if (closest->type == 0)
+// 		ft_get_input_sp(closest);
+	// else if (closest->type == 1)
+	// {
+	// 	ft_get_input_cy(closest);
+	// }
+	// else if (closest->type == 2)
+	// {
+	// 	ft_get_input_pl(closest);
+	// }
+// }
+
+// void	ft_obj_panning(t_viewport *vp, t_obj *closest)
+// {
+// 	t_quat	q;
+// 	t_vec3	rot_center;
+// 	t_vec3	rot_axis;
+// 	int		angle;
+
+// 	angle = ANGLE_ROTATION;
+// 	// rot_axis = get_rotation_axis(keycode, vp->view_mat, &angle);
+// 	rot_axis = get_cam_up(vp->view_mat);
+// 	rot_center = closest->center;
+// 	origin_translation(vp->scene, rot_center, to_origin);
+// 	q = get_quaternion(get_radian(angle), rot_axis);
+// 	quaternion_rotation(q, vp);
+// 	origin_translation(vp->scene, rot_center, revert);
+// 	// print_scene(vp->scene);
+// 	render(vp, *vp->scene);
+// }
+
 int	mouse_event(int button, int x, int y, t_viewport *vp)
 {
 	int		pixel[2];
 	t_ray	ray;
+	double	t;
 	t_rgb	cp;
 	t_obj	*closest;
 
@@ -113,18 +156,18 @@ int	mouse_event(int button, int x, int y, t_viewport *vp)
 	ray.origin = vp->scene->cam.pos;
 	closest = NULL;
 	ray.dir = get_ray_dir(pixel, vp, ray.origin);
-	double t = get_closest_obj(ray, vp->scene->obj, &closest);
-	printf("t = %f\n", t);
+	t = get_closest_obj(ray, vp->scene->obj, &closest);
 	if (closest)
 	{
 		cp = new_rgb(closest->rgb.r, closest->rgb.g, closest->rgb.b);
-		closest->rgb.r = 255;
-		closest->rgb.g = 0;
-		closest->rgb.b = 0;
-		closest->d += 1;
+		closest->rgb = new_rgb(255, 0, 0);
 	}
 	render_edit(vp, *vp->scene);
-	return(0);
+	if (closest)
+		closest->rgb = new_rgb(cp.r, cp.g, cp.b);
+	// ft_obj_panning(vp, closest);
+	// continue-code-here
+	return (0);
 }
 
 void	ft_edit(t_viewport *vp)

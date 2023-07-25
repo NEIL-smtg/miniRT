@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:47:09 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/25 10:57:54 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:02:56 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void	ft_cam_panning(int keycode, t_viewport *vp)
 	q = get_quaternion(get_radian(angle), rot_axis);
 	quaternion_rotation(q, vp);
 	origin_translation(vp->scene, rot_center, revert);
-	print_scene(vp->scene);
+	// print_scene(vp->scene);
 	render(vp, *vp->scene);
 }

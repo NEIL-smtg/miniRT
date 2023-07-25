@@ -10,11 +10,11 @@ FILES			=	main utils/ft_atof utils/rt_split utils/utils\
 					checker/set_cylinder checker/set_plane checker/set_sphere \
 					vector/vector vector/vector2 vector/convert\
 					matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
-					matrix/view_matrix \
+					matrix/view_matrix matrix/view_matrix2 \
 					render \
 					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal\
-					transformation/movement transformation/rotation \
-					quaternion/quaternion transformation/edit
+					transformation/edit transformation/cam_rotation transformation/translation\
+					quaternion/quaternion
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/25 11:02:05 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:39:04 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,6 @@ t_vec3	get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin)
 			screen_y,
 			-1.0f
 		)));
-
-	// double	u,v;
-	// t_vec3	raydir, tmp, screen_pt;
-
-	// u = (double) pixel[0] / vp->w;
-	// v = (double) pixel[1] / vp->h;
-	// screen_pt = vec3_mul(u, vec3_sub(vp->p1, vp->p0));
-	// screen_pt = vec3_add(screen_pt, vp->p0);
-	// screen_pt = vec3_add(screen_pt , vec3_mul(v, vec3_sub(vp->p2, vp->p0)));
-	// raydir = vec3_sub(screen_pt, cam_origin);
-	// return (normalize(raydir));
 }
 
 double	get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest)
@@ -83,6 +72,7 @@ void	render(t_viewport *vp, t_scene sc)
 	double	t;
 
 	printf("RENDERING....\n");
+	clean_img(vp);
 	ray.origin = sc.cam.pos;
 	pixel[1] = -1;
 	while (++pixel[1] < (int) vp->h)
@@ -95,12 +85,9 @@ void	render(t_viewport *vp, t_scene sc)
 			t = get_closest_obj(ray, sc.obj, &closest);
 			if (closest)
 				fill_color(phong_shading(sc, ray, closest, t), vp, pixel);
-			// else
-			// 	fill_color(rgb_scale(sc.amblight.ratio, sc.amblight.rgb), vp, pixel);
 		}
 	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);
 	printf("DONE\n");
-	if (vp->edit == true)
-		vp->edit = false;
+	vp->edit = false;
 }

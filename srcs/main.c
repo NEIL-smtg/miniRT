@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/25 18:17:02 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:34:52 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,8 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->h = HEIGHT;
 	vp->w = HEIGHT * vp->aspect_ratio;
 	vp->origin = cam.pos;
-	vp->focal = get_focal_length(cam.fov, vp->w);
+	// vp->focal = get_focal_length(cam.fov, vp->w);
 	vp->focal = tan(cam.fov / 2);
-	double halfWidth = vp->aspect_ratio * vp->focal;
-
-	// Calculate the center point of the near plane
-	t_vec3 center = vec3_add(cam.pos, cam.dir);
-
-	// Calculate the corner points of the near plane
-	vp->p0 = vec3_add(center, new_vec3(-halfWidth, vp->focal, 0));
-	vp->p1 = vec3_add(center, new_vec3(halfWidth, vp->focal, 0));
-	vp->p2 = vec3_add(center, new_vec3(-halfWidth, -vp->focal, 0));
-
 	vp->view_mat = get_view_matrix(cam);
 	vp->inv_view_mat = inverse_mat4(vp->view_mat);
 }
@@ -46,44 +36,33 @@ void	create_mlx(t_viewport *vp, t_scene *scene)
 			&vp->img.endian
 			);
 	vp->scene = scene;
-	vp->edit = false;
-}
-
-int	movement(int keycode, t_viewport *vp)
-{
-	// printf("%d\n", keycode);
-	// vp->edit = false;
-	if (keycode == KEY_ESC)
-	{
-		mlx_destroy_window(vp->mlx, vp->win);
-		exit(1);
-	}
-	clean_img(vp);
-	if (keycode == KEY_D)
-		ft_right(vp);
-	else if (keycode == KEY_A)
-		ft_left(vp);
-	else if (keycode == KEY_W)
-		ft_forward(vp);
-	else if (keycode == KEY_S)
-		ft_backward(vp);
-	else if (keycode == KEY_UP)
-		ft_up(vp);
-	else if (keycode == KEY_DOWN)
-		ft_down(vp);
-	else if (keycode == KEY_SHIFT)
-		ft_edit(vp);
-	else if (keycode == KEY_R && vp->edit == true)
-		render(vp, *vp->scene);
-	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
-		ft_cam_panning(keycode, vp);
-	return (0);
 }
 
 int	ft_close(t_viewport *vp)
 {
 	mlx_destroy_window(vp->mlx, vp->win);
 	exit (0);
+}
+
+int	movement(int keycode, t_viewport *vp)
+{
+	// printf("%d\n", keycode);
+	if (keycode == KEY_ESC)
+		ft_close(vp);
+	if (keycode == KEY_SHIFT)
+		ft_edit(vp);
+	else if (keycode == KEY_R)
+		render(vp, *vp->scene);
+	if (!vp->edit)
+		return (0);
+	if (is_translation_key(keycode))
+		translation(keycode, vp);
+	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
+		ft_cam_panning(keycode, vp);
+	else
+		return (0);
+	render_edit(vp, *vp->scene);
+	return (0);
 }
 
 int	main(int ac, char **av)

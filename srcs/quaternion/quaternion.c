@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quaternion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 23:43:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 22:34:32 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/26 00:06:00 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,4 @@ t_vec3	rotate(t_vec3 pt, t_quat q)
 	p = vec4_from_vec3(pt, 1);
 	p = qmul(qmul(q.quaternion, p), q.conjugate);
 	return (vec3_from_vec4(p));
-}
-
-void	quaternion_rotation(t_quat q, t_viewport *vp)
-{
-	t_obj	*obj;
-
-	obj = vp->scene->obj;
-	while (obj)
-	{
-		obj->center = rotate(obj->center, q);
-		if (obj->type != SPHERE)
-			obj->dir = normalize(rotate(obj->dir, q));
-		obj = obj->next;
-	}
-	vp->scene->light.pos = rotate(vp->scene->light.pos, q);
-	vp->scene->cam.dir = normalize(rotate(vp->scene->cam.dir, q));
 }

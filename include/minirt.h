@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/25 17:37:27 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:33:43 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@
 # include <mlx.h>
 # include <errno.h>
 # include <fcntl.h>
-# include "scene.h"
 # include "quaternion.h"
 # include "keys.h"
+# include "transformation.h"
 
 # define TITLE			"miniRT"
 # define HEIGHT			540
 # define WIDTH			960
-# define ANGLE_ROTATION	10
 
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
@@ -72,23 +71,6 @@ int			valid_range(double from, double to, double nb);
 int			valid_xyz(char *s);
 int			valid_fov(int fov);
 int			valid_vec3(char *s);
-
-// transformation
-void		ft_forward(t_viewport *vp);
-void		ft_backward(t_viewport *vp);
-void		ft_right(t_viewport *vp);
-void		ft_left(t_viewport *vp);
-void		ft_up(t_viewport *vp);
-void		ft_down(t_viewport *vp);
-void		ft_cam_panning(int keycode, t_viewport *vp);
-
-enum	e_rotation
-{
-	to_origin,
-	revert	
-};
-
-void		origin_translation(t_scene *sc, t_vec3 rot_center, enum e_rotation rot);
 
 //colors
 t_rgb		phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t);

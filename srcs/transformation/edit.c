@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/25 18:50:35 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:36:35 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	render_edit(t_viewport *vp, t_scene sc)
 	t_obj	*closest;
 	double	t;
 
-	printf("EDIT MODE....\n");
 	clean_img(vp);
 	ray.origin = sc.cam.pos;
 	pixel[1] = -1;
@@ -135,7 +134,7 @@ void	render_edit(t_viewport *vp, t_scene sc)
 // 	// rot_axis = get_rotation_axis(keycode, vp->view_mat, &angle);
 // 	rot_axis = get_cam_up(vp->view_mat);
 // 	rot_center = closest->center;
-// 	origin_translation(vp->scene, rot_center, to_origin);
+// 	(vp->scene, rot_center, to_origin);
 // 	q = get_quaternion(get_radian(angle), rot_axis);
 // 	quaternion_rotation(q, vp);
 // 	origin_translation(vp->scene, rot_center, revert);
@@ -149,23 +148,30 @@ int	mouse_event(int button, int x, int y, t_viewport *vp)
 	t_ray	ray;
 	double	t;
 	t_rgb	cp;
-	t_obj	*closest;
 
+	printf("%d %d\n", x, y);
 	pixel[0] = x;
 	pixel[1] = y;
 	ray.origin = vp->scene->cam.pos;
-	closest = NULL;
+	vp->selected = NULL;
 	ray.dir = get_ray_dir(pixel, vp, ray.origin);
-	t = get_closest_obj(ray, vp->scene->obj, &closest);
-	if (closest)
+
+	/*
+		build a sorted list of object with respect of t
+		user can pick any object in this ray instead of the closest only
+		only diameter, height, width needed to be modifed
+	*/
+
+	t = get_closest_obj(ray, vp->scene->obj, &vp->selected);
+	if (vp->selected)
 	{
-		cp = new_rgb(closest->rgb.r, closest->rgb.g, closest->rgb.b);
-		closest->rgb = new_rgb(255, 0, 0);
+		cp = vp->selected->rgb;
+		vp->selected->rgb = new_rgb(255, 0, 0);
 	}
 	render_edit(vp, *vp->scene);
-	if (closest)
-		closest->rgb = new_rgb(cp.r, cp.g, cp.b);
-	// ft_obj_panning(vp, closest);
+	if (vp->selected)
+		vp->selected->rgb = new_rgb(cp.r, cp.g, cp.b);
+	// ft_obj_panning(vp, vp->selected);
 	// continue-code-here
 	return (0);
 }
@@ -174,6 +180,7 @@ void	ft_edit(t_viewport *vp)
 {
 	int		type;
 
+	printf("EDIT MODE....\n");
 	vp->edit = true;
 	render_edit(vp, *vp->scene);
 	mlx_mouse_hook(vp->win, mouse_event, vp);

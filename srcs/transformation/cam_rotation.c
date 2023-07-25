@@ -1,61 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movement.c                                         :+:      :+:    :+:   */
+/*   cam_rotation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/20 16:47:09 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/25 16:02:56 by mmuhamad         ###   ########.fr       */
+/*   Created: 2023/07/21 01:43:56 by suchua            #+#    #+#             */
+/*   Updated: 2023/07/26 00:15:11 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "transformation.h"
+#include "quaternion.h"
+#include "keys.h"
 #include "minirt.h"
 
-void	ft_forward(t_viewport *vp)
+static void	origin_translation(t_scene *sc, t_vec3 rot_center,\
+		enum e_rotation rot)
 {
-	t_vec3	pos;
-	t_vec3	dir;
+	t_vec3	translate;
+	t_obj	*obj;
 
-	pos = vp->scene->cam.pos;
-	dir = vp->scene->cam.dir;
-	vp->scene->cam.pos = vec3_add(pos, vec3_mul(0.5, dir));
-	render(vp, *vp->scene);
-}
-
-void	ft_backward(t_viewport *vp)
-{
-	t_vec3	pos;
-	t_vec3	dir;
-
-	pos = vp->scene->cam.pos;
-	dir = vp->scene->cam.dir;
-	vp->scene->cam.pos = vec3_sub(pos, vec3_mul(0.5, dir));
-	render(vp, *vp->scene);
-}
-
-void	ft_right(t_viewport *vp)
-{
-	vp->scene->cam.pos.x += 0.1f;
-	render(vp, *vp->scene);
-}
-
-void	ft_left(t_viewport *vp)
-{
-	vp->scene->cam.pos.x -= 0.1f;
-	render(vp, *vp->scene);
-}
-
-void	ft_up(t_viewport *vp)
-{
-	vp->scene->cam.pos.y += 0.1f;
-	render(vp, *vp->scene);
-}
-
-void	ft_down(t_viewport *vp)
-{
-	vp->scene->cam.pos.y -= 0.1f;
-	render(vp, *vp->scene);
+	translate = rot_center;
+	if (rot == to_origin)
+		translate = vec3_mul(-1, rot_center);
+	obj = sc->obj;
+	while (obj)
+	{
+		obj->center = vec3_add(obj->center, translate);
+		obj = obj->next;
+	}
+	sc->cam.pos = vec3_add(sc->cam.pos, translate);
+	sc->light.pos = vec3_add(sc->light.pos, translate);
 }
 
 /*
@@ -63,7 +39,7 @@ void	ft_down(t_viewport *vp)
 	y rotation returns forward
 	z rotation returns right
 */
-t_vec3	get_rotation_axis(int keycode, t_mat4 view_mat, int *angle)
+static t_vec3	get_rotation_axis(int keycode, t_mat4 view_mat, int *angle)
 {
 	if (keycode % 2 == 0)
 		*angle = -ANGLE_ROTATION;
@@ -77,6 +53,22 @@ t_vec3	get_rotation_axis(int keycode, t_mat4 view_mat, int *angle)
 		return (get_cam_forward(view_mat));
 }
 
+void	rotate_scene(t_quat q, t_viewport *vp)
+{
+	t_obj	*obj;
+
+	obj = vp->scene->obj;
+	while (obj)
+	{
+		obj->center = rotate(obj->center, q);
+		if (obj->type != SPHERE)
+			obj->dir = normalize(rotate(obj->dir, q));
+		obj = obj->next;
+	}
+	vp->scene->light.pos = rotate(vp->scene->light.pos, q);
+	vp->scene->cam.dir = normalize(rotate(vp->scene->cam.dir, q));
+}
+
 void	ft_cam_panning(int keycode, t_viewport *vp)
 {
 	t_quat	q;
@@ -84,14 +76,11 @@ void	ft_cam_panning(int keycode, t_viewport *vp)
 	t_vec3	rot_axis;
 	int		angle;
 
-	// if (vp->edit == false)
-	// 	return ;
 	rot_axis = get_rotation_axis(keycode, vp->view_mat, &angle);
 	rot_center = vp->scene->cam.pos;
 	origin_translation(vp->scene, rot_center, to_origin);
 	q = get_quaternion(get_radian(angle), rot_axis);
-	quaternion_rotation(q, vp);
+	rotate_scene(q, vp);
 	origin_translation(vp->scene, rot_center, revert);
-	// print_scene(vp->scene);
-	render(vp, *vp->scene);
+	render_edit(vp, *vp->scene);
 }

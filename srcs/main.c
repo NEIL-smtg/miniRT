@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 19:21:41 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:29:18 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	movement(int keycode, t_viewport *vp)
 		ft_close(vp);
 	if (keycode == KEY_SHIFT)
 		ft_edit(vp);
+	// rotate obj using 7,8,9,0(can only only rotate when have selected only)
 	if (keycode == KEY_SEVEN || keycode == KEY_EIGHT
 		|| keycode == KEY_NINE || keycode == KEY_ZERO)
 		ft_obj_panning(keycode, vp);
@@ -64,8 +65,8 @@ int	movement(int keycode, t_viewport *vp)
 		translation(keycode, vp);
 	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
 		ft_cam_panning(keycode, vp);
-	// else
-	// 	return (0);
+	else
+		return (0);
 	render_edit(vp, *vp->scene);
 	return (0);
 }

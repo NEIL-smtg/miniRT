@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cam_rotation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 01:43:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 00:15:11 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/26 17:01:22 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "keys.h"
 #include "minirt.h"
 
-static void	origin_translation(t_scene *sc, t_vec3 rot_center,\
+static void	origin_translation(t_scene *sc, t_vec3 rot_center,
 		enum e_rotation rot)
 {
 	t_vec3	translate;

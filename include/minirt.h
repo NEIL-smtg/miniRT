@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 00:33:43 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/26 19:03:08 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		rotation_transformation(t_mat4 inv_view_mat, t_scene *sc);
 t_vec3		convert_to_view_space(t_mat4 view_mat, t_vec3 v);
 void		ft_edit(t_viewport *vp);
 int			mouse_event(int button, int x, int y, t_viewport *vp);
+void		ft_obj_panning(int keycode, t_viewport *vp);
 
 //	render
 void		render(t_viewport *vp, t_scene sc);

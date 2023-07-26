@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 00:34:52 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/26 17:42:17 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->aspect_ratio = 16.0 / 9.0;
 	vp->h = HEIGHT;
 	vp->w = HEIGHT * vp->aspect_ratio;
-	vp->origin = cam.pos;
 	// vp->focal = get_focal_length(cam.fov, vp->w);
 	vp->focal = tan(cam.fov / 2);
 	vp->view_mat = get_view_matrix(cam);
@@ -36,6 +35,7 @@ void	create_mlx(t_viewport *vp, t_scene *scene)
 			&vp->img.endian
 			);
 	vp->scene = scene;
+	vp->selected = NULL;
 }
 
 int	ft_close(t_viewport *vp)
@@ -51,10 +51,10 @@ int	movement(int keycode, t_viewport *vp)
 		ft_close(vp);
 	if (keycode == KEY_SHIFT)
 		ft_edit(vp);
-	else if (keycode == KEY_R)
-		render(vp, *vp->scene);
 	if (!vp->edit)
 		return (0);
+	if (keycode == KEY_R)
+		render(vp, *vp->scene);
 	if (is_translation_key(keycode))
 		translation(keycode, vp);
 	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)

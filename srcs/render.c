@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 00:39:04 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/26 15:52:00 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	render(t_viewport *vp, t_scene sc)
 	double	t;
 
 	printf("RENDERING....\n");
-	clean_img(vp);
+	if (vp->edit)
+		clean_img(vp);
 	ray.origin = sc.cam.pos;
 	pixel[1] = -1;
 	while (++pixel[1] < (int) vp->h)

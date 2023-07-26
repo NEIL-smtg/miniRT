@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quaternion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 23:43:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 00:06:00 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/26 16:08:20 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static t_vec4	qmul(t_vec4 a, t_vec4 b)
 	return (res);
 }
 
+//	p' = qpq*
 t_vec3	rotate(t_vec3 pt, t_quat q)
 {
 	t_vec4	p;

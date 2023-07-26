@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 17:42:17 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/26 20:46:49 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	movement(int keycode, t_viewport *vp)
 		translation(keycode, vp);
 	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
 		ft_cam_panning(keycode, vp);
+	else if (vp->selected)
+		edit_property(keycode, vp->selected);
 	else
 		return (0);
 	render_edit(vp, *vp->scene);

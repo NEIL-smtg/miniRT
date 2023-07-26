@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:30:36 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/25 22:47:11 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/26 20:52:25 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,15 @@
 #  define KEY_BACKQUOTE 50
 #  define KEY_DEL 51
 #  define KEY_ESC 53
-#  define KEY_PLUS 69
-#  define KEY_MINUS 78
+// #  define KEY_PLUS 69
+// #  define KEY_MINUS 78
 #  define KEY_LEFT 123
 #  define KEY_RIGHT 124
 #  define KEY_DOWN 125
 #  define KEY_UP 126
 #  define KEY_SHIFT 258
+#  define KEY_MINUS 27
+#  define KEY_PLUS  24
 
 # else
 

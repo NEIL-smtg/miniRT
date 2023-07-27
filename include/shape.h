@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/19 18:30:16 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 11:59:35 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "color.h"
 # include "matrix.h"
+# include <stdbool.h>
 
 # define LOWCASE	1
 # define UPCASE		2
@@ -41,6 +42,8 @@ enum	e_type
 
 typedef struct s_obj
 {
+	bool			edit_h;
+	bool			edit_d;
 	int				fix;
 	enum e_type		type;
 	t_vec3			center;
@@ -48,6 +51,7 @@ typedef struct s_obj
 	double			d;
 	double			h;
 	t_rgb			rgb;
+	t_rgb			tmp_color;
 	struct s_obj	*next;
 	double			(*get_intersects)(t_ray ray, struct s_obj *obj);
 }	t_obj;

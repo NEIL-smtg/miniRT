@@ -6,11 +6,35 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/26 19:24:10 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/27 12:44:32 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static t_rgb	get_selected_color(t_rgb c)
+{
+	double	min;
+	double	max;
+
+	min = fmin(c.r, c.g);
+	min = fmin(min, c.b);
+	max = fmax(c.r, c.g);
+	max = fmax(max, c.b);
+	if (min == c.r)
+		c.r = max;
+	else if (max == c.r)
+		c.r = min;
+	if (min == c.g)
+		c.g = max;
+	else if (max == c.g)
+		c.g = min;
+	if (min == c.b)
+		c.b = max;
+	else if (max == c.b)
+		c.b = min;
+	return (c);
+}
 
 void	render_edit(t_viewport *vp, t_scene sc)
 {
@@ -19,25 +43,43 @@ void	render_edit(t_viewport *vp, t_scene sc)
 	t_obj	*closest;
 	double	t;
 
-	clean_img(vp);
+	if (vp->edit)
+		clean_img(vp);
 	ray.origin = sc.cam.pos;
-	pixel[1] = -1;
-	while (++pixel[1] < (int) vp->h)
+	pixel[1] = 0;
+	while (pixel[1] < (int) vp->h)
 	{
-		pixel[0] = -1;
-		while (++pixel[0] < (int) vp->w)
+		pixel[0] = 0;
+		while (pixel[0] < (int) vp->w)
 		{
 			closest = NULL;
 			ray.dir = get_ray_dir(pixel, vp, ray.origin);
 			t = get_closest_obj(ray, sc.obj, &closest);
-			if (closest)
-			{
+			if (vp->selected && vp->selected == closest)
+				fill_color(vp->selected->tmp_color, vp, pixel);
+			else if (closest)
 				fill_color(closest->rgb, vp, pixel);
-			}
+			pixel[0] += 3;
 		}
+		pixel[1] += 3;
 	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);
-	// printf("EXIT EDITING MODE\n");
+}
+
+void	selected_msg(t_obj *selected)
+{
+	if (selected->type == SPHERE)
+		printf("\nSphere selected\n");
+	else if (selected->type == PLANE)
+		printf("\nPlane selected\n");
+	else if (selected->type == CYLINDER)
+		printf("\nCylinder selected\n");
+	printf("Press:\n\tkey 7-0 for rotation\n");
+	printf("\tWASD↑↓ for translation.\n");
+	printf("\tcombination : h,+ to increase height\n");
+	printf("\tcombination : h,- to increase height\n");
+	printf("\tcombination : j,+ to increase diameter\n");
+	printf("\tcombination : j,- to increase diameter\n");
 }
 
 void	origin_translate(t_vec3 rot_center,
@@ -74,13 +116,9 @@ t_vec3	get_rot_axis(int keycode, t_viewport *vp, int *angle)
 	{
 		return (normalize(vec3_cross(vp->selected->dir, new_vec3(0, 0, 1))));
 	}
-	else if (keycode == KEY_NINE || keycode == KEY_ZERO)
-	{
-		return (normalize(vec3_cross(normalize(vec3_cross(
-							normalize(vp->selected->dir), new_vec3(0, 0, 1))),
-					normalize(vp->selected->dir))));
-	}
-	return (normalize(vec3_cross(normalize(vec3_cross(normalize(vp->selected->dir), new_vec3(0, 0, 1))), normalize(vp->selected->dir))));
+	return (normalize(vec3_cross(normalize(vec3_cross(normalize(
+							vp->selected->dir), new_vec3(0, 0, 1))),
+				normalize(vp->selected->dir))));
 }
 
 void	ft_obj_panning(int keycode, t_viewport *vp)
@@ -99,53 +137,31 @@ void	ft_obj_panning(int keycode, t_viewport *vp)
 	render_edit(vp, *vp->scene);
 }
 
-// int	obj_rot(int keycode, t_viewport *vp)
-// {
-// 	if (keycode == KEY_THREE || keycode == KEY_FOUR
-// 		|| keycode == KEY_FIVE || keycode == KEY_SIX)
-// 		ft_obj_panning(keycode, vp);
-// 	else if (keycode == KEY_R)
-// 	{
-// 		return (0);
-// 	}
-// 	return (0);
-// }
-
 int	mouse_event(int button, int x, int y, t_viewport *vp)
 {
 	int		pixel[2];
 	t_ray	ray;
-	double	t;
-	t_rgb	cp;
 
-	// printf("%d %d\n", x, y);
+	printf("%d - %d\n", x, y);
 	pixel[0] = x;
 	pixel[1] = y;
-	ray.origin = vp->scene->cam.pos;
 	vp->selected = NULL;
 	ray.dir = get_ray_dir(pixel, vp, ray.origin);
-	/*
-		build a sorted list of object with respect of t
-		user can pick any object in this ray instead of the closest only
-		only diameter, height needed to be modifed
-	*/
-	t = get_closest_obj(ray, vp->scene->obj, &vp->selected);
-	if (vp->selected)
-	{
-		cp = vp->selected->rgb;
-		vp->selected->rgb = new_rgb(255, 0, 0);
-	}
+	get_closest_obj(ray, vp->scene->obj, &vp->selected);
+	if (!vp->selected)
+		return (0);
+	vp->selected->edit_d = false;
+	vp->selected->edit_h = false;
+	vp->selected->tmp_color = get_selected_color(vp->selected->rgb);
 	render_edit(vp, *vp->scene);
-	if (vp->selected)
-		vp->selected->rgb = new_rgb(cp.r, cp.g, cp.b);
-	// continue-code-here
+	selected_msg(vp->selected);
 	return (0);
 }
 
 void	ft_edit(t_viewport *vp)
 {
-	int		type;
-
+	if (vp->edit)
+		return ;
 	printf("EDIT MODE....\n");
 	vp->edit = true;
 	render_edit(vp, *vp->scene);

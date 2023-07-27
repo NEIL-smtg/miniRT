@@ -11,7 +11,7 @@ FILES			=	main utils/ft_atof utils/rt_split utils/utils\
 					vector/vector vector/vector2 vector/convert\
 					matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
 					matrix/view_matrix matrix/view_matrix2 \
-					render \
+					render edit_property \
 					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal\
 					transformation/edit transformation/cam_rotation transformation/translation\
 					quaternion/quaternion
@@ -31,7 +31,7 @@ OS				=	$(shell uname -s)
 
 # Define the compilation commands for each operating system
 ifeq ($(OS),Darwin)
-    COMPILER = $(CC) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
+    COMPILER = $(CC) $(FSAN) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
 else
     COMPILER = $(CC) $(FSAN) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
 endif

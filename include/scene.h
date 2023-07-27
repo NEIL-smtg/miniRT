@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 00:26:15 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 11:59:14 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,15 @@ typedef struct s_viewport
 	void	*mlx;
 	void	*win;
 	bool	edit;
-	t_vec3	origin;
+	// t_vec3	origin;
 	t_img	img;
-	t_mat3	transform_mat;
+	// t_mat3	transform_mat;
 	t_mat4	view_mat;
 	t_mat4	inv_view_mat;
 	t_scene	*scene;
 	t_obj	*selected;
 }	t_viewport;
+
+void	edit_property(int key, t_obj *selected);
 
 #endif

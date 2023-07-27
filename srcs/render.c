@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 15:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 15:52:00 by suchua           ###   ########.fr       */
+/*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
+/*   Updated: 2023/07/27 15:47:59 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ t_vec3	get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin)
 	double	ndc_y;
 	double	screen_x;
 	double	screen_y;
-	
+
 	ndc_x = (2.0f * pixel[0]) / vp->w - 1.0f;
 	ndc_y = 1.0f - (2.0f * pixel[1]) / vp->h;
 	screen_x = ndc_x * vp->aspect_ratio * vp->focal;
 	screen_y = ndc_y * vp->focal;
 	return (normalize(new_vec3(
-			screen_x,
-			screen_y,
-			-1.0f
-		)));
+				screen_x,
+				screen_y,
+				-1.0f
+			)));
 }
 
 double	get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest)
@@ -90,5 +90,6 @@ void	render(t_viewport *vp, t_scene sc)
 	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);
 	printf("DONE\n");
+	vp->selected = NULL;
 	vp->edit = false;
 }

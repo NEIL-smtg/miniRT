@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 00:44:15 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 20:46:49 by suchua           ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2023/07/27 16:01:53 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->aspect_ratio = 16.0 / 9.0;
 	vp->h = HEIGHT;
 	vp->w = HEIGHT * vp->aspect_ratio;
+	// vp->origin = cam.pos;
 	// vp->focal = get_focal_length(cam.fov, vp->w);
 	vp->focal = tan(cam.fov / 2);
 	vp->view_mat = get_view_matrix(cam);
@@ -51,10 +52,16 @@ int	movement(int keycode, t_viewport *vp)
 		ft_close(vp);
 	if (keycode == KEY_SHIFT)
 		ft_edit(vp);
+	// rotate obj using 7,8,9,0(can only only rotate when have selected only)
+	if (keycode == KEY_SEVEN || keycode == KEY_EIGHT
+		|| keycode == KEY_NINE || keycode == KEY_ZERO)
+		ft_obj_panning(keycode, vp);
 	if (!vp->edit)
 		return (0);
-	if (keycode == KEY_R)
+	else if (keycode == KEY_R)
+	{
 		render(vp, *vp->scene);
+	}
 	if (is_translation_key(keycode))
 		translation(keycode, vp);
 	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)

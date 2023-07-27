@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 01:43:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 17:36:23 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 15:54:43 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "keys.h"
 #include "minirt.h"
 
-static void	origin_translation(t_scene *sc, t_vec3 rot_center,\
+static void	origin_translation(t_scene *sc, t_vec3 rot_center,
 		enum e_rotation rot)
 {
 	t_vec3	translate;

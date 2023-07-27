@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 20:51:47 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 15:50:01 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SCENE_H
 
 # include "shape.h"
+# include "color.h"
 # include "matrix.h"
 # include <stdbool.h>
 

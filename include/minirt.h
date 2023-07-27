@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 21:33:32 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/28 00:12:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,21 @@ t_vec3		convert_to_view_space(t_mat4 view_mat, t_vec3 v);
 void		ft_edit(t_viewport *vp);
 
 //	hooks
-int			mouse_event(int button, int x, int y, t_viewport *vp);
+void		hooks(t_viewport *vp);
+
+//	edit mode
+void		selected_msg(t_obj *selected);
 
 //	render
 void		render(t_viewport *vp, t_scene sc);
 t_vec3		get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin);
 double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest);
 void		fill_color(t_rgb color, t_viewport *vp, int pixel[2]);
-void		render_edit(t_viewport *vp, t_scene sc);
 
 //	utils
 void		print_scene(t_scene *sc);
 double		ft_atof(char *s);
 char		**rt_split(char const *s);
-double		get_focal_length(double rad, double width);
 void		print_mat4(t_mat4 mat);
 void		clean_img(t_viewport *vp);
 

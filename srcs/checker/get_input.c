@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:44:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 21:33:25 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 23:43:52 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,47 +60,60 @@ int	line_error(int line)
 
 static int	set_acl(char *line, int *acl, t_scene *sc)
 {
+	int	ret;
+
+	ret = 1;
 	if (*line == 'A' || *line == 'a')
 		acl[0]++;
 	if (sc->amblight.fix && acl[0] > 1)
-		return (0);
+		ret = 0;
 	if (*line == 'L' || *line == 'l')
 		acl[2]++;
 	if (sc->light.fix && acl[2] > 1)
-		return (0);
+		ret = 0;
 	if (!ft_strncmp("CY", line, 2) || !ft_strncmp("cy", line, 2))
 		return (1);
 	if (*line == 'C' || *line == 'c')
 		acl[1]++;
 	if (sc->cam.fix && acl[1] > 1)
-		return (0);
-	return (1);
+		ret = 0;
+	if (!ret)
+		free(line);
+	return (ret);
 }
+
+typedef struct s_v
+{
+	int	fd;
+	int	ret;
+	int	i;
+	int	*acl;
+}	t_v;
 
 int	get_input(char *file, t_scene *sc)
 {
-	int		fd;
 	char	*line;
-	int		ret;
-	int		i;
-	int		*acl;
+	t_v		v;
 
 	sc->obj = NULL;
-	fd = open(file, O_RDONLY);
-	i = 1;
-	acl = ft_calloc(3, sizeof(int));
+	v.fd = open(file, O_RDONLY);
+	v.i = 1;
+	v.acl = ft_calloc(3, sizeof(int));
 	while (1)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(v.fd);
 		if (!line)
 			break ;
-		if (!set_acl(line, acl, sc))
+		if (!set_acl(line, v.acl, sc))
 			break ;
-		ret = process_line(line, sc);
+		v.ret = process_line(line, sc);
 		free(line);
-		++i;
-		if (!ret)
-			return (line_error(i));
-	}
-	return (is_fix(sc, acl, i));
+		++v.i;
+		if (!v.ret)
+		{
+			free(v.acl);
+			return (line_error(v.i));
+		}
+	}	
+	return (is_fix(sc, v.acl, v.i));
 }

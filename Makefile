@@ -4,17 +4,18 @@ LIBFT			=	libft.a
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
 
-FILES			=	main utils/ft_atof utils/rt_split utils/utils utils/printing\
-					color/color color/phong color/shadows\
+FILES			=	main render hooks \
+					edit/edit_property edit/edit_mode \
+					utils/ft_atof utils/rt_split utils/utils utils/printing\
+					color/color color/phong \
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
 					checker/is_fix \
 					vector/vec3 vector/vec3_utils vector/convert vector/vec4 \
 					matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
 					matrix/view_matrix matrix/view_matrix2 \
-					render edit_property\
-					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal\
-					transformation/edit transformation/cam_rotation transformation/translation\
+					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal \
+					transformation/cam_rotation transformation/translation \
 					transformation/panning \
 					quaternion/quaternion
 
@@ -39,7 +40,7 @@ else
 endif
 
 all:
-	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/color
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/color $(OBJS_DIR)/edit
 	@mkdir -p $(OBJS_DIR)checker $(OBJS_DIR)utils $(OBJS_DIR)vector
 	@mkdir -p $(OBJS_DIR)matrix $(OBJS_DIR)geometry $(OBJS_DIR)transformation
 	@mkdir -p $(OBJS_DIR)quaternion

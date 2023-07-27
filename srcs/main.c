@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2023/07/27 21:35:58 by suchua           ###   ########.fr       */
+/*   Created: 2023/07/27 22:57:43 by suchua            #+#    #+#             */
+/*   Updated: 2023/07/28 00:02:34 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->aspect_ratio = 16.0 / 9.0;
 	vp->h = HEIGHT;
 	vp->w = HEIGHT * vp->aspect_ratio;
-	// vp->focal = get_focal_length(cam.fov, vp->w);
 	vp->focal = tan(cam.fov / 2);
 	vp->view_mat = get_view_matrix(cam);
 	vp->inv_view_mat = inverse_mat4(vp->view_mat);
@@ -36,36 +35,7 @@ void	create_mlx(t_viewport *vp, t_scene *scene)
 			);
 	vp->scene = scene;
 	vp->selected = NULL;
-}
-
-int	ft_close(t_viewport *vp)
-{
-	mlx_destroy_window(vp->mlx, vp->win);
-	exit (0);
-}
-
-// rotate obj using 7,8,9,0(can only only rotate when have selected only)
-int	movement(int keycode, t_viewport *vp)
-{
-	// printf("%d\n", keycode);
-	if (keycode == KEY_ESC)
-		ft_close(vp);
-	if (keycode == KEY_SHIFT)
-		ft_edit(vp);
-	if (!vp->edit)
-		return (0);
-	if (keycode == KEY_R)
-		render(vp, *vp->scene);
-	else if (is_translation_key(keycode))
-		translation(keycode, vp);
-	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
-		panning(keycode, vp);
-	else if (vp->selected)
-		edit_property(keycode, vp->selected);
-	else
-		return (0);
-	render_edit(vp, *vp->scene);
-	return (0);
+	vp->edit = false;
 }
 
 int	main(int ac, char **av)
@@ -82,9 +52,6 @@ int	main(int ac, char **av)
 	print_scene(&scene);
 	create_mlx(&vp, &scene);
 	render(&vp, scene);
-	mlx_hook(vp.win, 2, (1L << 0), movement, &vp);
-	mlx_hook(vp.win, 17, (1L << 0), ft_close, &vp);
-	mlx_mouse_hook(vp.win, mouse_event, &vp);
-	mlx_loop(vp.mlx);
+	hooks(&vp);
 	exit (0);
 }

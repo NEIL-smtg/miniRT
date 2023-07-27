@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_fix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 20:54:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 21:36:59 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 23:33:33 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,20 @@ int	is_fix(t_scene *sc, int *acl, int line)
 	if (acl[0] > 1 || acl[1] > 1 || acl[2] > 1)
 	{
 		fix_error(acl, line);
+		free(acl);
 		return (0);
 	}
 	if (!acl[0] || !acl[1] || !acl[2])
 	{
 		printf("Error !!\n");
 		line_error(line);
-		printf("The scene must contain at least 1 camera, light and ambient !!\n");
+		printf("The scene must contain at least 1 camera,");
+		printf("light and ambient !!\n");
 		free(acl);
 		return (0);
 	}
-	return (obj_is_fix(obj, SPHERE, "SPHERE", line) &&
-			obj_is_fix(obj, PLANE, "PLANE", line) &&
-			obj_is_fix(obj, CYLINDER, "CYLINDER", line));
+	free(acl);
+	return (obj_is_fix(obj, SPHERE, "SPHERE", line)
+		&& obj_is_fix(obj, PLANE, "PLANE", line)
+		&& obj_is_fix(obj, CYLINDER, "CYLINDER", line));
 }

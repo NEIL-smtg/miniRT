@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   surface_normal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:31:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/20 15:00:51 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 22:52:25 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t)
 	if (obj->type == SPHERE)
 		return (normalize(vec3_sub(inter, obj->center)));
 	else if (obj->type == PLANE)
-	{
-		// if (vec3_dot(ray.dir, obj->dir) < 0.0f)
-		// 	return (vec3_mul(-1, obj->dir));
 		return (obj->dir);
-	}
 	else
 		return (get_cy_surface_normal(ray, obj, inter, t));
 }

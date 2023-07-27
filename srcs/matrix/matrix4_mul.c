@@ -32,17 +32,14 @@ t_mat4	mat44_mul_mat44(t_mat4 a, t_mat4 b)
 	res.r1.y = vec4_dot(a.r1, b.r2);
 	res.r1.z = vec4_dot(a.r1, b.r3);
 	res.r1.w = vec4_dot(a.r1, b.r4);
-	
 	res.r2.x = vec4_dot(a.r2, b.r1);
 	res.r2.y = vec4_dot(a.r2, b.r2);
 	res.r2.z = vec4_dot(a.r2, b.r3);
 	res.r2.w = vec4_dot(a.r2, b.r4);
-	
 	res.r3.x = vec4_dot(a.r3, b.r1);
 	res.r3.y = vec4_dot(a.r3, b.r2);
 	res.r3.z = vec4_dot(a.r3, b.r3);
 	res.r3.w = vec4_dot(a.r3, b.r4);
-
 	res.r4.x = vec4_dot(a.r4, b.r1);
 	res.r4.y = vec4_dot(a.r4, b.r2);
 	res.r4.z = vec4_dot(a.r4, b.r3);

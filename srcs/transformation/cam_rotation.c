@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cam_rotation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 01:43:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 15:54:43 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 23:59:00 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "transformation.h"
-#include "quaternion.h"
-#include "keys.h"
 #include "minirt.h"
 
 static void	origin_translation(t_scene *sc, t_vec3 rot_center,
@@ -82,5 +79,5 @@ void	ft_cam_panning(int keycode, t_viewport *vp)
 	q = get_quaternion(get_radian(angle), rot_axis);
 	rotate_scene(q, vp);
 	origin_translation(vp->scene, rot_center, revert);
-	render_edit(vp, *vp->scene);
+	render(vp, *vp->scene);
 }

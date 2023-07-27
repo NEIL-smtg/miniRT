@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 19:39:39 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 22:53:18 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static double	get_diffuse_color(t_light light, t_obj *obj, \
 	return (fmax(diff, 0));
 }
 
-bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
+static bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
 {
 	t_obj	*closest;
 	t_ray	ray;
@@ -84,21 +84,6 @@ bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
 	return (false);
 }
 
-// static t_rgb    get_diffuse_color(t_light light, t_obj *obj, \
-//         t_vec3 inter, t_vec3 surface_normal)
-// {    
-//     t_vec3    light_dir;
-//     t_rgb    diffuse;
-//     double    angle;
-
-//     light_dir = normalize(vec3_sub(light.pos, inter));
-//     angle = vec3_dot(light_dir, surface_normal);
-//     angle = fmax(0.0f, angle);
-//     diffuse = rgb_scale(light.brightness, light.rgb);
-//     diffuse = rgb_scale(angle, diffuse);
-//     return (diffuse);
-// }
-
 t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 {
 	t_vec3	inter;
@@ -113,13 +98,11 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 	if (obj->type == PLANE)
 	{
 		diffuse *= PL_DIFFUSE_TERM;
-		// diffuse = rgb_scale(PL_DIFFUSE_TERM, diffuse);
 		specular = rgb_scale(PL_SPECULAR_TERM, specular);
 	}
 	if (in_shadows(sc, inter, obj, diffuse))
 		return (new_rgb(0, 0, 0));
 	sc.amblight.rgb = rgb_scale(sc.amblight.ratio, sc.amblight.rgb);
-	// return (sc.amblight.rgb);
 	return (new_rgb(
 			sc.amblight.rgb.r + specular.r + (obj->rgb.r * diffuse),
 			sc.amblight.rgb.g + specular.g + (obj->rgb.g * diffuse),

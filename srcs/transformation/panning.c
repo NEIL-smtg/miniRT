@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   panning.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 18:08:04 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 23:59:03 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ static void	ft_obj_panning(int keycode, t_viewport *vp)
 	q = get_quaternion(get_radian(angle), rot_axis);
 	quaternion_rotation(q, vp->selected);
 	origin_translate(rot_center, revert, vp->selected);
-	render_edit(vp, *vp->scene);
+	render(vp, *vp->scene);
 }
 
 void	panning(int key, t_viewport *vp)
 {
-	if (vp->selected->type == SPHERE)
+	if (!vp->selected)
+		ft_cam_panning(key, vp);
+	else if (vp->selected->type == SPHERE)
 	{
 		printf("\nSphere cannot be rotated !!\n");
 		printf("Please choose CYLINDER or PLANE for rotation.\n\n");
 		return ;
 	}
-	if (vp->selected)
-		ft_obj_panning(key, vp);
 	else
-		ft_cam_panning(key, vp);
+		ft_obj_panning(key, vp);
 }

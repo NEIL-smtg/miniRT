@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translation.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:21:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 15:52:15 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 23:04:43 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ static void	y_translation(enum e_movement dir, t_vec3 *pos)
 		pos->y--;
 }
 
-static void	z_translation(enum e_movement dir, t_vec3 *pos, t_vec3 normal)
+static void	z_translation(enum e_movement dir, t_vec3 *pos, t_vec3 normal, \
+		t_obj *selected)
 {
-	if (dir == forward)
+	if (selected && selected->type == SPHERE && dir == forward)
+		selected->center.z++;
+	else if (selected && selected->type == SPHERE && dir == backward)
+		selected->center.z--;
+	else if (dir == forward)
 		*pos = vec3_add(*pos, vec3_mul(0.5, normal));
 	else
 		*pos = vec3_add(*pos, vec3_mul(-0.5, normal));
@@ -58,14 +63,10 @@ void	translation(int keycode, t_viewport *vp)
 		y_translation(up, pos);
 	else if (keycode == KEY_DOWN)
 		y_translation(down, pos);
-	else if (vp->selected && vp->selected->type == SPHERE && keycode == KEY_S)
-		(vp->selected->center.z)++;
-	else if (vp->selected && vp->selected->type == SPHERE && keycode == KEY_W)
-		(vp->selected->center.z)--;
 	else if (keycode == KEY_S)
-		z_translation(backward, pos, dir);
+		z_translation(backward, pos, dir, vp->selected);
 	else if (keycode == KEY_W)
-		z_translation(forward, pos, dir);
+		z_translation(forward, pos, dir, vp->selected);
 }
 
 bool	is_translation_key(int keycode)

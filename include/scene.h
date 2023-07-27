@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 15:50:01 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/28 00:13:58 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ typedef struct s_viewport
 }	t_viewport;
 
 void	edit_property(int key, t_obj *selected);
+void	selected_msg(t_obj *selected);
 
 #endif

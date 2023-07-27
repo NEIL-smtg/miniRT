@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 21:38:58 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/28 00:09:17 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,44 @@ void	fill_color(t_rgb color, t_viewport *vp, int pixel[2])
 	data[index + 2] = (unsigned char) color.r;
 }
 
+static void	width_loop(int pixel[2], t_viewport *vp)
+{
+	double	t;
+	t_ray	ray;
+	t_obj	*closest;
+
+	ray.origin = vp->scene->cam.pos;
+	pixel[0] = 0;
+	while (pixel[0] < (int) vp->w)
+	{
+		closest = NULL;
+		ray.dir = get_ray_dir(pixel, vp, ray.origin);
+		t = get_closest_obj(ray, vp->scene->obj, &closest);
+		if (closest && !vp->edit)
+			fill_color(phong_shading(*vp->scene, ray, closest, t), vp, pixel);
+		else if (vp->edit && vp->selected && vp->selected == closest)
+			fill_color(vp->selected->tmp_color, vp, pixel);
+		else if (vp->edit && closest)
+			fill_color(closest->rgb, vp, pixel);
+		pixel[0] += vp->edit * 2 + 1;
+	}
+}
+
 void	render(t_viewport *vp, t_scene sc)
 {
 	int		pixel[2];
-	t_ray	ray;
-	t_obj	*closest;
-	double	t;
 
-	printf("RENDERING....\n");
 	if (vp->edit)
 		clean_img(vp);
-	ray.origin = sc.cam.pos;
-	pixel[1] = -1;
-	while (++pixel[1] < (int) vp->h)
+	else
+		printf("RENDERING....\n");
+	pixel[1] = 0;
+	while (pixel[1] < (int) vp->h)
 	{
-		pixel[0] = -1;
-		while (++pixel[0] < (int) vp->w)
-		{
-			closest = NULL;
-			ray.dir = get_ray_dir(pixel, vp, ray.origin);
-			t = get_closest_obj(ray, sc.obj, &closest);
-			if (closest)
-				fill_color(phong_shading(sc, ray, closest, t), vp, pixel);
-		}
+		width_loop(pixel, vp);
+		pixel[1] += vp->edit * 2 + 1;
 	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);
-	printf("DONE\n");
-	vp->selected = NULL;
-	vp->edit = false;
+	if (!vp->edit)
+		printf("DONE\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:03 by suchua            #+#    #+#             */
-/*   Updated: 2023/06/27 15:38:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 23:01:08 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,6 @@ t_mat3	mat_transposition(t_mat3 mat)
 	new.r2 = new_vec3(mat.r1.y, mat.r2.y, mat.r3.y);
 	new.r3 = new_vec3(mat.r1.z, mat.r2.z, mat.r3.z);
 	return (new);
-}
-
-t_mat3	get_transformation_mat(t_vec3 cam_dir)
-{
-	t_vec3	u;
-	t_vec3	v;
-	t_vec3	w;
-	t_mat3	mat;
-
-	w = normalize(cam_dir);
-	u = new_vec3(0, 1, 0);
-	if (1.0 == w.z)
-		v = new_vec3(1, 0, 0);
-	else if (-1.0 == w.z)
-		v = new_vec3(-1, 0, 0);
-	else
-	{
-		u = new_vec3(w.y, -w.x, 0);
-		u = normalize(u);
-		v = vec3_cross(w, u);
-	}
-	mat = new_mat3(u, v, w);
-	return (mat_transposition(mat));
 }
 
 t_vec3	mat_transform(t_mat3 transform, t_vec3 v)

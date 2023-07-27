@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   quaternion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 23:43:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 15:54:27 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 23:01:56 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include "quaternion.h"
 #include "minirt.h"
 
 // q = (w, x, y, z)

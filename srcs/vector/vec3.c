@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:04:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 15:30:26 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 22:57:22 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,14 @@ t_vec3	normalize(t_vec3 vec)
 			vec.y / dir_len,
 			vec.z / dir_len
 		));
+}
+
+t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
+{
+	t_vec3	res;
+
+	res.x = a.y * b.z - a.z * b.y;
+	res.y = a.z * b.x - a.x * b.z;
+	res.z = a.x * b.y - a.y * b.x;
+	return (res);
 }

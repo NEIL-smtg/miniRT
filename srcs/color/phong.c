@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 19:18:02 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 19:38:28 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,26 @@ static double	get_diffuse_color(t_light light, t_obj *obj, \
 
 	light_dir = normalize(vec3_sub(light.pos, inter));
 	diff = vec3_dot(surface_normal, light_dir);
-	diff = fmax(diff, 0.0f);
+	if (diff < 0.0f)
+		diff = 0.0f;
 	return (diff);
+}
+
+bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
+{
+	t_obj	*closest;
+	t_ray	ray;
+	double	t;
+
+	if (diffuse == 0.0f)
+		return (false);
+	ray.dir = vec3_sub(sc.light.pos, inter);
+	ray.origin = vec3_add(inter, vec3_mul(EPS, ray.dir));
+	closest = NULL;
+	t = get_closest_obj(ray, sc.obj, &closest);
+	if (t != INFINITY)
+		return (true);
+	return (false);
 }
 
 // static t_rgb    get_diffuse_color(t_light light, t_obj *obj, \
@@ -100,6 +118,8 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 		// diffuse = rgb_scale(PL_DIFFUSE_TERM, diffuse);
 		specular = rgb_scale(PL_SPECULAR_TERM, specular);
 	}
+	if (in_shadows(sc, inter, obj, diffuse))
+		return (new_rgb(0, 0, 0));
 	sc.amblight.rgb = rgb_scale(sc.amblight.ratio, sc.amblight.rgb);
 	// return (sc.amblight.rgb);
 	return (new_rgb(

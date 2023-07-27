@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2023/07/27 16:01:53 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 18:16:33 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	ft_close(t_viewport *vp)
 	exit (0);
 }
 
+// rotate obj using 7,8,9,0(can only only rotate when have selected only)
 int	movement(int keycode, t_viewport *vp)
 {
 	// printf("%d\n", keycode);
@@ -52,20 +53,14 @@ int	movement(int keycode, t_viewport *vp)
 		ft_close(vp);
 	if (keycode == KEY_SHIFT)
 		ft_edit(vp);
-	// rotate obj using 7,8,9,0(can only only rotate when have selected only)
-	if (keycode == KEY_SEVEN || keycode == KEY_EIGHT
-		|| keycode == KEY_NINE || keycode == KEY_ZERO)
-		ft_obj_panning(keycode, vp);
 	if (!vp->edit)
 		return (0);
-	else if (keycode == KEY_R)
-	{
+	if (keycode == KEY_R)
 		render(vp, *vp->scene);
-	}
-	if (is_translation_key(keycode))
+	else if (is_translation_key(keycode))
 		translation(keycode, vp);
 	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
-		ft_cam_panning(keycode, vp);
+		panning(keycode, vp);
 	else if (vp->selected)
 		edit_property(keycode, vp->selected);
 	else
@@ -91,6 +86,7 @@ int	main(int ac, char **av)
 	render(&vp, scene);
 	mlx_hook(vp.win, 2, (1L << 0), movement, &vp);
 	mlx_hook(vp.win, 17, (1L << 0), ft_close, &vp);
+	mlx_mouse_hook(vp.win, mouse_event, &vp);
 	mlx_loop(vp.mlx);
 	return (0);
 }

@@ -14,6 +14,7 @@ FILES			=	main utils/ft_atof utils/rt_split utils/utils utils/printing\
 					render edit_property\
 					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal\
 					transformation/edit transformation/cam_rotation transformation/translation\
+					transformation/panning \
 					quaternion/quaternion
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11

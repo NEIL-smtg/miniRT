@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformation.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:41:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/26 00:10:56 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 17:53:00 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ enum	e_rotation
 	revert	
 };
 
-// cam rotation
+// rotation
+void	panning(int key, t_viewport *vp);
 void	ft_cam_panning(int keycode, t_viewport *vp);
 
 // translation

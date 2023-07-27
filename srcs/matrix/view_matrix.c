@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 13:44:06 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 15:34:12 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_mat4	get_view_matrix(t_camera cam)
 	if (forward.y == 1)
 		right = normalize(vec3_cross(forward, new_vec3(0, 0, 1)));
 	else
-		right = normalize(vec3_cross(forward, new_vec3(0, 1, 0)));				
+		right = normalize(vec3_cross(forward, new_vec3(0, 1, 0)));
 	up = normalize(vec3_cross(right, forward));
 	right = normalize(vec3_cross(up, forward));
 	view_mat.r1 = vec4_from_vec3(right, 0.0f);
@@ -58,23 +58,6 @@ void	world_to_camera(t_mat4 inv_view_mat, t_scene *sc)
 
 	sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
 	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
-	sc->light.pos = convert_to_view_space(inv_view_mat, sc->light.pos);
-	tmp = sc->obj;
-	while (tmp)
-	{
-		tmp->center = convert_to_view_space(inv_view_mat, tmp->center);
-		if (tmp->type != SPHERE)
-			tmp->dir = normalize(convert_to_view_space(inv_view_mat, tmp->dir));
-		tmp = tmp->next;
-	}
-}
-
-void	rotation_transformation(t_mat4 inv_view_mat, t_scene *sc)
-{
-	t_obj	*tmp;
-
-	// sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
-	// sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
 	sc->light.pos = convert_to_view_space(inv_view_mat, sc->light.pos);
 	tmp = sc->obj;
 	while (tmp)

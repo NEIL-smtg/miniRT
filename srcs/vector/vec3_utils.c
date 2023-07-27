@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector2.c                                          :+:      :+:    :+:   */
+/*   vec3_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:00:07 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 02:29:59 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 15:33:42 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ t_vec3	vec3_mul(double scalar, t_vec3 v)
 			scalar * v.x,
 			scalar * v.y,
 			scalar * v.z
-		));
-}
-
-t_vec4	vec4_mul(double scalar, t_vec4 v)
-{
-	return (new_vec4(
-			scalar * v.x,
-			scalar * v.y,
-			scalar * v.z,
-			scalar * v.w
 		));
 }
 

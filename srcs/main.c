@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2023/07/27 19:38:06 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 21:35:58 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->aspect_ratio = 16.0 / 9.0;
 	vp->h = HEIGHT;
 	vp->w = HEIGHT * vp->aspect_ratio;
-	// vp->origin = cam.pos;
 	// vp->focal = get_focal_length(cam.fov, vp->w);
 	vp->focal = tan(cam.fov / 2);
 	vp->view_mat = get_view_matrix(cam);
@@ -75,10 +74,9 @@ int	main(int ac, char **av)
 	t_viewport	vp;
 
 	if (!valid_arg(ac, av))
-		return (1);
+		exit (1);
 	if (!get_input(av[1], &scene))
-		return (1);
-	// print_scene(&scene);
+		exit (1);
 	init_viewport(&vp, scene.cam);
 	world_to_camera(vp.inv_view_mat, &scene);
 	print_scene(&scene);
@@ -88,5 +86,5 @@ int	main(int ac, char **av)
 	mlx_hook(vp.win, 17, (1L << 0), ft_close, &vp);
 	mlx_mouse_hook(vp.win, mouse_event, &vp);
 	mlx_loop(vp.mlx);
-	return (0);
+	exit (0);
 }

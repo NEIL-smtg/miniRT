@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/24 20:25:48 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 21:37:27 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ t_mat4	mat44_mul_mat44(t_mat4 a, t_mat4 b);
 t_vec3	get_cam_up(t_mat4 view_mat);
 t_vec3	get_cam_forward(t_mat4 view_mat);
 t_vec3	get_cam_right(t_mat4 view_mat);
-
 
 #endif

@@ -6,15 +6,15 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:56:02 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 17:39:08 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 21:38:37 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void    apply_edit(int key, t_obj *selected)
+static void	apply_edit(int key, t_obj *selected)
 {
-    if (selected->edit_d && key == KEY_PLUS)
+	if (selected->edit_d && key == KEY_PLUS)
     {
         selected->d += 0.5;
         printf("Diameter increased.\n");
@@ -73,11 +73,6 @@ void	edit_property(int key, t_obj *selected)
 	if ((key != KEY_J && key != KEY_H && key != KEY_MINUS && key != KEY_PLUS)
 		|| selected->type == PLANE)
 		return ;
-	if (selected->fix)
-	{
-		printf("This object cannot be edit !!\n");
-		return ;
-	}
 	if (key == KEY_J && selected->type != PLANE)
 		diameter_handler(selected);
 	else if (key == KEY_H && selected->type == CYLINDER)

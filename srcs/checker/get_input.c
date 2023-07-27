@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:44:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 18:03:04 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:33:25 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	process_line(char *line, t_scene *sc)
 	return (1);
 }
 
-static int	line_error(int line)
+int	line_error(int line)
 {
 	ft_putstr_fd(" line : [", 2);
 	ft_putnbr_fd(line, 2);
@@ -58,20 +58,23 @@ static int	line_error(int line)
 	return (0);
 }
 
-void	set_id(t_scene *sc)
+static int	set_acl(char *line, int *acl, t_scene *sc)
 {
-	int		id;
-	t_obj	*head;
-
-	id = 0;
-	head = sc->obj;
-	while (sc->obj->next)
-	{
-		sc->obj->id = id;
-		id++;
-		sc->obj = sc->obj->next;
-	}
-	sc->obj = head;
+	if (*line == 'A' || *line == 'a')
+		acl[0]++;
+	if (sc->amblight.fix && acl[0] > 1)
+		return (0);
+	if (*line == 'L' || *line == 'l')
+		acl[2]++;
+	if (sc->light.fix && acl[2] > 1)
+		return (0);
+	if (!ft_strncmp("CY", line, 2) || !ft_strncmp("cy", line, 2))
+		return (1);
+	if (*line == 'C' || *line == 'c')
+		acl[1]++;
+	if (sc->cam.fix && acl[1] > 1)
+		return (0);
+	return (1);
 }
 
 int	get_input(char *file, t_scene *sc)
@@ -80,16 +83,18 @@ int	get_input(char *file, t_scene *sc)
 	char	*line;
 	int		ret;
 	int		i;
-	int		id;
+	int		*acl;
 
-	id = 0;
 	sc->obj = NULL;
 	fd = open(file, O_RDONLY);
 	i = 1;
+	acl = ft_calloc(3, sizeof(int));
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
+			break ;
+		if (!set_acl(line, acl, sc))
 			break ;
 		ret = process_line(line, sc);
 		free(line);
@@ -97,6 +102,5 @@ int	get_input(char *file, t_scene *sc)
 		if (!ret)
 			return (line_error(i));
 	}
-	set_id(sc);
-	return (1);
+	return (is_fix(sc, acl, i));
 }

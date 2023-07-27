@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 19:38:28 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 19:39:39 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ static double	get_diffuse_color(t_light light, t_obj *obj, \
 
 	light_dir = normalize(vec3_sub(light.pos, inter));
 	diff = vec3_dot(surface_normal, light_dir);
-	if (diff < 0.0f)
-		diff = 0.0f;
-	return (diff);
+	return (fmax(diff, 0));
 }
 
 bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)

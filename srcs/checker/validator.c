@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:53:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/05/22 20:33:13 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 20:23:19 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ static int	prompt_invalid_file(void)
 {
 	ft_putendl_fd("Invalid file !!", 2);
 	ft_putendl_fd("File must be in .rt format !!", 2);
-	return (0);
-}
-
-static int	prompt_save_error(void)
-{
-	ft_putendl_fd("Invalid input !!", 2);
-	ft_putendl_fd("Usage : ./miniRT <path_to_scene.rt> --save", 2);
 	return (0);
 }
 
@@ -55,11 +48,9 @@ static int	valid_rt(char *file)
 
 int	valid_arg(int ac, char **av)
 {
-	if (ac != 2 && ac != 3)
+	if (ac != 2)
 		return (prompt_usage_error());
 	if (!valid_rt(av[1]))
 		return (0);
-	if (ac == 3 && ft_strncmp(av[2], "--save", 7))
-		return (prompt_save_error());
 	return (1);
 }

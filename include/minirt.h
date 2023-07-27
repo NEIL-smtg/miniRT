@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 18:17:09 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 21:33:32 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "quaternion.h"
 # include "keys.h"
 # include "transformation.h"
+# include <stdbool.h>
 
 # define TITLE			"miniRT"
 # define HEIGHT			540
@@ -56,6 +57,8 @@ void		clean_img(t_viewport *vp);
 //valid arg, getting inputs
 int			valid_arg(int ac, char **av);
 int			get_input(char *file, t_scene *sc);
+int			is_fix(t_scene *sc, int *acl, int line);
+int			line_error(int line);
 
 //setters
 int			set_ambient(t_amblight *al, char *line);

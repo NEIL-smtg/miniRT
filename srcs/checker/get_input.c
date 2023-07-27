@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:44:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/07 22:23:59 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 18:03:04 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,31 @@ static int	line_error(int line)
 	return (0);
 }
 
+void	set_id(t_scene *sc)
+{
+	int		id;
+	t_obj	*head;
+
+	id = 0;
+	head = sc->obj;
+	while (sc->obj->next)
+	{
+		sc->obj->id = id;
+		id++;
+		sc->obj = sc->obj->next;
+	}
+	sc->obj = head;
+}
+
 int	get_input(char *file, t_scene *sc)
 {
 	int		fd;
 	char	*line;
 	int		ret;
 	int		i;
+	int		id;
 
+	id = 0;
 	sc->obj = NULL;
 	fd = open(file, O_RDONLY);
 	i = 1;
@@ -79,5 +97,6 @@ int	get_input(char *file, t_scene *sc)
 		if (!ret)
 			return (line_error(i));
 	}
+	set_id(sc);
 	return (1);
 }

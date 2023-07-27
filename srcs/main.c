@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2023/07/27 16:01:53 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 17:39:14 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	ft_close(t_viewport *vp)
 	exit (0);
 }
 
+	// rotate obj using 7,8,9,0(can only only rotate when have selected only)
 int	movement(int keycode, t_viewport *vp)
 {
 	// printf("%d\n", keycode);
@@ -52,7 +53,6 @@ int	movement(int keycode, t_viewport *vp)
 		ft_close(vp);
 	if (keycode == KEY_SHIFT)
 		ft_edit(vp);
-	// rotate obj using 7,8,9,0(can only only rotate when have selected only)
 	if (keycode == KEY_SEVEN || keycode == KEY_EIGHT
 		|| keycode == KEY_NINE || keycode == KEY_ZERO)
 		ft_obj_panning(keycode, vp);

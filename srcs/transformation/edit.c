@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/27 15:54:07 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/27 17:26:21 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ int	mouse_event(int button, int x, int y, t_viewport *vp)
 	int		pixel[2];
 	t_ray	ray;
 
+	if (!vp->edit)
+		return (0);
 	pixel[0] = x;
 	pixel[1] = y;
 	vp->selected = NULL;

@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 23:43:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 23:01:56 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/29 00:10:20 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_quat	get_quaternion(double rad, t_vec3 dir)
 	c = cos(rad / 2);
 	s = sin(rad / 2);
 	q.quaternion = vec4_from_vec3(vec3_mul(s, dir), c);
+	// q.quaternion = vec4_normalize(q.quaternion);
 	q.conjugate = vec4_mul(-1.0f, q.quaternion);
 	q.conjugate.w *= -1.0f;
 	return (q);
@@ -44,7 +45,7 @@ t_vec3	rotate(t_vec3 pt, t_quat q)
 {
 	t_vec4	p;
 
-	p = vec4_from_vec3(pt, 1);
+	p = vec4_from_vec3(pt, 1.0f);
 	p = qmul(qmul(q.quaternion, p), q.conjugate);
 	return (vec3_from_vec4(p));
 }

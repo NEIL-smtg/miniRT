@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/28 00:09:17 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/28 23:07:20 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	render(t_viewport *vp, t_scene sc)
 		pixel[1] += vp->edit * 2 + 1;
 	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);
+	selected_msg(vp->selected);
 	if (!vp->edit)
 		printf("DONE\n");
 }

@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:21:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 23:04:43 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/29 22:23:45 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,59 +14,46 @@
 #include "keys.h"
 #include <stdio.h>
 
-static void	x_translation(enum e_movement dir, t_vec3 *pos)
+static void	x_translation(int key, t_vec3 *pos)
 {
-	if (dir == left)
+	if (key == KEY_A)
 		pos->x--;
 	else
 		pos->x++;
 }
 
-static void	y_translation(enum e_movement dir, t_vec3 *pos)
+static void	y_translation(int key, t_vec3 *pos)
 {
-	if (dir == up)
+	if (key == KEY_UP)
 		pos->y++;
 	else
 		pos->y--;
 }
 
-static void	z_translation(enum e_movement dir, t_vec3 *pos, t_vec3 normal, \
-		t_obj *selected)
+static void	z_translation(int key, t_vec3 *pos)
 {
-	if (selected && selected->type == SPHERE && dir == forward)
-		selected->center.z++;
-	else if (selected && selected->type == SPHERE && dir == backward)
-		selected->center.z--;
-	else if (dir == forward)
-		*pos = vec3_add(*pos, vec3_mul(0.5, normal));
+	if (key == KEY_W)
+		pos->z++;
 	else
-		*pos = vec3_add(*pos, vec3_mul(-0.5, normal));
+		pos->z--;
 }
 
 void	translation(int keycode, t_viewport *vp)
 {
 	t_vec3	*pos;
-	t_vec3	dir;
 
 	pos = &vp->scene->cam.pos;
-	dir = vp->scene->cam.dir;
 	if (vp->selected)
-	{
 		pos = &vp->selected->center;
-		dir = vp->selected->dir;
-	}
-	if (keycode == KEY_D)
-		x_translation(right, pos);
-	else if (keycode == KEY_A)
-		x_translation(left, pos);
-	else if (keycode == KEY_UP)
-		y_translation(up, pos);
-	else if (keycode == KEY_DOWN)
-		y_translation(down, pos);
-	else if (keycode == KEY_S)
-		z_translation(backward, pos, dir, vp->selected);
-	else if (keycode == KEY_W)
-		z_translation(forward, pos, dir, vp->selected);
+	if (keycode == KEY_D || keycode == KEY_A)
+		x_translation(keycode, pos);
+	else if (keycode == KEY_UP || keycode == KEY_DOWN)
+		y_translation(keycode, pos);
+	else if (keycode == KEY_S || keycode == KEY_W)
+		z_translation(keycode, pos);
+	else
+		return ;
+	transformation_info(vp->selected, vp->scene->cam);
 }
 
 bool	is_translation_key(int keycode)

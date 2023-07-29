@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/29 00:43:42 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/29 22:30:19 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_vec3	get_obj_forward(t_vec3 forward)
 
 static t_vec3	get_up_vec(t_viewport *vp)
 {
+	printf("\nROTATING in X-AXIS\n");
 	if (vp->selected)
 		return (get_obj_up(vp->selected->dir));
 	else
@@ -59,6 +60,7 @@ static t_vec3	get_up_vec(t_viewport *vp)
 
 static t_vec3	get_right_vec(t_viewport *vp)
 {
+	printf("\nROTATING in Y-AXIS\n");
 	if (vp->selected)
 		return (get_obj_right(vp->selected->dir));
 	else
@@ -67,6 +69,7 @@ static t_vec3	get_right_vec(t_viewport *vp)
 
 static t_vec3	get_forward_vec(t_viewport *vp)
 {
+	printf("\nROTATING in Z-AXIS\n");
 	if (vp->selected)
 		return (get_obj_forward(vp->selected->dir));
 	else
@@ -148,9 +151,9 @@ static void	start_panning(int keycode, t_viewport *vp)
 	origin_translation(vp, rot_center, revert);
 }
 
-static void	print_info(t_obj *selected, t_camera cam)
+void	transformation_info(t_obj *selected, t_camera cam)
 {
-	printf("\nAfter rotation :\n");
+	printf("\nAfter transformation :\n");
 	if (selected)
 	{
 		if (selected->type == SPHERE)
@@ -179,5 +182,5 @@ void	panning(int key, t_viewport *vp)
 	}
 	else
 		start_panning(key, vp);
-	print_info(vp->selected, vp->scene->cam);
+	transformation_info(vp->selected, vp->scene->cam);
 }

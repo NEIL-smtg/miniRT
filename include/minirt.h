@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/28 00:12:41 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/29 22:44:33 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@
 void		world_to_camera(t_mat4 inv_view_mat, t_scene *sc);
 t_mat4		get_view_matrix(t_camera cam);
 t_vec3		convert_to_view_space(t_mat4 view_mat, t_vec3 v);
-void		ft_edit(t_viewport *vp);
 
 //	hooks
 void		hooks(t_viewport *vp);
 
 //	edit mode
+void		ft_edit(t_viewport *vp);
+bool		is_edit_key(int keycode, t_viewport *vp);
 void		selected_msg(t_obj *selected);
 
 //	render

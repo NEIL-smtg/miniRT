@@ -5,7 +5,7 @@ SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
 
 FILES			=	main render hooks \
-					edit/edit_property edit/edit_mode \
+					edit/edit_property edit/edit_mode edit/edit_utils\
 					utils/ft_atof utils/rt_split utils/utils utils/printing\
 					color/color color/phong \
 					checker/validator checker/get_input checker/checkers checker/settings \

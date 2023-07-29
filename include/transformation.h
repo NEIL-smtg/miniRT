@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:41:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/28 22:46:22 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/29 22:22:59 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,14 @@
 
 # define ANGLE_ROTATION	10
 
-enum	e_movement
-{
-	left,
-	right,
-	up,
-	down,
-	forward,
-	backward
-};
-
 enum	e_rotation
 {
 	to_origin,
 	revert	
 };
+
+//	print info
+void	transformation_info(t_obj *selected, t_camera cam);
 
 // rotation
 void	panning(int key, t_viewport *vp);

@@ -15,7 +15,7 @@ FILES			=	main render hooks \
 					matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
 					matrix/view_matrix matrix/view_matrix2 \
 					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal \
-					transformation/cam_rotation transformation/translation \
+					transformation/info transformation/translation \
 					transformation/panning \
 					quaternion/quaternion
 

@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/29 22:44:27 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/30 21:54:10 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static int	close_edit(t_viewport *vp)
 	return (0);
 }
 
-static void	camera_mode(t_obj *selected)
+static void	camera_mode(t_obj **selected)
 {
-	if (!selected)
+	if (!*selected)
 		return ;
-	selected = NULL;
-	selected_msg(selected);
+	*selected = NULL;
+	selected_msg(*selected);
 }
 
 bool	is_edit_key(int keycode, t_viewport *vp)
@@ -38,7 +38,7 @@ bool	is_edit_key(int keycode, t_viewport *vp)
 	else if (keycode >= KEY_ONE && keycode <= KEY_FIVE)
 		panning(keycode, vp);
 	else if (keycode == KEY_C)
-		camera_mode(vp->selected);
+		camera_mode(&vp->selected);
 	else if (vp->selected)
 		edit_property(keycode, vp->selected);
 	else

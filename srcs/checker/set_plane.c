@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:32:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 01:13:38 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 18:59:13 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	set_plane(t_scene *sc, char *line, int type)
 	}
 	new = new_pl(s, type);
 	new->get_intersects = plane_intersection;
+	new->checkerboard = false;
 	objlst_addback(&(sc->obj), new);
 	ft_free2d(s);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 15:56:06 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:11:45 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,13 @@ bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
 	return (false);
 }
 
-t_rgb	get_ambient_color(t_scene sc, t_obj *obj, t_vec3 inter,
-		t_vec3 surface_normal, double diffuse)
+static t_rgb	get_ambient_color(t_scene sc, t_obj *obj, t_vec3 inter,
+		t_vec3 surface_normal)
 {
 	t_rgb	amb;
 
-	if (diffuse > 0.0f)
-		return (new_rgb(0, 0, 0));
-	amb = new_rgb((obj->rgb.r * sc.amblight.ratio) + (sc.amblight.rgb.r * sc.amblight.ratio),
-			(obj->rgb.g * sc.amblight.ratio) + (sc.amblight.rgb.g * sc.amblight.ratio),
-			(obj->rgb.b * sc.amblight.ratio) + (sc.amblight.rgb.b * sc.amblight.ratio));
+	amb = new_rgb(obj->rgb.r * 0.15, obj->rgb.g * 0.15, obj->rgb.b * 0.15);
+	amb = rgb_scale(sc.amblight.ratio, amb);
 	return (amb);
 }
 
@@ -116,8 +113,8 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 	}
 	if (in_shadows(sc, inter, obj, diffuse))
 		return (new_rgb(0, 0, 0));
-	// amb = get_ambient_color(sc, obj, inter, surface_normal, diffuse);
-	amb = rgb_scale(sc.amblight.ratio, sc.amblight.rgb);
+	amb = get_ambient_color(sc, obj, inter, surface_normal);
+	// amb = rgb_scale(sc.amblight.ratio, sc.amblight.rgb);
 	return (new_rgb(
 			amb.r + specular.r + (obj->rgb.r * diffuse),
 			amb.g + specular.g + (obj->rgb.g * diffuse),

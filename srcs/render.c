@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 13:30:15 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:17:45 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	width_loop(int pixel[2], t_viewport *vp)
 		t = get_closest_obj(ray, vp->scene->obj, &closest);
 		if (closest && !vp->edit)
 		{
-			if (vp->selected && closest == vp->selected && vp->checkerboard)
+			if (closest->checkerboard)
 			{
 				fill_color(checkerboard(vp, ray, closest, t), vp, pixel);
 			}
@@ -114,9 +114,4 @@ void	render(t_viewport *vp, t_scene sc)
 		printf("DONE\n\n");
 		printf("Press key SHIFT to enter EDIT MODE\n");
 	}
-	// if (vp->selected && vp->checkerboard)
-	// {
-	// 	vp->selected = NULL;
-	// 	vp->checkerboard = false;
-	// }
 }

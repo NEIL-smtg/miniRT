@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 20:33:08 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 18:59:33 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static t_obj	*new_sp(char **s, int type)
 	new->rgb.r = ft_atof(xyz[0]);
 	new->rgb.g = ft_atof(xyz[1]);
 	new->rgb.b = ft_atof(xyz[2]);
+	new->checkerboard = false;
 	new->next = NULL;
 	ft_free2d(xyz);
 	return (new);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 18:51:56 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 00:41:51 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 	3) FinalColor = (AmbientColor * ambientRatio + DiffuseColor)
 * */
 
-static t_vec3	reflect(t_vec3 incident, t_vec3 surface_normal)
+t_vec3	reflect(t_vec3 incident, t_vec3 surface_normal)
 {
 	double	dot;
 	t_vec3	ref;
@@ -32,7 +32,7 @@ static t_vec3	reflect(t_vec3 incident, t_vec3 surface_normal)
 	return (normalize(ref));
 }
 
-static t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
+t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
 		t_vec3 inter, t_obj *obj)
 {
 	double	angle;
@@ -55,7 +55,7 @@ static t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
 	return (specular);
 }
 
-static double	get_diffuse_color(t_light light, t_obj *obj, \
+double	get_diffuse_color(t_light light, t_obj *obj, \
 		t_vec3 inter, t_vec3 surface_normal)
 {	
 	double	angle;
@@ -67,7 +67,7 @@ static double	get_diffuse_color(t_light light, t_obj *obj, \
 	return (fmax(diff, 0));
 }
 
-static bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
+bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
 {
 	t_obj	*closest;
 	t_ray	ray;
@@ -84,12 +84,23 @@ static bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
 	return (false);
 }
 
+static t_rgb	get_ambient_color(t_scene sc, t_obj *obj, t_vec3 inter,
+		t_vec3 surface_normal)
+{
+	t_rgb	amb;
+
+	amb = new_rgb(obj->rgb.r * 0.15, obj->rgb.g * 0.15, obj->rgb.b * 0.15);
+	amb = rgb_scale(sc.amblight.ratio, amb);
+	return (amb);
+}
+
 t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 {
 	t_vec3	inter;
 	t_vec3	surface_normal;
 	double	diffuse;
 	t_rgb	specular;
+	t_rgb	amb;
 
 	surface_normal = get_surface_normal(ray, obj, t);
 	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
@@ -102,16 +113,11 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 	}
 	if (in_shadows(sc, inter, obj, diffuse))
 		return (new_rgb(0, 0, 0));
-	sc.amblight.rgb = rgb_scale(sc.amblight.ratio, sc.amblight.rgb);
-	// if (diffuse == 0.0f)
-	// {
-	// 	sc.amblight.rgb = rgb_add(sc.amblight.rgb, rgb_scale(0.3, obj->rgb));
-	// 	sc.amblight.rgb = rgb_add(sc.amblight.rgb, rgb_scale(sc.light.brightness, sc.light.rgb));
-	// 	return (rgb_scale(sc.amblight.ratio, sc.amblight.rgb));
-	// }
+	amb = get_ambient_color(sc, obj, inter, surface_normal);
+	// amb = rgb_scale(sc.amblight.ratio, sc.amblight.rgb);
 	return (new_rgb(
-			sc.amblight.rgb.r + specular.r + (obj->rgb.r * diffuse),
-			sc.amblight.rgb.g + specular.g + (obj->rgb.g * diffuse),
-			sc.amblight.rgb.b + specular.b + (obj->rgb.b * diffuse)
+			amb.r + specular.r + (obj->rgb.r * diffuse),
+			amb.g + specular.g + (obj->rgb.g * diffuse),
+			amb.b + specular.b + (obj->rgb.b * diffuse)
 		));
 }

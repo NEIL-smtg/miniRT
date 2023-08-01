@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:58:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/28 00:13:27 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 02:31:45 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_mat4	mat4_transposition(t_mat4 m);
 
 t_vec4	mat44_mul_mat41(t_mat4 a, t_vec4 v);
 t_mat4	inverse_mat4(t_mat4 mat);
+t_mat3	inverse_mat3(t_mat3 mat);
 
 t_vec3	vec3_from_vec4(t_vec4 v);
 t_vec3	mat33_mul_mat31(t_mat3 a, t_vec3 b);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   surface_normal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:31:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 18:38:50 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 00:54:35 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,20 @@ static t_vec3	get_cy_surface_normal(t_ray ray, t_obj *obj, \
 	return (normalize(n));
 }
 
+//	N = nrm( P-C - (1+k*k)*V*m )
 static t_vec3	get_cone_surface_normal(t_ray ray, t_obj *obj, \
 		t_vec3 inter, double t)
 {
 	t_vec3	n;
 	double	k;
 	t_vec3	oc;
+	double	m;
 
 	k = tan(get_radian(obj->cone_angle / 2));
+	k = 1 + k * k;
+	n = vec3_sub(inter, obj->apex);
+	m = vec3_dot(n, obj->dir);
+	n = vec3_sub(n, vec3_mul(k * m, obj->dir));
 	return (normalize(n));
 }
 

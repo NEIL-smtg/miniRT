@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_mode.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/01 14:44:54 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 01:01:08 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 static int	close_edit(t_viewport *vp)
 {
 	vp->edit = false;
-	vp->selected = NULL;
+	if (vp->selected && vp->selected->checkerboard == false)
+		vp->selected = NULL;
 	clean_img(vp);
 	render(vp, *vp->scene);
+	vp->selected = NULL;
 	return (0);
 }
 
@@ -27,6 +29,15 @@ static void	camera_mode(t_obj **selected)
 		return ;
 	*selected = NULL;
 	selected_msg(*selected);
+}
+
+static void	checkerboard_mode(t_obj **selected)
+{
+	(*selected)->checkerboard = !(*selected)->checkerboard;
+	if ((*selected)->checkerboard)
+		printf("\nCheckerboard enabled.\n");
+	else
+		printf("\nCheckerboard disabled.\n");
 }
 
 //	key 5 = 23, key 6 = 22
@@ -40,6 +51,8 @@ bool	is_edit_key(int keycode, t_viewport *vp)
 		panning(keycode, vp);
 	else if (keycode == KEY_C)
 		camera_mode(&vp->selected);
+	else if (vp->selected && keycode == KEY_B)
+		checkerboard_mode(&vp->selected);
 	else if (vp->selected)
 		edit_property(keycode, vp->selected);
 	else if (keycode == KEY_B)

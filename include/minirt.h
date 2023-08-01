@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 16:45:42 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 00:39:53 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,16 @@ int			valid_xyz(char *s);
 int			valid_fov(int fov);
 int			valid_vec3(char *s);
 
+//phong
+t_vec3		reflect(t_vec3 incident, t_vec3 surface_normal);
+t_rgb		get_specular_light(t_scene sc, t_vec3 surface_normal, \
+		t_vec3 inter, t_obj *obj);
+double		get_diffuse_color(t_light light, t_obj *obj, \
+		t_vec3 inter, t_vec3 surface_normal);
+bool		in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse);
+
 //colors
 t_rgb		phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t);
+t_rgb		checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 
 #endif

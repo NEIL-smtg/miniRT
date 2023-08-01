@@ -13,10 +13,10 @@ FILES			=	main render hooks \
 					checker/set_cone checker/is_fix \
 					vector/vec3 vector/vec3_utils vector/convert vector/vec4 \
 					matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
-					matrix/view_matrix matrix/view_matrix2 \
+					matrix/view_matrix matrix/view_matrix2\
 					geometry/sphere geometry/plane geometry/cylinder geometry/cone\
 					geometry/surface_normal \
-					transformation/info transformation/translation \
+					transformation/info transformation/translation transformation/checkerboard\
 					transformation/panning \
 					quaternion/quaternion
 

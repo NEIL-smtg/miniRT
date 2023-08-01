@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 18:04:06 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 01:00:08 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double	cone_intersection(t_ray ray, t_obj *obj)
 	double	t;
 	double	k;
 
-	obj->apex = vec3_add(obj->center, vec3_mul(obj->h, obj->dir));
+	obj->apex = vec3_add(obj->center, vec3_mul(-obj->h, obj->dir));
 	oc = vec3_sub(obj->apex, ray.dir);
 	k = tan(get_radian(obj->cone_angle / 2));
 	t = solve_quadratic(
@@ -29,5 +29,16 @@ double	cone_intersection(t_ray ray, t_obj *obj)
 		-2 * (vec3_dot(ray.dir, oc) - (1 + k * k) * vec3_dot(ray.dir, obj->dir) * vec3_dot(oc, obj->dir)),
 		vec3_dot(oc, oc) - (1 + k * k) * pow(vec3_dot(oc, obj->dir), 2)
 	);
+	if (t == INFINITY)
+		return (INFINITY);
+	t_vec3	inter;
+
+	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
+	inter = vec3_sub(obj->apex, inter);
+	double	h;
+	
+	h = vec3_dot(inter, obj->dir);
+	if (h > obj->h || h < 0.0f)
+		return 	(INFINITY);
 	return (t);
 }

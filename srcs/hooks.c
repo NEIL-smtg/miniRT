@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 23:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/29 22:41:26 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 15:12:07 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,37 @@ static int	key_pressed(int keycode, t_viewport *vp)
 	return (0);
 }
 
+static void	reset_selected_object(t_obj **selected, t_obj *found)
+{
+	*selected = found;
+	if (!found)
+		return ;
+	(*selected)->edit_d = false;
+	(*selected)->edit_h = false;
+	(*selected)->tmp_color = get_selected_color((*selected)->rgb);
+}
+
 static int	mouse_event(int button, int x, int y, t_viewport *vp)
 {
 	int		pixel[2];
 	t_ray	ray;
+	t_obj	*select;
 
 	if (!vp->edit)
 		return (0);
+	select = NULL;
 	pixel[0] = x;
 	pixel[1] = y;
-	vp->selected = NULL;
 	ray.origin = vp->scene->cam.pos;
 	ray.dir = get_ray_dir(pixel, vp, ray.origin);
-	get_closest_obj(ray, vp->scene->obj, &vp->selected);
-	selected_msg(vp->selected);
-	if (!vp->selected)
+	get_closest_obj(ray, vp->scene->obj, &select);
+	if (select != vp->selected)
 	{
-		render(vp, *vp->scene);
-		return (0);
+		reset_selected_object(&vp->selected, select);
+		selected_msg(vp->selected);
 	}
-	vp->selected->edit_d = false;
-	vp->selected->edit_h = false;
-	vp->selected->tmp_color = get_selected_color(vp->selected->rgb);
+	else
+		printf("\nYou are editing the same object.\n");
 	render(vp, *vp->scene);
 	return (0);
 }

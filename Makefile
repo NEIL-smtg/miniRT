@@ -10,11 +10,12 @@ FILES			=	main render hooks \
 					color/color color/phong \
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
-					checker/is_fix \
+					checker/set_cone checker/is_fix \
 					vector/vec3 vector/vec3_utils vector/convert vector/vec4 \
 					matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
 					matrix/view_matrix matrix/view_matrix2 \
-					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal \
+					geometry/sphere geometry/plane geometry/cylinder geometry/cone\
+					geometry/surface_normal \
 					transformation/info transformation/translation \
 					transformation/panning \
 					quaternion/quaternion

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   surface_normal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:31:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 22:52:25 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 18:38:50 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ static t_vec3	get_cy_surface_normal(t_ray ray, t_obj *obj, \
 	return (normalize(n));
 }
 
+static t_vec3	get_cone_surface_normal(t_ray ray, t_obj *obj, \
+		t_vec3 inter, double t)
+{
+	t_vec3	n;
+	double	k;
+	t_vec3	oc;
+
+	k = tan(get_radian(obj->cone_angle / 2));
+	return (normalize(n));
+}
+
 t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t)
 {
 	t_vec3	inter;
@@ -36,6 +47,8 @@ t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t)
 		return (normalize(vec3_sub(inter, obj->center)));
 	else if (obj->type == PLANE)
 		return (obj->dir);
-	else
+	else if (obj->type == CYLINDER)
 		return (get_cy_surface_normal(ray, obj, inter, t));
+	else
+		return (get_cone_surface_normal(ray, obj, inter, t));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/29 22:44:33 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 16:45:42 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,11 @@ int			line_error(int line);
 int			set_ambient(t_amblight *al, char *line);
 int			set_camera(t_camera *cam, char *line);
 int			set_light(t_light *lg, char *line);
-void		objlst_addback(t_obj **lst, t_obj *new);
 int			set_cylinder(t_scene *sc, char *line, int type);
 int			set_sphere(t_scene *sc, char *line, int type);
 int			set_plane(t_scene *sc, char *line, int type);
+int			set_cone(t_scene *sc, char *line, int type);
+void		objlst_addback(t_obj **lst, t_obj *new);
 
 //checkers
 int			valid_rgb(char *s);

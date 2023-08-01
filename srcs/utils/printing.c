@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:28:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 15:28:55 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 17:08:28 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	print_scene(t_scene *sc)
 			printf("SPHERE\t{\n");
 		else if (tmp->type == PLANE)
 			printf("PLANE\t{\n");
+		else if (tmp->type == CONE)
+			printf("CONE\t{\n");
 		else
 			printf("CYLINDER\t{\n");
 		print_vec(tmp->center, 1);
@@ -62,8 +64,10 @@ void	print_scene(t_scene *sc)
 			print_vec(tmp->dir, 2);
 		if (tmp->type != PLANE)
 			printf("\tdiameter : %f\n", tmp->d);
-		if (tmp->type == CYLINDER)
+		if (tmp->type == CYLINDER || tmp->type == CONE)
 			printf("\theight : %f\n", tmp->h);
+		if (tmp->type == CONE)
+			printf("\tangle : %f\n", tmp->cone_angle);
 		print_rgb(tmp->rgb);
 		tmp = tmp->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_mode.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/30 21:54:10 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 14:44:54 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	camera_mode(t_obj **selected)
 	selected_msg(*selected);
 }
 
+//	key 5 = 23, key 6 = 22
 bool	is_edit_key(int keycode, t_viewport *vp)
 {
 	if (keycode == KEY_R)
@@ -41,6 +42,8 @@ bool	is_edit_key(int keycode, t_viewport *vp)
 		camera_mode(&vp->selected);
 	else if (vp->selected)
 		edit_property(keycode, vp->selected);
+	else if (keycode == KEY_B)
+		vp->checkerboard = true;
 	else
 		return (false);
 	return (true);

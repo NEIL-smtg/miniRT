@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/28 23:24:07 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 16:15:45 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ enum	e_type
 {
 	SPHERE,
 	CYLINDER,
-	PLANE
+	PLANE,
+	CONE
 };
 
 typedef struct s_obj
@@ -51,6 +52,8 @@ typedef struct s_obj
 	t_vec3			dir;
 	double			d;
 	double			h;
+	double			cone_angle;
+	t_vec3			apex;
 	t_rgb			rgb;
 	t_rgb			tmp_color;
 	struct s_obj	*next;
@@ -65,6 +68,7 @@ double	solve_quadratic(double a, double b, double c);
 double	sphere_intersection(t_ray ray, t_obj *obj);
 double	plane_intersection(t_ray ray, t_obj *obj);
 double	cylinder_intersection(t_ray ray, t_obj *obj);
+double	cone_intersection(t_ray ray, t_obj *obj);
 
 //	getting surface normal for rendering the correct color
 t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t);

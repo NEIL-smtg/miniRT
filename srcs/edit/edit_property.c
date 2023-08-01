@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_property.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:56:02 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 22:45:00 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 15:06:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	apply_edit(int key, t_obj *selected)
 		selected->d += 0.5;
 		printf("Diamter increase.\n");
 	}
+	else if (selected->edit_d && key == KEY_MINUS && selected->d < 0.5)
+		printf("Diameter reach minimum, you cannot decrease any further.\n");
 	else if (selected->edit_d && key == KEY_MINUS)
 	{
 		selected->d -= 0.5;
@@ -29,6 +31,9 @@ static void	apply_edit(int key, t_obj *selected)
 		selected->h += 0.5;
 		printf("Height increase.\n");
 	}
+	else if (selected->type == CYLINDER && selected->edit_h && key == KEY_MINUS \
+			&& selected->h < 0.5)
+		printf("Height reach minimum, you cannot decrease any further.\n");
 	else if (selected->type == CYLINDER && selected->edit_h && key == KEY_MINUS)
 	{
 		selected->h -= 0.5;

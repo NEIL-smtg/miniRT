@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   panning.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/30 23:35:25 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 14:52:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,3 +120,4 @@ void	panning(int key, t_viewport *vp)
 		start_panning(key, vp);
 	transformation_info(vp->selected, vp->scene->cam);
 }
+

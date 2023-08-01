@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/29 22:13:10 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 18:35:07 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_vec3	get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin)
 	double	screen_y;
 
 	ndc_x = (2.0f * pixel[0]) / vp->w - 1.0f;
+	// ndc_y = (2.0f * pixel[1]) / vp->h - 1.0f;
 	ndc_y = 1.0f - (2.0f * pixel[1]) / vp->h;
 	screen_x = ndc_x * vp->aspect_ratio * vp->focal;
 	screen_y = ndc_y * vp->focal;

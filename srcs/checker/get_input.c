@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:44:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 23:43:52 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 16:48:31 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ static int	process_line(char *line, t_scene *sc)
 		return (set_sphere(sc, line, LOWCASE));
 	else if (!ft_strncmp("pl", line, 2))
 		return (set_plane(sc, line, LOWCASE));
+	else if (!ft_strncmp("co", line, 2))
+		return (set_cone(sc, line, LOWCASE));
+	else if (!ft_strncmp("CO", line, 2))
+		return (set_cone(sc, line, UPCASE));
 	else if (!ft_strncmp("cy", line, 2))
 		return (set_cylinder(sc, line, LOWCASE));
 	else if (!ft_strncmp("SP", line, 2))
@@ -72,6 +76,8 @@ static int	set_acl(char *line, int *acl, t_scene *sc)
 	if (sc->light.fix && acl[2] > 1)
 		ret = 0;
 	if (!ft_strncmp("CY", line, 2) || !ft_strncmp("cy", line, 2))
+		return (1);
+	if (!ft_strncmp("CO", line, 2) || !ft_strncmp("co", line, 2))
 		return (1);
 	if (*line == 'C' || *line == 'c')
 		acl[1]++;

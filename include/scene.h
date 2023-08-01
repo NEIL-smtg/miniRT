@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/28 00:13:58 by suchua           ###   ########.fr       */
+/*   Updated: 2023/07/31 16:20:13 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_viewport
 	void	*mlx;
 	void	*win;
 	bool	edit;
+	bool	checkerboard;
 	t_img	img;
 	t_mat4	view_mat;
 	t_mat4	inv_view_mat;

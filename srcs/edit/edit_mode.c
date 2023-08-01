@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_mode.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/07/30 21:54:10 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 13:29:44 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static int	close_edit(t_viewport *vp)
 {
 	vp->edit = false;
-	vp->selected = NULL;
+	if (vp->checkerboard == false)
+		vp->selected = NULL;
 	clean_img(vp);
 	render(vp, *vp->scene);
 	return (0);
@@ -39,6 +40,8 @@ bool	is_edit_key(int keycode, t_viewport *vp)
 		panning(keycode, vp);
 	else if (keycode == KEY_C)
 		camera_mode(&vp->selected);
+	else if (keycode == KEY_B)
+		vp->checkerboard = true;
 	else if (vp->selected)
 		edit_property(keycode, vp->selected);
 	else

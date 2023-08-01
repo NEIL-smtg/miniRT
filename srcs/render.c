@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/29 22:13:10 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 13:30:15 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,14 @@ static void	width_loop(int pixel[2], t_viewport *vp)
 		ray.dir = get_ray_dir(pixel, vp, ray.origin);
 		t = get_closest_obj(ray, vp->scene->obj, &closest);
 		if (closest && !vp->edit)
-			fill_color(phong_shading(*vp->scene, ray, closest, t), vp, pixel);
+		{
+			if (vp->selected && closest == vp->selected && vp->checkerboard)
+			{
+				fill_color(checkerboard(vp, ray, closest, t), vp, pixel);
+			}
+			else
+				fill_color(phong_shading(*vp->scene, ray, closest, t), vp, pixel);
+		}
 		else if (vp->edit && vp->selected && vp->selected == closest)
 			fill_color(vp->selected->tmp_color, vp, pixel);
 		else if (vp->edit && closest)
@@ -107,4 +114,9 @@ void	render(t_viewport *vp, t_scene sc)
 		printf("DONE\n\n");
 		printf("Press key SHIFT to enter EDIT MODE\n");
 	}
+	// if (vp->selected && vp->checkerboard)
+	// {
+	// 	vp->selected = NULL;
+	// 	vp->checkerboard = false;
+	// }
 }

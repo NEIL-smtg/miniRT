@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:57:43 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/28 00:02:34 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/01 11:12:14 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	create_mlx(t_viewport *vp, t_scene *scene)
 	vp->scene = scene;
 	vp->selected = NULL;
 	vp->edit = false;
+	vp->checkerboard = false;
 }
 
 int	main(int ac, char **av)

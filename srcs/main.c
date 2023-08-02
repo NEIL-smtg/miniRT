@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:57:43 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 02:29:56 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 14:26:12 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static t_mat3	get_k_matrix(t_viewport *vp)
-{
-	t_mat3	new;
-
-	new.r1 = new_vec3(vp->focal, 0, vp->w / 2);
-	new.r2 = new_vec3(0, vp->focal, vp->h / 2);
-	new.r3 = new_vec3(0 ,0, 1);
-	return (inverse_mat3(new));
-}
 
 void	init_viewport(t_viewport *vp, t_camera cam)
 {
@@ -30,7 +20,6 @@ void	init_viewport(t_viewport *vp, t_camera cam)
 	vp->focal = tan(cam.fov / 2);
 	vp->view_mat = get_view_matrix(cam);
 	vp->inv_view_mat = inverse_mat4(vp->view_mat);
-	vp->k_matrix = get_k_matrix(vp);
 }
 
 void	create_mlx(t_viewport *vp, t_scene *scene)

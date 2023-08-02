@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:17:23 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 17:07:48 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 17:16:24 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	set_cone(t_scene *sc, char *line, int type)
 	new->get_intersects = cone_intersection;
 	new->d = ft_atof(s[3]);
 	new->h = ft_atof(s[4]);
-	printf("%s\n", s[5]);
 	new->cone_angle = ft_atof(s[5]);
 	objlst_addback(&(sc->obj), new);
 	ft_free2d(s);

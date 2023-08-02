@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 00:41:42 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 14:28:01 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_obj
 	double			d;
 	double			h;
 	double			cone_angle;
-	t_vec3			apex;
 	t_rgb			rgb;
 	t_rgb			tmp_color;
 	struct s_obj	*next;

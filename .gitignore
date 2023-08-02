@@ -2,4 +2,5 @@ lib/
 Libft/
 .vscode/
 objs/
-miniRT/
+miniRT.dSYM/
+miniRT

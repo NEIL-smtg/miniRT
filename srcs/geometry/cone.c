@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 17:30:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 18:36:59 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ double	cone_intersection(t_ray ray, t_obj *obj)
 	t_vec3	oc;
 	double	t;
 	double	k;
+	t_vec3	proj_h;
+	double	h;
 
 	oc = vec3_sub(obj->center, ray.origin);
 	k = tan(get_radian(obj->cone_angle / 2));
@@ -52,17 +54,11 @@ double	cone_intersection(t_ray ray, t_obj *obj)
 	);
 	if (t == INFINITY)
 		return (INFINITY);
-
-	t_vec3	inter;
-	t_vec3	h;
-	double	hh;
-
-	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
-	h = vec3_sub(inter, obj->center);
-	hh = vec3_dot(h, obj->dir);
-	if (hh == obj->h || hh <= 0.0)
+	proj_h = vec3_sub(vec3_add(ray.origin, vec3_mul(t, ray.dir)), obj->center);
+	h = vec3_dot(proj_h, obj->dir);
+	if (h == obj->h || h <= 0.0)
 		return (INFINITY);
-	if (hh > obj->h)
+	if (h > obj->h)
 		return (cone_base(ray, obj, oc));
 	return (t);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 15:29:20 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 17:41:05 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,9 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 		diffuse *= PL_DIFFUSE_TERM;
 		specular = rgb_scale(PL_SPECULAR_TERM, specular);
 	}
-	if (in_shadows(sc, inter, obj, diffuse))
-		return (new_rgb(0, 0, 0));
 	amb = get_ambient_color(sc, obj, inter, surface_normal);
-	// amb = rgb_scale(sc.amblight.ratio, sc.amblight.rgb);
+	if (in_shadows(sc, inter, obj, diffuse))
+		return (new_rgb(amb.r, amb.g, amb.b));
 	return (new_rgb(
 			amb.r + specular.r + (obj->rgb.r * diffuse),
 			amb.g + specular.g + (obj->rgb.g * diffuse),

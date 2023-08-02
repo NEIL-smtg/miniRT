@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_mode.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/02 01:01:08 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 17:41:39 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 static int	close_edit(t_viewport *vp)
 {
 	vp->edit = false;
-	if (vp->selected && vp->selected->checkerboard == false)
-		vp->selected = NULL;
+	vp->selected = NULL;
 	clean_img(vp);
 	render(vp, *vp->scene);
-	vp->selected = NULL;
 	return (0);
 }
 

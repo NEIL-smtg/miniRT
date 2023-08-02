@@ -16,7 +16,7 @@ FILES			=	main render hooks \
 					matrix/view_matrix matrix/view_matrix2 \
 					geometry/sphere geometry/plane geometry/cylinder geometry/surface_normal \
 					transformation/info transformation/translation transformation/checkerboard\
-					transformation/panning \
+					transformation/panning transformation/get_uv\
 					quaternion/quaternion
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11

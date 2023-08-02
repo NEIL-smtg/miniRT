@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   panning.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/30 23:35:25 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 17:34:20 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,23 @@ static t_vec3	get_rotation_axis(int keycode, t_viewport *vp, int *angle)
 	{
 		printf("\nROTATING in X-AXIS\n");
 		if (vp->selected)
-		{
-			return (normalize(vec3_cross(vp->selected->dir, new_vec3(1, 0, 0))));
-		}
+			return (normalize(vec3_cross(vp->selected->dir,
+						new_vec3(1, 0, 0))));
 		return (get_cam_up(vp->view_mat));
 	}
 	else if (keycode == KEY_THREE || keycode == KEY_FOUR)
 	{
 		printf("\nROTATING in Y-AXIS\n");
 		if (vp->selected)
-		{
-			return (normalize(vec3_cross(vp->selected->dir, new_vec3(0, 1, 0))));
-		}
+			return (normalize(vec3_cross(vp->selected->dir,
+						new_vec3(0, 1, 0))));
 		return (get_cam_right(vp->view_mat));
 	}
 	else
 	{
 		printf("\nROTATING in Z-AXIS\n");
 		if (vp->selected)
-		{
 			return (vp->selected->dir);
-		}
 		return (get_cam_forward(vp->view_mat));
 	}
 }

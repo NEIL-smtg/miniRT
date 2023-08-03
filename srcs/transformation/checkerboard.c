@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/03 13:40:26 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:18:37 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static t_rgb	get_amb_color(t_scene sc, t_rgb	color)
 {
 	t_rgb	amb;
 
-	amb = new_rgb(color.r * 0.15, color.g * 0.15, color.b * 0.15);
+	amb = new_rgb((color.r + sc.amblight.rgb.r) * 0.15,
+			(color.g + sc.amblight.rgb.g) * 0.15,
+			(color.b + sc.amblight.rgb.b) * 0.15);
 	amb = rgb_scale(sc.amblight.ratio, amb);
 	return (amb);
 }

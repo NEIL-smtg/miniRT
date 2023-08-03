@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 11:46:42 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:15:36 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 /**
 	1) diffuse = LightColor * LightBrightness * 
-	   (LightDirection • SurfaceNormal) * SurfaceColor
+		(LightDirection • SurfaceNormal) * SurfaceColor
 	
 	2) specularColor = lightColor * lightBrightness *
-	   specularStrength * (viewDirection • reflectionDirection) ^ shininess
+		specularStrength * (viewDirection • reflectionDirection) ^ shininess
 	
-	3) FinalColor = (AmbientColor * ambientRatio + DiffuseColor)
+	3) FinalColor = ( ((ObjColor + ambientColor) * ambientRatio) +
+		specularColor + DiffuseColor )
 * */
 
 t_vec3	reflect(t_vec3 incident, t_vec3 surface_normal)
@@ -89,7 +90,9 @@ static t_rgb	get_ambient_color(t_scene sc, t_obj *obj, t_vec3 inter,
 {
 	t_rgb	amb;
 
-	amb = new_rgb(obj->rgb.r * 0.15, obj->rgb.g * 0.15, obj->rgb.b * 0.15);
+	amb = new_rgb((obj->rgb.r + sc.amblight.rgb.r) * 0.15,
+			(obj->rgb.g + sc.amblight.rgb.g) * 0.15,
+			(obj->rgb.b + sc.amblight.rgb.b) * 0.15);
 	amb = rgb_scale(sc.amblight.ratio, amb);
 	return (amb);
 }
@@ -101,22 +104,26 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 	double	diffuse;
 	t_rgb	specular;
 	t_rgb	amb;
+	t_light	*light;
+	t_rgb	final_color;
 
-	surface_normal = get_surface_normal(ray, obj, t);
-	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
-	diffuse = get_diffuse_color(sc.light, obj, inter, surface_normal);
-	specular = get_specular_light(sc, surface_normal, inter, obj);
-	if (obj->type == PLANE)
+	final_color = new_rgb(0, 0, 0);
+	light = sc.light;
+	while (sc.light)
 	{
-		diffuse *= PL_DIFFUSE_TERM;
-		specular = rgb_scale(PL_SPECULAR_TERM, specular);
+		surface_normal = get_surface_normal(ray, obj, t);
+		inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
+		diffuse = get_diffuse_color(sc.light, obj, inter, surface_normal);
+		specular = get_specular_light(sc, surface_normal, inter, obj);
+		amb = get_ambient_color(sc, obj, inter, surface_normal);
+		if (in_shadows(sc, inter, obj, diffuse))
+			return (new_rgb(amb.g, amb.g, amb.b));
+		final_color = new_rgb(
+				final_color.r + (amb.r + specular.r + (obj->rgb.r * diffuse)),
+				final_color.g + (amb.g + specular.g + (obj->rgb.g * diffuse)),
+				final_color.b + (amb.b + specular.b + (obj->rgb.b * diffuse)));
+		sc.light = sc.light->next;
 	}
-	amb = get_ambient_color(sc, obj, inter, surface_normal);
-	if (in_shadows(sc, inter, obj, diffuse))
-		return (new_rgb(amb.r, amb.g, amb.b));
-	return (new_rgb(
-			amb.r + specular.r + (obj->rgb.r * diffuse),
-			amb.g + specular.g + (obj->rgb.g * diffuse),
-			amb.b + specular.b + (obj->rgb.b * diffuse)
-		));
+	sc.light = light;
+	return (final_color);
 }

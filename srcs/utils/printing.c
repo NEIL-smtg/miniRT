@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:28:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 17:08:28 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/03 11:45:46 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static void	print_setting(t_scene *sc)
 	printf("\tLightning ratio : %f\n", sc->amblight.ratio);
 	print_rgb(sc->amblight.rgb);
 	printf("Light\t{\n");
-	print_vec(sc->light.pos, 1);
-	printf("\tbrightness : %f\n", sc->light.brightness);
-	print_rgb(sc->light.rgb);
+	print_vec(sc->light->pos, 1);
+	printf("\tbrightness : %f\n", sc->light->brightness);
+	print_rgb(sc->light->rgb);
 	printf("Camera\t{\n");
 	print_vec(sc->cam.pos, 1);
 	print_vec(sc->cam.dir, 2);

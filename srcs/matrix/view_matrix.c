@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 19:28:40 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/03 19:34:55 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,16 @@ t_vec3	convert_to_view_space(t_mat4 view_mat, t_vec3 v)
 void	world_to_camera(t_mat4 inv_view_mat, t_scene *sc)
 {
 	t_obj	*tmp;
+	t_light	*lg;
 
 	sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
 	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
-	sc->light.pos = convert_to_view_space(inv_view_mat, sc->light.pos);
+	lg = sc->light;
+	while (lg)
+	{
+		lg->pos = convert_to_view_space(inv_view_mat, lg->pos);
+		lg = lg->next;
+	}
 	tmp = sc->obj;
 	while (tmp)
 	{

@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 00:44:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 21:14:39 by suchua           ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2023/08/03 19:32:59 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef MINIRT_H
 # define MINIRT_H
@@ -65,7 +67,7 @@ int			line_error(int line);
 //setters
 int			set_ambient(t_amblight *al, char *line);
 int			set_camera(t_camera *cam, char *line);
-int			set_light(t_light *lg, char *line);
+int			set_light(t_scene *sc, char *line);
 int			set_cylinder(t_scene *sc, char *line, int type);
 int			set_sphere(t_scene *sc, char *line, int type);
 int			set_plane(t_scene *sc, char *line, int type);
@@ -83,7 +85,7 @@ int			valid_vec3(char *s);
 t_vec3		reflect(t_vec3 incident, t_vec3 surface_normal);
 t_rgb		get_specular_light(t_scene sc, t_vec3 surface_normal, \
 		t_vec3 inter, t_obj *obj);
-double		get_diffuse_color(t_light light, t_obj *obj, \
+double		get_diffuse_color(t_light *light, t_obj *obj, \
 		t_vec3 inter, t_vec3 surface_normal);
 bool		in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse);
 

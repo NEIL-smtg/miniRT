@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 18:53:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/03 19:35:11 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	origin_translation(t_viewport *vp, t_vec3 rot_center, \
 {
 	t_vec3	translate;
 	t_obj	*obj;
+	t_light	*lg;
 
 	translate = rot_center;
 	if (rot == to_origin)
@@ -64,12 +65,19 @@ static void	origin_translation(t_viewport *vp, t_vec3 rot_center, \
 		obj = obj->next;
 	}
 	vp->scene->cam.pos = translate;
-	vp->scene->light.pos = vec3_add(vp->scene->light.pos, translate);
+	lg = vp->scene->light;
+	while (lg)
+	{
+		lg->pos = vec3_add(lg->pos, translate);
+		lg = lg->next;
+	}
+	vp->scene->light->pos = vec3_add(vp->scene->light->pos, translate);
 }
 
 static void	rotate_scene(t_quat q, t_viewport *vp)
 {
 	t_obj	*obj;
+	t_light	*lg;
 
 	obj = vp->scene->obj;
 	while (obj)
@@ -78,6 +86,12 @@ static void	rotate_scene(t_quat q, t_viewport *vp)
 		if (obj->type != SPHERE)
 			obj->dir = normalize(rotate(obj->dir, q));
 		obj = obj->next;
+	}
+	lg = vp->scene->light;
+	while (lg)
+	{
+		lg->pos = rotate(lg->pos, q);
+		lg = lg->next;
 	}
 	vp->scene->cam.dir = normalize(rotate(vp->scene->cam.dir, q));
 }

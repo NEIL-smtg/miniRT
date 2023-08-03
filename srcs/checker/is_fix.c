@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_fix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 20:54:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 23:33:33 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/03 13:24:44 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void	fix_error(int *acl, int line)
 		printf("Error : (%s)\n", "CAMERA");
 	if (acl[2] > 1)
 		printf("Error : (%s)\n", "LIGHT");
+	if ((acl[2] && acl[3]))
+		printf("Error : (%s)\n", "LIGHT & light");
 }
 
 int	is_fix(t_scene *sc, int *acl, int line)
@@ -58,13 +60,14 @@ int	is_fix(t_scene *sc, int *acl, int line)
 	t_obj	*obj;
 
 	obj = sc->obj;
-	if (acl[0] > 1 || acl[1] > 1 || acl[2] > 1)
+	if (acl[0] > 1 || acl[1] > 1 || acl[2] > 1 || (acl[2] && acl[3]))
 	{
 		fix_error(acl, line);
 		free(acl);
 		return (0);
 	}
-	if (!acl[0] || !acl[1] || !acl[2])
+	printf("%d - %d - %d - %d\n", acl[0] , acl[1], acl[2] , acl[3]);
+	if (!acl[0] || !acl[1] || !(acl[2] + acl[3]))
 	{
 		printf("Error !!\n");
 		line_error(line);

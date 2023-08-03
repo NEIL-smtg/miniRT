@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:44:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 16:48:31 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/03 13:22:52 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	process_line(char *line, t_scene *sc)
 	if (*line == 'A' || *line == 'a')
 		return (set_ambient(&(sc->amblight), line));
 	else if (*line == 'L' || *line == 'l')
-		return (set_light(&(sc->light), line));
+		return (set_light(sc, line));
 	else if (!ft_strncmp("sp", line, 2))
 		return (set_sphere(sc, line, LOWCASE));
 	else if (!ft_strncmp("pl", line, 2))
@@ -71,9 +71,11 @@ static int	set_acl(char *line, int *acl, t_scene *sc)
 		acl[0]++;
 	if (sc->amblight.fix && acl[0] > 1)
 		ret = 0;
-	if (*line == 'L' || *line == 'l')
+	if (*line == 'L')
 		acl[2]++;
-	if (sc->light.fix && acl[2] > 1)
+	if (*line == 'l')
+		acl[3]++;
+	if (acl[2] > 1 || (acl[2] != 0 && acl[3] != 0))
 		ret = 0;
 	if (!ft_strncmp("CY", line, 2) || !ft_strncmp("cy", line, 2))
 		return (1);
@@ -102,9 +104,10 @@ int	get_input(char *file, t_scene *sc)
 	t_v		v;
 
 	sc->obj = NULL;
+	sc->light = NULL;
 	v.fd = open(file, O_RDONLY);
 	v.i = 1;
-	v.acl = ft_calloc(3, sizeof(int));
+	v.acl = ft_calloc(4, sizeof(int));
 	while (1)
 	{
 		line = get_next_line(v.fd);
@@ -120,6 +123,6 @@ int	get_input(char *file, t_scene *sc)
 			free(v.acl);
 			return (line_error(v.i));
 		}
-	}	
+	}
 	return (is_fix(sc, v.acl, v.i));
 }

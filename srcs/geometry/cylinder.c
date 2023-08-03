@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:10:26 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/25 18:48:35 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:18:08 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ double	above_cylinder(t_ray ray, t_obj *obj, t_vec3 oc)
 		return (INFINITY);
 	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
 	if (vec3_len(vec3_sub(inter, top_center)) <= obj->d / 2.0)
-		return (vec3_len(vec3_sub(inter, ray.origin)));
+		return (t);
 	return (INFINITY);
 }
 
@@ -50,7 +50,7 @@ double	below_cylinder(t_ray ray, t_obj *obj, t_vec3 oc)
 		return (INFINITY);
 	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
 	if (vec3_len(vec3_sub(inter, obj->center)) <= obj->d / 2.0)
-		return (vec3_len(vec3_sub(inter, ray.origin)));
+		return (t);
 	return (INFINITY);
 }
 

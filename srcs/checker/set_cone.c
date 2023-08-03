@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:17:23 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 17:16:24 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/03 14:36:53 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_obj	*init_new_part1(char **s, int type)
 	new->dir.y = ft_atof(xyz[1]);
 	new->dir.z = ft_atof(xyz[2]);
 	ft_free2d(xyz);
-	xyz = ft_split(s[6], ',');
+	xyz = ft_split(s[5], ',');
 	new->rgb.r = ft_atof(xyz[0]);
 	new->rgb.g = ft_atof(xyz[1]);
 	new->rgb.b = ft_atof(xyz[2]);
@@ -51,12 +51,12 @@ int	set_cone(t_scene *sc, char *line, int type)
 	t_obj	*new;
 
 	s = rt_split(line);
-	if (get_2d_arr_size(s) != 7 || !valid_xyz(s[1])
+	if (get_2d_arr_size(s) != 6 || !valid_xyz(s[1])
 		|| !valid_vec3(s[2])
 		|| !valid_range(0, DBL_MAX, ft_atof(s[3]))
 		|| !valid_range(0, DBL_MAX, ft_atof(s[4]))
-		|| !valid_range(0, 90, ft_atof(s[5]))
-		|| !valid_rgb(s[6]))
+		|| !valid_range(0, 90, atan(ft_atof(s[3]) / ft_atof(s[4])))
+		|| !valid_rgb(s[5]))
 	{
 		ft_free2d(s);
 		ft_putstr_fd("Error\nInvalid arguments for cone!", 2);
@@ -67,7 +67,7 @@ int	set_cone(t_scene *sc, char *line, int type)
 	new->get_intersects = cone_intersection;
 	new->d = ft_atof(s[3]);
 	new->h = ft_atof(s[4]);
-	new->cone_angle = ft_atof(s[5]);
+	new->cone_angle = atan(new->d / new->h);
 	objlst_addback(&(sc->obj), new);
 	ft_free2d(s);
 	return (1);

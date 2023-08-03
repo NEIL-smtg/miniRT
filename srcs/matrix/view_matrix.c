@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 15:34:12 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/03 19:28:40 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_vec3	convert_to_view_space(t_mat4 view_mat, t_vec3 v)
 	t_vec4	after;
 	t_vec3	res;
 
+	if (v.x == 0 && v.y == -1 && v.z == 0)
+		return (v);
 	p = vec4_from_vec3(v, 1.0f);
 	after = mat44_mul_mat41(view_mat, p);
 	res = vec3_from_vec4(after);

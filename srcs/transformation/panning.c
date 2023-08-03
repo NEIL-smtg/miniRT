@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   panning.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 17:42:04 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:53:18 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	rotate_scene(t_quat q, t_viewport *vp)
 			obj->dir = normalize(rotate(obj->dir, q));
 		obj = obj->next;
 	}
-	vp->scene->light.pos = rotate(vp->scene->light.pos, q);
 	vp->scene->cam.dir = normalize(rotate(vp->scene->cam.dir, q));
 }
 

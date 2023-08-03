@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 17:42:04 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:47:26 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	origin_translation(t_viewport *vp, t_vec3 rot_center, \
 		obj = obj->next;
 	}
 	vp->scene->cam.pos = translate;
-	vp->scene->light.pos = vec3_add(vp->scene->light.pos, translate);
+	vp->scene->light->pos = vec3_add(vp->scene->light->pos, translate);
 }
 
 static void	rotate_scene(t_quat q, t_viewport *vp)
@@ -79,7 +79,7 @@ static void	rotate_scene(t_quat q, t_viewport *vp)
 			obj->dir = normalize(rotate(obj->dir, q));
 		obj = obj->next;
 	}
-	vp->scene->light.pos = rotate(vp->scene->light.pos, q);
+	vp->scene->light->pos = rotate(vp->scene->light->pos, q);
 	vp->scene->cam.dir = normalize(rotate(vp->scene->cam.dir, q));
 }
 

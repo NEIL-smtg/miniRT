@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 14:27:44 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/03 11:39:52 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,19 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	int			fix;
-	t_vec3		pos;
-	double		brightness;
-	t_rgb		rgb;
+	int				fix;
+	t_vec3			pos;
+	double			brightness;
+	t_rgb			rgb;
+	struct s_light	*next;
 }	t_light;
 
 typedef struct s_scene
 {
 	t_amblight	amblight;
 	t_camera	cam;
-	t_light		light;
 	t_obj		*obj;
+	t_light		*light;
 }	t_scene;
 
 typedef struct s_img

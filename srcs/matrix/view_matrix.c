@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 15:34:12 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/03 11:46:59 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	world_to_camera(t_mat4 inv_view_mat, t_scene *sc)
 
 	sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
 	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
-	sc->light.pos = convert_to_view_space(inv_view_mat, sc->light.pos);
+	sc->light->pos = convert_to_view_space(inv_view_mat, sc->light->pos);
 	tmp = sc->obj;
 	while (tmp)
 	{

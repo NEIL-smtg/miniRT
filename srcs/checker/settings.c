@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   settings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 01:14:04 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/15 01:14:14 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/02 19:36:12 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,50 +81,50 @@ int	set_camera(t_camera *cam, char *line)
 	return (1);
 }
 
-static int	valid_light(char **s)
-{
-	int		size;
-	int		flag;
+// static int	valid_light(char **s)
+// {
+// 	int		size;
+// 	int		flag;
 
-	size = get_2d_arr_size(s);
-	flag = 1;
-	if (size != 3 && size != 4)
-		flag = 0;
-	if (!valid_xyz(s[1]))
-		flag = 0;
-	if (!valid_range(0, 1, ft_atof(s[2])))
-		flag = 0;
-	if (size == 4 && !valid_rgb(s[3]))
-		flag = 0;
-	ft_free2d(s);
-	return (flag);
-}
+// 	size = get_2d_arr_size(s);
+// 	flag = 1;
+// 	if (size != 3 && size != 4)
+// 		flag = 0;
+// 	if (!valid_xyz(s[1]))
+// 		flag = 0;
+// 	if (!valid_range(0, 1, ft_atof(s[2])))
+// 		flag = 0;
+// 	if (size == 4 && !valid_rgb(s[3]))
+// 		flag = 0;
+// 	ft_free2d(s);
+// 	return (flag);
+// }
 
-int	set_light(t_light *lg, char *line)
-{
-	char	**sp;
-	char	**xyz;
+// int	set_light(t_light *lg, char *line)
+// {
+// 	char	**sp;
+// 	char	**xyz;
 
-	lg->fix = 0;
-	if (*line == 'L')
-		lg->fix = 1;
-	if (!valid_light(rt_split(line)))
-	{
-		ft_putstr_fd("Error !!\nInvalid arguments for light.", 2);
-		return (0);
-	}
-	sp = rt_split(line);
-	xyz = ft_split(sp[1], ',');
-	lg->pos.x = ft_atof(xyz[0]);
-	lg->pos.y = ft_atof(xyz[1]);
-	lg->pos.z = ft_atof(xyz[2]);
-	ft_free2d(xyz);
-	lg->brightness = ft_atof(sp[2]);
-	xyz = ft_split(sp[3], ',');
-	lg->rgb.r = ft_atof(xyz[0]);
-	lg->rgb.g = ft_atof(xyz[1]);
-	lg->rgb.b = ft_atof(xyz[2]);
-	ft_free2d(xyz);
-	ft_free2d(sp);
-	return (1);
-}
+// 	lg->fix = 0;
+// 	if (*line == 'L')
+// 		lg->fix = 1;
+// 	if (!valid_light(rt_split(line)))
+// 	{
+// 		ft_putstr_fd("Error !!\nInvalid arguments for light.", 2);
+// 		return (0);
+// 	}
+// 	sp = rt_split(line);
+// 	xyz = ft_split(sp[1], ',');
+// 	lg->pos.x = ft_atof(xyz[0]);
+// 	lg->pos.y = ft_atof(xyz[1]);
+// 	lg->pos.z = ft_atof(xyz[2]);
+// 	ft_free2d(xyz);
+// 	lg->brightness = ft_atof(sp[2]);
+// 	xyz = ft_split(sp[3], ',');
+// 	lg->rgb.r = ft_atof(xyz[0]);
+// 	lg->rgb.g = ft_atof(xyz[1]);
+// 	lg->rgb.b = ft_atof(xyz[2]);
+// 	ft_free2d(xyz);
+// 	ft_free2d(sp);
+// 	return (1);
+// }

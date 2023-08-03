@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/02 17:20:10 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:40:26 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	get_uv_square(int *u_square, int *v_square, t_vec2	*uv, t_obj *obj)
 {
 	double	square_size;
 
-	if (obj->type == SPHERE)
+	if (obj->type == SPHERE || obj->type == CYLINDER || obj->type == CONE)
 	{
 		square_size = 0.2f;
 		*u_square = floor(uv->u / square_size);
@@ -54,12 +54,6 @@ void	get_uv_square(int *u_square, int *v_square, t_vec2	*uv, t_obj *obj)
 		square_size = EPS;
 		*u_square = floor(uv->u * square_size);
 		*v_square = floor(uv->v * square_size);
-	}
-	else if (obj->type == CYLINDER)
-	{
-		square_size = 0.2f;
-		*u_square = floor(uv->u / square_size);
-		*v_square = floor(uv->v / square_size);
 	}
 }
 
@@ -124,6 +118,18 @@ t_rgb	checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 	else if (obj->checkerboard && obj->type == CYLINDER)
 	{
 		get_cylinder_uv(&stuff.inter, &uv.u, &uv.v, obj);
+		stuff.color = checkerboard_color(uv.u, uv.v, obj);
+		stuff.amb = get_amb_color(*vp->scene, stuff.color);
+		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
+			return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
+		return (new_rgb(
+				stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),
+				stuff.amb.g + stuff.specular.g + (stuff.color.g * stuff.diffuse),
+				stuff.amb.b + stuff.specular.b + (stuff.color.b * stuff.diffuse)));
+	}
+	else if (obj->checkerboard && obj->type == CONE)
+	{
+		get_sphere_uv(&stuff.inter, &uv.u, &uv.v, obj);
 		stuff.color = checkerboard_color(uv.u, uv.v, obj);
 		stuff.amb = get_amb_color(*vp->scene, stuff.color);
 		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))

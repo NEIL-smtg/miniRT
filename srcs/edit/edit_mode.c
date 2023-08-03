@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/02 17:41:39 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/02 18:06:09 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static void	checkerboard_mode(t_obj **selected)
 {
 	(*selected)->checkerboard = !(*selected)->checkerboard;
 	if ((*selected)->checkerboard)
-		printf("\nCheckerboard enabled.\n");
+		printf("\nCheckerboard texture applied.\n");
 	else
-		printf("\nCheckerboard disabled.\n");
+		printf("\nCheckerboard texture unapplied.\n");
 }
 
 //	key 5 = 23, key 6 = 22

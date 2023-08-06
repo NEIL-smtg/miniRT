@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:53:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 20:23:19 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/06 23:22:18 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static int	prompt_invalid_file(void)
 	return (0);
 }
 
-static int	valid_rt(char *file)
+static int	valid_rt(char *file, char *format)
 {
 	int	start;
 	int	fd;
 
-	start = ft_strlen(file) - 3;
-	if (start < 0 || ft_strncmp(".rt", file + start, 3))
+	start = ft_strlen(file) - ft_strlen(format);
+	if (start < 0 || ft_strncmp(format, file + start, 3))
 		return (prompt_invalid_file());
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -41,16 +41,21 @@ static int	valid_rt(char *file)
 		return (0);
 	}
 	else
-		ft_putendl_fd("File received...", 1);
+	{
+		ft_putstr_fd(format + 1, 1);
+		ft_putendl_fd(" file received...", 1);
+	}
 	close(fd);
 	return (1);
 }
 
 int	valid_arg(int ac, char **av)
 {
-	if (ac != 2)
+	if (ac != 2 && ac != 3)
 		return (prompt_usage_error());
-	if (!valid_rt(av[1]))
+	if (!valid_rt(av[1], ".rt"))
+		return (0);
+	if (av[2] && !valid_rt(av[2], ".xpm"))
 		return (0);
 	return (1);
 }

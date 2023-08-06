@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 18:59:33 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/06 18:07:40 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static t_obj	*new_sp(char **s, int type)
 	new = ft_calloc(1, sizeof(t_obj));
 	if (!new)
 		return (NULL);
-	new->get_intersects = sphere_intersection;
 	new->type = SPHERE;
 	new->fix = type - 1;
 	xyz = ft_split(s[1], ',');
@@ -34,7 +33,6 @@ static t_obj	*new_sp(char **s, int type)
 	new->rgb.r = ft_atof(xyz[0]);
 	new->rgb.g = ft_atof(xyz[1]);
 	new->rgb.b = ft_atof(xyz[2]);
-	new->checkerboard = false;
 	new->next = NULL;
 	ft_free2d(xyz);
 	return (new);
@@ -43,6 +41,7 @@ static t_obj	*new_sp(char **s, int type)
 int	set_sphere(t_scene *sc, char *line, int type)
 {
 	char	**s;
+	t_obj	*new;
 
 	s = rt_split(line);
 	if (get_2d_arr_size(s) != 4 || !valid_xyz(s[1])
@@ -53,7 +52,12 @@ int	set_sphere(t_scene *sc, char *line, int type)
 		ft_putstr_fd("Error\nInvalid arguments for sphere!", 2);
 		return (0);
 	}
-	objlst_addback(&(sc->obj), new_sp(s, type));
+	new = new_sp(s, type);
+	new->get_intersects = sphere_intersection;
+	new->get_uv = get_sphere_uv;
+	new->checkerboard = false;
+	new->bump = false;
+	objlst_addback(&(sc->obj), new);
 	ft_free2d(s);
 	return (1);
 }

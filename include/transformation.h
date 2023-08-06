@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformation.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:41:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 13:20:47 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:13:59 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "vector.h"
 
 # define ANGLE_ROTATION	10
+# define MOVEMENT		0.5
 
 enum	e_rotation
 {
@@ -29,7 +30,6 @@ void	transformation_info(t_obj *selected, t_camera cam);
 
 // rotation
 void	panning(int key, t_viewport *vp);
-void	ft_cam_panning(int keycode, t_viewport *vp);
 
 // translation
 bool	is_translation_key(int keycode);

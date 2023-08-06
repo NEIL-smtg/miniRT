@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:39:16 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/01 18:59:01 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/06 18:05:57 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ int	set_cylinder(t_scene *sc, char *line, int type)
 	new = init_new_part1(s, type);
 	new->type = CYLINDER;
 	new->get_intersects = cylinder_intersection;
+	new->get_uv = get_cylinder_uv;
 	new->d = ft_atof(s[3]);
 	new->h = ft_atof(s[4]);
 	new->checkerboard = false;
+	new->bump = false;
 	objlst_addback(&(sc->obj), new);
 	ft_free2d(s);
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 19:36:14 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/06 23:39:04 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
 	t_ray	ray;
 	double	t;
 
-	if (diffuse == 0.0f)
+	if ((obj->type == CONE && diffuse <= 0.6) || diffuse == 0.0)
 		return (false);
 	ray.dir = vec3_sub(sc.light->pos, inter);
 	ray.origin = vec3_add(inter, vec3_mul(EPS, ray.dir));
@@ -97,8 +97,9 @@ static t_rgb	get_ambient_color(t_scene sc, t_obj *obj, t_vec3 inter,
 	return (amb);
 }
 
-t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
+t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 {
+	t_scene	sc;
 	t_vec3	inter;
 	t_vec3	surface_normal;
 	double	diffuse;
@@ -107,17 +108,18 @@ t_rgb	phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t)
 	t_light	*light;
 	t_rgb	final_color;
 
+	sc = *vp->scene;
 	final_color = new_rgb(0, 0, 0);
 	light = sc.light;
 	while (sc.light)
 	{
-		surface_normal = get_surface_normal(ray, obj, t);
+		surface_normal = get_surface_normal(ray, obj, t, vp->texture);
 		inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
 		diffuse = get_diffuse_color(sc.light, obj, inter, surface_normal);
 		specular = get_specular_light(sc, surface_normal, inter, obj);
 		amb = get_ambient_color(sc, obj, inter, surface_normal);
-		if (in_shadows(sc, inter, obj, diffuse))
-			return (new_rgb(amb.g, amb.g, amb.b));
+		// if (in_shadows(sc, inter, obj, diffuse))
+		// 	return (amb);
 		final_color = new_rgb(
 				final_color.r + (amb.r + specular.r + (obj->rgb.r * diffuse)),
 				final_color.g + (amb.g + specular.g + (obj->rgb.g * diffuse)),

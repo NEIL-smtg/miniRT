@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 17:42:13 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/06 23:38:03 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	width_loop(int pixel[2], t_viewport *vp)
 			if (closest->checkerboard)
 				fill_color(checkerboard(vp, ray, closest, t), vp, pixel);
 			else
-				fill_color(phong_shading(*vp->scene, ray, closest, t), \
+				fill_color(phong_shading(vp, ray, closest, t), \
 					vp, pixel);
 		}
 		else if (vp->edit && vp->selected && vp->selected == closest)

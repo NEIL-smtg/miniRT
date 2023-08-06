@@ -18,7 +18,8 @@ FILES			=	main render hooks \
 					geometry/surface_normal \
 					transformation/info transformation/translation transformation/checkerboard\
 					transformation/panning transformation/get_uv\
-					quaternion/quaternion
+					quaternion/quaternion \
+					texture/bump
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz
@@ -44,7 +45,7 @@ all:
 	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/color $(OBJS_DIR)/edit
 	@mkdir -p $(OBJS_DIR)checker $(OBJS_DIR)utils $(OBJS_DIR)vector
 	@mkdir -p $(OBJS_DIR)matrix $(OBJS_DIR)geometry $(OBJS_DIR)transformation
-	@mkdir -p $(OBJS_DIR)quaternion
+	@mkdir -p $(OBJS_DIR)quaternion $(OBJS_DIR)texture
 	@make $(LIBFT)
 	make $(NAME)
 

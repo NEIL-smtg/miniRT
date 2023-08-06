@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 14:28:01 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/06 23:51:10 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_obj
 	bool			edit_h;
 	bool			edit_d;
 	bool			checkerboard;
+	bool			bump;
 	int				fix;
 	int				id;
 	enum e_type		type;
@@ -58,6 +59,8 @@ typedef struct s_obj
 	t_rgb			tmp_color;
 	struct s_obj	*next;
 	double			(*get_intersects)(t_ray ray, struct s_obj *obj);
+	void			(*get_uv)(const t_vec3 *point, double *u, \
+		double *v, struct s_obj	*obj);
 }	t_obj;
 
 // quadratic
@@ -70,7 +73,7 @@ double	plane_intersection(t_ray ray, t_obj *obj);
 double	cylinder_intersection(t_ray ray, t_obj *obj);
 double	cone_intersection(t_ray ray, t_obj *obj);
 
-//	getting surface normal for rendering the correct color
-t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t);
+//	getting projection
+t_vec3	get_projection(t_vec3 v, t_vec3 obj_dir);
 
 #endif

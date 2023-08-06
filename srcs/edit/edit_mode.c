@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_mode.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/02 18:06:09 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/06 18:10:46 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ static void	checkerboard_mode(t_obj **selected)
 		printf("\nCheckerboard texture unapplied.\n");
 }
 
+static void	bump_mode(t_obj **selected)
+{
+	(*selected)->bump = !(*selected)->bump;
+	if ((*selected)->bump)
+		printf("\nBump texture applied.\n");
+	else
+		printf("\nBump texture unapplied.\n");
+}
+
 //	key 5 = 23, key 6 = 22
 bool	is_edit_key(int keycode, t_viewport *vp)
 {
@@ -51,10 +60,10 @@ bool	is_edit_key(int keycode, t_viewport *vp)
 		camera_mode(&vp->selected);
 	else if (vp->selected && keycode == KEY_B)
 		checkerboard_mode(&vp->selected);
+	else if (vp->selected && keycode == KEY_V)
+		bump_mode(&vp->selected);
 	else if (vp->selected)
 		edit_property(keycode, vp->selected);
-	else if (keycode == KEY_B)
-		vp->checkerboard = true;
 	else
 		return (false);
 	return (true);

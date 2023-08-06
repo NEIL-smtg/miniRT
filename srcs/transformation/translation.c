@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translation.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:21:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/31 15:30:46 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/06 17:14:17 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@
 static void	x_translation(int key, t_vec3 *pos)
 {
 	if (key == KEY_A)
-		pos->x--;
+		pos->x -= MOVEMENT;
 	else
-		pos->x++;
+		pos->x += MOVEMENT;
 }
 
 static void	y_translation(int key, t_vec3 *pos)
 {
 	if (key == KEY_UP)
-		pos->y++;
+		pos->y += MOVEMENT;
 	else
-		pos->y--;
+		pos->y -= MOVEMENT;
 }
 
 static void	z_translation(int key, t_vec3 *pos)
 {
 	if (key == KEY_W)
-		pos->z--;
+		pos->z -= MOVEMENT;
 	else
-		pos->z++;
+		pos->z += MOVEMENT;
 }
 
 void	translation(int keycode, t_viewport *vp)

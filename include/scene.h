@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 11:39:52 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/07 00:19:32 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_img
 	int		bpp;
 	int		line_size;
 	int		endian;
+	int		width;
+	int		height;
+	double	**bump_map;
 }	t_img;
 
 typedef struct s_viewport
@@ -70,6 +73,7 @@ typedef struct s_viewport
 	bool	edit;
 	bool	checkerboard;
 	t_img	img;
+	t_img	texture;
 	t_mat4	view_mat;
 	t_mat4	inv_view_mat;
 	t_scene	*scene;

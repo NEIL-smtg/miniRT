@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2023/08/03 19:32:59 by suchua           ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/08/07 01:00:17 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ double		ft_atof(char *s);
 char		**rt_split(char const *s);
 void		print_mat4(t_mat4 mat);
 void		clean_img(t_viewport *vp);
+double		nb_clamp(double n, double min, double max);
 
 //valid arg, getting inputs
 int			valid_arg(int ac, char **av);
@@ -89,8 +90,15 @@ double		get_diffuse_color(t_light *light, t_obj *obj, \
 		t_vec3 inter, t_vec3 surface_normal);
 bool		in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse);
 
+//	getting surface normal for rendering the correct color
+t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t, t_img texture);
+
+//	bump normal
+t_vec3	get_bump_effect_normal(t_obj *obj, const t_vec3 inter, t_vec3 n, \
+		t_img texture);
+
 //colors
-t_rgb		phong_shading(t_scene sc, t_ray ray, t_obj *obj, double t);
+t_rgb		phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 t_rgb		checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/03 14:18:37 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/06 23:51:36 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_rgb	checkerboard_color(float u, float v, t_obj *obj)
 
 void	get_stuff(t_viewport *vp, t_ray ray, t_obj *obj, t_stuff *stuff)
 {
-	stuff->surface_normal = get_surface_normal(ray, obj, stuff->t);
+	stuff->surface_normal = get_surface_normal(ray, obj, stuff->t, vp->texture);
 	stuff->inter = vec3_add(ray.origin, vec3_mul(stuff->t, ray.dir));
 	stuff->diffuse = get_diffuse_color(vp->scene->light, obj,
 			stuff->inter, stuff->surface_normal);

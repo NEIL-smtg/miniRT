@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cone.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:17:23 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 14:36:53 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/06 18:06:23 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,14 @@ int	set_cone(t_scene *sc, char *line, int type)
 		return (0);
 	}
 	new = init_new_part1(s, type);
+	new->checkerboard = false;
+	new->bump = false;
 	new->type = CONE;
 	new->get_intersects = cone_intersection;
+	new->get_uv = get_cylinder_uv;
 	new->d = ft_atof(s[3]);
 	new->h = ft_atof(s[4]);
-	new->cone_angle = atan(new->d / new->h);
+	new->cone_angle = atan(new->d / 2.0 / new->h);
 	objlst_addback(&(sc->obj), new);
 	ft_free2d(s);
 	return (1);

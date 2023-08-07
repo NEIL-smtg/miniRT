@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:53:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 23:22:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/07 22:06:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ static int	prompt_usage_error(void)
 {
 	ft_putendl_fd("Invalid number of arguments !!", 2);
 	ft_putendl_fd("Usage : ./miniRT <path_to_scene.rt>", 2);
+	ft_putendl_fd("or", 2);
+	ft_putstr_fd("Usage : ./miniRT <path_to_scene.rt> ", 2);
+	ft_putendl_fd("<path_to_texture.xpm>", 2);
 	return (0);
 }
 
 static int	prompt_invalid_file(void)
 {
 	ft_putendl_fd("Invalid file !!", 2);
-	ft_putendl_fd("File must be in .rt format !!", 2);
+	ft_putendl_fd("Scene file must be in .rt format !!", 2);
+	ft_putendl_fd("Texture file must be in .xpm format !!", 2);
 	return (0);
 }
 

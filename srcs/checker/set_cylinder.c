@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:39:16 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 18:05:57 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/08 00:27:54 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	set_cylinder(t_scene *sc, char *line, int type)
 	new = init_new_part1(s, type);
 	new->type = CYLINDER;
 	new->get_intersects = cylinder_intersection;
-	new->get_uv = get_cylinder_uv;
+	new->get_uv = texture_cy_uv;
 	new->d = ft_atof(s[3]);
 	new->h = ft_atof(s[4]);
 	new->checkerboard = false;

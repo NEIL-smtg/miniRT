@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:17:23 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 21:29:05 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/08 00:27:59 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	init_part2(t_obj **new, char **s)
 	(*new)->bump = false;
 	(*new)->type = CONE;
 	(*new)->get_intersects = cone_intersection;
-	(*new)->get_uv = get_cylinder_uv;
+	(*new)->get_uv = texture_cone_uv;
 	(*new)->d = ft_atof(s[3]);
 	(*new)->h = ft_atof(s[4]);
 	(*new)->cone_angle = atan((*new)->d / 2.0 / (*new)->h);

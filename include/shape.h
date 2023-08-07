@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 18:13:48 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/08 00:33:14 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@
 
 # define PL_DIFFUSE_TERM 0.25
 # define PL_SPECULAR_TERM 5.0
+
+typedef struct s_tuv
+{
+	t_vec3	ci;
+	double	u;
+	double	v;
+	double	r;
+	double	h;
+	int		t_width;
+	int		t_height;
+}	t_tuv;
 
 typedef struct s_ray
 {
@@ -60,8 +71,7 @@ typedef struct s_obj
 	t_rgb			tmp_color;
 	struct s_obj	*next;
 	double			(*get_intersects)(t_ray ray, struct s_obj *obj);
-	void			(*get_uv)(const t_vec3 *point, double *u, \
-		double *v, struct s_obj	*obj);
+	void			(*get_uv)(t_tuv *g);
 }	t_obj;
 
 // quadratic
@@ -76,5 +86,11 @@ double	cone_intersection(t_ray ray, t_obj *obj);
 
 //	getting projection
 t_vec3	get_projection(t_vec3 v, t_vec3 obj_dir);
+
+//	uv texture mapping
+void	texture_sphere_uv(t_tuv *g);
+void	texture_plane_uv(t_tuv *g);
+void	texture_cy_uv(t_tuv *g);
+void	texture_cone_uv(t_tuv *g);
 
 #endif

@@ -19,7 +19,7 @@ FILES			=	main render hooks \
 					transformation/info transformation/translation transformation/checkerboard\
 					transformation/panning transformation/get_uv\
 					quaternion/quaternion \
-					texture/bump
+					texture/bump texture/init_texture texture/texture_uv
 
 LINUX_MLX		=	-L lib/minilibx-linux/libmlx_Linux.a -lmlx -lXext -lX11
 APPLE_MLX		=	-L lib/minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit -lz

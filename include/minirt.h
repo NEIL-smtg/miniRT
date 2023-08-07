@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 21:33:23 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/08 00:06:08 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
 ////////////////////////////////////////////////////////
+
+//	init
+void		init_texture(char *xpm, t_img *texture, void *mlx);
 
 //	transformation
 void		world_to_camera(t_mat4 inv_view_mat, t_scene *sc);
@@ -92,7 +95,7 @@ bool		in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse);
 t_vec3		get_surface_normal(t_ray ray, t_obj *obj, double t, t_img texture);
 
 //	bump normal
-t_vec3		get_bump_effect_normal(t_obj *obj, const t_vec3 inter, t_vec3 n, \
+t_vec3		get_bump_effect_normal(t_obj *obj, t_vec3 inter, t_vec3 n, \
 			t_img texture);
 
 //colors

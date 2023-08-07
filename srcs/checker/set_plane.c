@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:32:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 18:06:42 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/08 00:27:51 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	set_plane(t_scene *sc, char *line, int type)
 	}
 	new = new_pl(s, type);
 	new->get_intersects = plane_intersection;
-	new->get_uv = get_plane_uv;
+	new->get_uv = texture_plane_uv;
 	new->checkerboard = false;
 	new->bump = false;
 	objlst_addback(&(sc->obj), new);

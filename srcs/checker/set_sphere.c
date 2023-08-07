@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 18:07:40 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/08 00:27:43 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	set_sphere(t_scene *sc, char *line, int type)
 	}
 	new = new_sp(s, type);
 	new->get_intersects = sphere_intersection;
-	new->get_uv = get_sphere_uv;
+	new->get_uv = texture_sphere_uv;
 	new->checkerboard = false;
 	new->bump = false;
 	objlst_addback(&(sc->obj), new);

@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:13:15 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/03 12:53:26 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/07 17:52:12 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	new_light(char *line, t_light *new)
 
 	sp = rt_split(line);
 	xyz = ft_split(sp[1], ',');
+	// new->type = LIGHT;
 	new->pos.x = ft_atof(xyz[0]);
 	new->pos.y = ft_atof(xyz[1]);
 	new->pos.z = ft_atof(xyz[2]);
@@ -75,6 +76,7 @@ void	new_light(char *line, t_light *new)
 	new->rgb.r = ft_atof(xyz[0]);
 	new->rgb.g = ft_atof(xyz[1]);
 	new->rgb.b = ft_atof(xyz[2]);
+	new->light_intersects = light_intersection;
 	new->next = NULL;
 	ft_free2d(xyz);
 	ft_free2d(sp);
@@ -86,7 +88,7 @@ int	set_light(t_scene *sc, char *line)
 
 	new = malloc(sizeof(t_light));
 	if (!new)
-		ft_error("malloc failed on t_ligt", NULL);
+		ft_error("malloc failed on t_light", NULL);
 	new->fix = 0;
 	if (*line == 'L')
 		new->fix = 1;
@@ -96,6 +98,7 @@ int	set_light(t_scene *sc, char *line)
 		return (0);
 	}
 	new_light(line, new);
+	// objlst_addback(&(sc->obj), new);
 	lglst_addback(&(sc->light), new);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 23:38:03 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/07 18:01:48 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ static void	width_loop(int pixel[2], t_viewport *vp)
 		}
 		else if (vp->edit && vp->selected && vp->selected == closest)
 			fill_color(vp->selected->tmp_color, vp, pixel);
-		else if (vp->edit && closest)
-			fill_color(closest->rgb, vp, pixel);
+		else if (vp->edit)
+			fill_color(edit_mode(vp, ray, closest, t), vp, pixel);
 		pixel[0] += vp->edit * 2 + 1;
 	}
 }

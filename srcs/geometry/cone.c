@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 17:11:57 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/07 14:32:46 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	cone_base(t_ray ray, t_obj *obj, t_vec3 oc)
 	t = vec3_dot(oc, obj->dir) / ray_proj;
 	if (t <= 0.0f || t == INFINITY)
 		return (INFINITY);
-	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
+	inter = vec3_add(vec3_mul(t, ray.dir), ray.origin);
 	if (vec3_len(vec3_sub(inter, top_center)) <= obj->d / 2.0)
 		return (t);
 	return (INFINITY);

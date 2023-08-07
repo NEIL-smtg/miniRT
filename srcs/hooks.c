@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 23:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 20:42:47 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/07 18:45:43 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	mouse_event(int button, int x, int y, t_viewport *vp)
 	int		pixel[2];
 	t_ray	ray;
 	t_obj	*select;
+	t_light	*closest;
+	double	t[2];
 
 	if (!vp->edit)
 		return (0);

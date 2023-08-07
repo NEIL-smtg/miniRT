@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_mode.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/06 18:10:46 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/07 19:11:26 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ static void	bump_mode(t_obj **selected)
 		printf("\nBump texture applied.\n");
 	else
 		printf("\nBump texture unapplied.\n");
+}
+
+void	light_mode(int key, t_viewport *vp)
+{
+
 }
 
 //	key 5 = 23, key 6 = 22

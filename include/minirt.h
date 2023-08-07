@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/08/07 01:00:17 by suchua           ###   ########.fr       */
+/*   Created: Invalid Date        by                   #+#    #+#             */
+/*   Updated: 2023/08/07 16:17:36 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,15 @@ double		get_diffuse_color(t_light *light, t_obj *obj, \
 bool		in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse);
 
 //	getting surface normal for rendering the correct color
-t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t, t_img texture);
+t_vec3		get_surface_normal(t_ray ray, t_obj *obj, double t, t_img texture);
 
 //	bump normal
-t_vec3	get_bump_effect_normal(t_obj *obj, const t_vec3 inter, t_vec3 n, \
-		t_img texture);
+t_vec3		get_bump_effect_normal(t_obj *obj, const t_vec3 inter, t_vec3 n, \
+			t_img texture);
 
 //colors
 t_rgb		phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 t_rgb		checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t);
+t_rgb		edit_mode(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 
 #endif

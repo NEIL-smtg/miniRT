@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 23:51:10 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/07 18:13:48 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ enum	e_type
 	SPHERE,
 	CYLINDER,
 	PLANE,
-	CONE
+	CONE ,
+	LIGHT
 };
 
 typedef struct s_obj

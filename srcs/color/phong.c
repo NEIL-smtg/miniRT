@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 23:39:04 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/07 15:56:27 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 		diffuse = get_diffuse_color(sc.light, obj, inter, surface_normal);
 		specular = get_specular_light(sc, surface_normal, inter, obj);
 		amb = get_ambient_color(sc, obj, inter, surface_normal);
-		// if (in_shadows(sc, inter, obj, diffuse))
-		// 	return (amb);
+		if (in_shadows(sc, inter, obj, diffuse))
+			return (amb);
 		final_color = new_rgb(
 				final_color.r + (amb.r + specular.r + (obj->rgb.r * diffuse)),
 				final_color.g + (amb.g + specular.g + (obj->rgb.g * diffuse)),

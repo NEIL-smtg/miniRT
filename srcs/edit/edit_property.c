@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_property.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:56:02 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 19:44:39 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/07 21:30:02 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	edit_property(int key, t_obj *selected)
 		return ;
 	if (key == KEY_J && selected->type != PLANE)
 		diameter_handler(selected);
-	else if (key == KEY_H && (selected->type == CYLINDER || selected->type == CONE))
+	else if (key == KEY_H && \
+		(selected->type == CYLINDER || selected->type == CONE))
 		height_handler(selected);
 	else if (selected->edit_d || selected->edit_h)
 		apply_edit(key, selected);

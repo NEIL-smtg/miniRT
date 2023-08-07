@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by                   #+#    #+#             */
-/*   Updated: 2023/08/07 16:17:36 by mmuhamad         ###   ########.fr       */
+/*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
+/*   Updated: 2023/08/07 21:33:23 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINIRT_H
 # define MINIRT_H

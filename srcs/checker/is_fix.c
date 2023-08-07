@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_fix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 20:54:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 13:24:44 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/07 21:31:24 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	is_fix(t_scene *sc, int *acl, int line)
 		free(acl);
 		return (0);
 	}
-	printf("%d - %d - %d - %d\n", acl[0] , acl[1], acl[2] , acl[3]);
 	if (!acl[0] || !acl[1] || !(acl[2] + acl[3]))
 	{
 		printf("Error !!\n");

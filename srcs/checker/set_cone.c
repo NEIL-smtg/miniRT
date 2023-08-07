@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:17:23 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 18:06:23 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/07 21:29:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ static t_obj	*init_new_part1(char **s, int type)
 	return (new);
 }
 
+static void	init_part2(t_obj **new, char **s)
+{
+	(*new)->checkerboard = false;
+	(*new)->bump = false;
+	(*new)->type = CONE;
+	(*new)->get_intersects = cone_intersection;
+	(*new)->get_uv = get_cylinder_uv;
+	(*new)->d = ft_atof(s[3]);
+	(*new)->h = ft_atof(s[4]);
+	(*new)->cone_angle = atan((*new)->d / 2.0 / (*new)->h);
+}
+
 //		 center    normal   r  h  angle     color
 //	cy	-8,3,13  -1,0,-0.2  3  1   30     150,88,200
 int	set_cone(t_scene *sc, char *line, int type)
@@ -63,14 +75,7 @@ int	set_cone(t_scene *sc, char *line, int type)
 		return (0);
 	}
 	new = init_new_part1(s, type);
-	new->checkerboard = false;
-	new->bump = false;
-	new->type = CONE;
-	new->get_intersects = cone_intersection;
-	new->get_uv = get_cylinder_uv;
-	new->d = ft_atof(s[3]);
-	new->h = ft_atof(s[4]);
-	new->cone_angle = atan(new->d / 2.0 / new->h);
+	init_part2(&new, s);
 	objlst_addback(&(sc->obj), new);
 	ft_free2d(s);
 	return (1);

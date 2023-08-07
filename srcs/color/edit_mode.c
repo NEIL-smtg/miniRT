@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   edit_mode.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:26:46 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/07 18:08:40 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/07 21:29:28 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	get_closest_light(t_ray ray, t_viewport *vp, t_light **closest, double t)
+double	get_closest_light(t_ray ray, t_viewport *vp,\
+		t_light **closest, double t)
 {
 	t_light	*light;
 	double	dist[2];

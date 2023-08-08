@@ -6,36 +6,30 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 21:59:34 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/08 18:16:09 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shape.h"
 
-static double	get_ac_coeff(t_vec3 rd_oc, t_vec3 n, double k, char type)
+// a   = D|D - (1+k*k)*(D|V)^2
+// b/2 = D|X - (1+k*k)*(D|V)*(X|V)
+// c   = X|X - (1+k*k)*(X|V)^2
+static double	get_ac_coeff(t_vec3 rd_oc, t_vec3 n, double k)
 {
 	double	res;
 
-	if (type == 'a')
-	{
-		res = vec3_dot(rd_oc, rd_oc);
-		res = res - k * pow(vec3_dot(rd_oc, n), 2);
-		return (res);
-	}
-	else
-	{
-		res = vec3_dot(rd_oc, rd_oc);
-		res = res - k * pow(vec3_dot(rd_oc, n), 2);
-		return (res);
-	}
+	res = vec3_dot(rd_oc, rd_oc);
+	res -= k * pow(vec3_dot(rd_oc, n), 2);
+	return (res);
 }
 
 static double	get_b_coef(t_vec3 rd, t_vec3 n, t_vec3 oc, double k)
 {
 	double	res;
 
-	res = vec3_dot(rd, oc) - k * vec3_dot(rd, n);
-	res *= vec3_dot(oc, n);
+	res = vec3_dot(rd, oc);
+	res -= k * vec3_dot(rd, n) * vec3_dot(oc, n);
 	res *= -2;
 	return (res);
 }
@@ -78,9 +72,6 @@ static double	cone_decider(t_ray ray, double t, t_obj *obj)
 	return (t);
 }
 
-// a   = D|D - (1+k*k)*(D|V)^2
-// b/2 = D|X - (1+k*k)*(D|V)*(X|V)
-// c   = X|X - (1+k*k)*(X|V)^2
 double	cone_intersection(t_ray ray, t_obj *obj)
 {
 	t_vec3	oc;
@@ -92,9 +83,9 @@ double	cone_intersection(t_ray ray, t_obj *obj)
 	oc = vec3_sub(obj->center, ray.origin);
 	k = 1 + pow(tan(obj->cone_angle), 2);
 	t = solve_quadratic(
-			get_ac_coeff(ray.dir, obj->dir, k, 'a'),
+			get_ac_coeff(ray.dir, obj->dir, k),
 			get_b_coef(ray.dir, obj->dir, oc, k),
-			get_ac_coeff(oc, obj->dir, k, 'c')
+			get_ac_coeff(oc, obj->dir, k)
 			);
 	if (t == INFINITY)
 		return (INFINITY);

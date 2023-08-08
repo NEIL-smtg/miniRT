@@ -7,7 +7,8 @@ OBJS_DIR		=	objs/
 FILES			=	main render hooks \
 					edit/edit_property edit/edit_mode edit/edit_utils\
 					utils/ft_atof utils/rt_split utils/utils utils/printing\
-					color/color color/phong color/edit_mode\
+					color/color color/phong color/edit_mode color/shadows \
+					color/phong_utils color/color2\
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
 					checker/set_cone checker/is_fix checker/set_light\
@@ -15,9 +16,9 @@ FILES			=	main render hooks \
 					matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
 					matrix/view_matrix matrix/view_matrix2\
 					geometry/sphere geometry/plane geometry/cylinder geometry/cone\
-					geometry/surface_normal geometry/light_sphere\
+					geometry/surface_normal geometry/cube\
 					transformation/info transformation/translation transformation/checkerboard\
-					transformation/panning transformation/get_uv\
+					transformation/panning transformation/get_uv transformation/xyz\
 					quaternion/quaternion \
 					texture/bump texture/init_texture texture/texture_uv
 

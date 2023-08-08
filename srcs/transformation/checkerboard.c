@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/06 23:51:36 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 00:19:50 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	get_stuff(t_viewport *vp, t_ray ray, t_obj *obj, t_stuff *stuff)
 {
 	stuff->surface_normal = get_surface_normal(ray, obj, stuff->t, vp->texture);
 	stuff->inter = vec3_add(ray.origin, vec3_mul(stuff->t, ray.dir));
-	stuff->diffuse = get_diffuse_color(vp->scene->light, obj,
-			stuff->inter, stuff->surface_normal);
+	stuff->diffuse = get_diffuse_color(vp->scene->light, stuff->inter,
+			stuff->surface_normal);
 	stuff->specular = get_specular_light(*vp->scene, stuff->surface_normal,
 			stuff->inter, obj);
 }

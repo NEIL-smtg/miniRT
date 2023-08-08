@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quaternion.h                                       :+:      :+:    :+:   */
+/*   color2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 23:43:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 03:55:47 by suchua           ###   ########.fr       */
+/*   Created: 2023/08/08 23:44:40 by suchua            #+#    #+#             */
+/*   Updated: 2023/08/08 23:57:12 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef QUATERNION_H
-# define QUATERNION_H
+#include "color.h"
 
-# include "scene.h"
-
-typedef struct s_quaternion
+t_rgb	rgb_add(t_rgb c1, t_rgb c2)
 {
-	t_vec4	quaternion;
-	t_vec4	conjugate;
-}	t_quat;
+	t_rgb	new;
 
-t_quat	get_quaternion(double rad, t_vec3 dir);
-t_vec3	rotate(t_vec3 pt, t_quat q);
+	new.r = c1.r + c2.r;
+	new.g = c1.g + c2.g;
+	new.b = c1.b + c2.b;
+	return (new);
+}
 
-#endif
+t_rgb	rgb_add_3(t_rgb a, t_rgb b, t_rgb c)
+{
+	t_rgb	new;
+
+	new = rgb_add(a, b);
+	new = rgb_add(new, c);
+	return (new);
+}

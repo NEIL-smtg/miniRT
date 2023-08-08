@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:56:07 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/19 18:19:31 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/08 23:57:10 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,6 @@ t_rgb	rgb_mul(t_rgb c1, t_rgb c2)
 	new.r = c1.r * c2.r;
 	new.g = c1.g * c2.g;
 	new.b = c1.b * c2.b;
-	return (new);
-}
-
-t_rgb	rgb_add(t_rgb c1, t_rgb c2)
-{
-	t_rgb	new;
-
-	new.r = c1.r + c2.r;
-	new.g = c1.g + c2.g;
-	new.b = c1.b + c2.b;
 	return (new);
 }
 

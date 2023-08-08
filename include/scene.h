@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 17:53:07 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 00:17:19 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ typedef struct s_viewport
 void	edit_property(int key, t_obj *selected);
 void	selected_msg(t_obj *selected);
 
-double	light_intersection(t_ray ray, t_light *obj);
+double	cube_intersection(t_ray ray, t_light *obj);
 
 #endif

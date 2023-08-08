@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   panning.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 19:35:11 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 03:55:30 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,17 @@ static t_vec3	get_rotation_axis(int keycode, t_viewport *vp, int *angle)
 	if (keycode == KEY_ONE || keycode == KEY_TWO)
 	{
 		printf("\nROTATING in X-AXIS\n");
-		if (vp->selected)
-			return (normalize(vec3_cross(vp->selected->dir,
-						new_vec3(1, 0, 0))));
-		return (get_cam_up(vp->view_mat));
+		return (get_up(vp->selected, vp->view_mat));
 	}
 	else if (keycode == KEY_THREE || keycode == KEY_FOUR)
 	{
 		printf("\nROTATING in Y-AXIS\n");
-		if (vp->selected)
-			return (normalize(vec3_cross(vp->selected->dir,
-						new_vec3(0, 1, 0))));
-		return (get_cam_right(vp->view_mat));
+		return (get_right(vp->selected, vp->view_mat));
 	}
 	else
 	{
 		printf("\nROTATING in Z-AXIS\n");
-		if (vp->selected)
-			return (vp->selected->dir);
-		return (get_cam_forward(vp->view_mat));
+		return (get_forward(vp->selected, vp->view_mat));
 	}
 }
 
@@ -71,7 +63,6 @@ static void	origin_translation(t_viewport *vp, t_vec3 rot_center, \
 		lg->pos = vec3_add(lg->pos, translate);
 		lg = lg->next;
 	}
-	vp->scene->light->pos = vec3_add(vp->scene->light->pos, translate);
 }
 
 static void	rotate_scene(t_quat q, t_viewport *vp)

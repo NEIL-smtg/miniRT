@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:07:25 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 23:11:32 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 00:38:46 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	init_bump_map(t_img *texture)
 	unsigned char	*data;
 
 	data = (unsigned char *) texture->data_addr;
- 	y = -1;
+	y = -1;
 	while (++y < texture->height)
 	{
 		x = -1;

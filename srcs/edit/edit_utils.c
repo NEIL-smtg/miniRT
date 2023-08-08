@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   edit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 22:40:46 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 20:42:42 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/08 18:50:29 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+//	if ori color is grey/white, return green
 t_rgb	get_selected_color(t_rgb c)
 {
 	double	min;
 	double	max;
 
+	if (c.r == c.g && c.r == c.b)
+		return (new_rgb(50, 200, 30));
 	min = fmin(c.r, c.g);
 	min = fmin(min, c.b);
 	max = fmax(c.r, c.g);
@@ -46,7 +49,9 @@ void	selected_msg(t_obj *selected)
 		printf("\nPLANE selected\n");
 	else if (selected->type == CYLINDER)
 		printf("\nCYLINDER selected\n");
-	printf("Press:\n\tkey 1-6 for rotation\n");
+	printf("Press:\n\tkey 1,2 for x rotation\n");
+	printf("\tkey 3,4 for y rotation\n");
+	printf("\tkey 5,6 for z rotation\n");
 	printf("\tWASD↑↓ for translation.\n");
 	if (!selected)
 		return ;
@@ -61,6 +66,8 @@ static void	edit_info_msg(void)
 	printf("\n\n####### EDIT MODE #######\n");
 	printf("Press:\n\tkey C to switch back to CAMERA mode\n");
 	printf("\tkey R to apply edit and RENDER again\n");
+	printf("\tkey V to apply bump texture\n");
+	printf("\tkey B to apply checkerboard texture\n");
 	printf("\nClicked:\n\tClick object to edit its properties\n");
 }
 

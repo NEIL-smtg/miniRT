@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:41:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 17:13:59 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 03:54:04 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void	panning(int key, t_viewport *vp);
 // translation
 bool	is_translation_key(int keycode);
 void	translation(int keycode, t_viewport *vp);
+
+//	up right forward
+t_vec3	get_up(t_obj *selected, t_mat4 view_mat);
+t_vec3	get_right(t_obj *selected, t_mat4 view_mat);
+t_vec3	get_forward(t_obj *selected, t_mat4 view_mat);
 
 // uv mapping
 void	get_sphere_uv(const t_vec3 *point, double *u, double *v, t_obj *obj);

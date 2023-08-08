@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/08 01:06:39 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 03:59:25 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_mat4	get_view_matrix(t_camera cam)
 	t_mat4	view_mat;
 
 	forward = normalize(cam.dir);
-	if (forward.y == 1)
+	if (forward.y == 1.0)
 		right = normalize(vec3_cross(forward, new_vec3(0, 0, 1)));
 	else
 		right = normalize(vec3_cross(forward, new_vec3(0, 1, 0)));
@@ -61,12 +61,12 @@ void	world_to_camera(t_mat4 inv_view_mat, t_scene *sc)
 
 	sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
 	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
-	// lg = sc->light;
-	// while (lg)
-	// {
-	// 	lg->pos = convert_to_view_space(inv_view_mat, lg->pos);
-	// 	lg = lg->next;
-	// }
+	lg = sc->light;
+	while (lg)
+	{
+		lg->pos = convert_to_view_space(inv_view_mat, lg->pos);
+		lg = lg->next;
+	}
 	tmp = sc->obj;
 	while (tmp)
 	{

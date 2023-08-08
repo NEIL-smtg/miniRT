@@ -6,13 +6,13 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:26:46 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/07 21:29:28 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 03:58:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	get_closest_light(t_ray ray, t_viewport *vp,\
+double	get_closest_light(t_ray ray, t_viewport *vp, \
 		t_light **closest, double t)
 {
 	t_light	*light;

@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:53:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 22:06:41 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/08 18:47:51 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ static int	prompt_invalid_file(void)
 	ft_putendl_fd("Scene file must be in .rt format !!", 2);
 	ft_putendl_fd("Texture file must be in .xpm format !!", 2);
 	return (0);
+}
+
+static int	prompt_no_texture(void)
+{
+	ft_putendl_fd("No texture file loaded.", 1);
+	return (1);
 }
 
 static int	valid_rt(char *file, char *format)
@@ -59,6 +65,8 @@ int	valid_arg(int ac, char **av)
 		return (prompt_usage_error());
 	if (!valid_rt(av[1], ".rt"))
 		return (0);
+	if (!av[2])
+		return (prompt_no_texture());
 	if (av[2] && !valid_rt(av[2], ".xpm"))
 		return (0);
 	return (1);

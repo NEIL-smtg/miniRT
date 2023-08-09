@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 01:43:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 01:02:27 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:41:53 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void	transformation_info(t_obj *selected, t_camera cam)
 			printf("PLANE\n");
 		else if (selected->type == CYLINDER)
 			printf("CYLINDER\n");
+		else if (selected->type == LIGHT)
+			printf("CYLINDER\n");
 		else
 			printf("CONE\n");
 		print_vec3(selected->center, "POSITION");
-		if (selected->type != SPHERE)
+		if (selected->type != SPHERE && selected->type != LIGHT)
 			print_vec3(selected->dir, "NORMAL");
 		return ;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 00:10:57 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:38:25 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		selected_msg(t_obj *selected);
 //	render
 void		render(t_viewport *vp, t_scene sc);
 t_vec3		get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin);
-double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest);
+double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest, bool edit);
 void		fill_color(t_rgb color, t_viewport *vp, int pixel[2]);
 
 //	utils

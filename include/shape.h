@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 00:16:51 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:32:37 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_obj
 	t_rgb			rgb;
 	t_rgb			tmp_color;
 	struct s_obj	*next;
+	struct s_light	*light;
 	double			(*get_intersects)(t_ray ray, struct s_obj *obj);
 	void			(*get_uv)(t_tuv *g);
 }	t_obj;

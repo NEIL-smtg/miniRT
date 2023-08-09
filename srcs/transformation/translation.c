@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translation.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:21:38 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/06 17:14:17 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:41:26 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ void	translation(int keycode, t_viewport *vp)
 		z_translation(keycode, pos);
 	else
 		return ;
+		if (vp->selected && vp->selected->type == LIGHT)
+	{
+		vp->selected->light->pos.x = pos->x;
+		vp->selected->light->pos.y = pos->y;
+		vp->selected->light->pos.z = pos->z;
+	}
 	transformation_info(vp->selected, vp->scene->cam);
 }
 

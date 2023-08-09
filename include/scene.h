@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 00:17:19 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:34:13 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ void	edit_property(int key, t_obj *selected);
 void	selected_msg(t_obj *selected);
 
 double	cube_intersection(t_ray ray, t_light *obj);
+double	cube_intersection_obj(t_ray ray, t_obj *obj);
 
 #endif

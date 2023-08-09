@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 12:35:15 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/10 00:51:57 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	fill_color(t_rgb color, t_viewport *vp, int pixel[2])
 	unsigned char	*data;
 	int				index;
 
-	color = clamp(color, 0.0f, 255.0f);
+	color = clamp(color, 0.0, 255.0);
 	data = (unsigned char *) vp->img.data_addr;
 	index = pixel[1] * vp->img.line_size + pixel[0] * (vp->img.bpp / 8);
 	data[index] = (unsigned char) color.b;

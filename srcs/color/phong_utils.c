@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 23:41:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 23:57:05 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/10 02:12:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
 	return (specular);
 }
 
-double	get_diffuse_color(t_light *light, t_vec3 inter, \
+double	get_diffuse_color(t_light *light, t_vec3 inter, t_obj *obj, \
 	t_vec3 surface_normal)
 {	
 	double	diff;
 	t_vec3	light_dir;
 
+	// if (obj->type == PLANE)
+	// 	surface_normal = vec3_mul(-1, surface_normal);
 	light_dir = normalize(vec3_sub(light->pos, inter));
 	diff = vec3_dot(surface_normal, light_dir);
 	return (fmax(diff, 0));

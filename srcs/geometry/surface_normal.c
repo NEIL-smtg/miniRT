@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:31:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 23:57:24 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/10 02:15:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t, t_img texture)
 	if (obj->type == SPHERE)
 		n = normalize(vec3_sub(inter, obj->center));
 	else if (obj->type == PLANE)
-		n = vec3_mul(-1.0, obj->dir);
+	{
+		if (obj->center.x >= EPS)
+			n = obj->dir;
+		else
+			n = vec3_mul(-1.0, obj->dir);
+	}
 	else
 		n = get_cy_surface_normal(obj, inter, t);
 	return (get_bump_effect_normal(obj, inter, n, texture));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:57:43 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 04:00:52 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 21:11:44 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int ac, char **av)
 	if (!get_input(av[1], &scene))
 		exit (1);
 	init_viewport(&vp, scene.cam);
-	world_to_camera(vp.inv_view_mat, &scene);
+	world_to_camera(vp.inv_view_mat, vp.view_mat, &scene);
 	create_mlx(&vp, &scene);
 	init_texture(av[2], &vp.texture, vp.mlx);
 	print_scene(&scene);

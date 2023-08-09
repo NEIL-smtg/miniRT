@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 03:59:25 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 21:16:07 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,25 @@ t_vec3	convert_to_view_space(t_mat4 view_mat, t_vec3 v)
 	return (vec3_mul(1 / after.w, res));
 }
 
-void	world_to_camera(t_mat4 inv_view_mat, t_scene *sc)
+void	world_to_camera(t_mat4 inv_view_mat, t_mat4 view_mat, t_scene *sc)
 {
 	t_obj	*tmp;
 	t_light	*lg;
 
-	sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
-	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
+	// sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
+	// sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
 	lg = sc->light;
 	while (lg)
 	{
-		lg->pos = convert_to_view_space(inv_view_mat, lg->pos);
+		lg->pos = convert_to_view_space(view_mat, lg->pos);
 		lg = lg->next;
 	}
 	tmp = sc->obj;
 	while (tmp)
 	{
-		tmp->center = convert_to_view_space(inv_view_mat, tmp->center);
-		if (tmp->type != SPHERE)
-			tmp->dir = normalize(convert_to_view_space(inv_view_mat, tmp->dir));
+		tmp->center = convert_to_view_space(view_mat, tmp->center);
+		// if (tmp->type != SPHERE)
+		// 	tmp->dir = normalize(convert_to_view_space(view_mat, tmp->dir));
 		tmp = tmp->next;
 	}
 }

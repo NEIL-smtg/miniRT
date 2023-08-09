@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 00:10:57 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 21:34:41 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@
 void		init_texture(char *xpm, t_img *texture, void *mlx);
 
 //	transformation
-void		world_to_camera(t_mat4 inv_view_mat, t_scene *sc);
+void		world_to_camera(t_mat4 inv_view_mat, t_mat4 view_mat, t_scene *sc);
+// void		world_to_camera(t_mat4 inv_view_mat, t_scene *sc);
 t_mat4		get_view_matrix(t_camera cam);
 t_vec3		convert_to_view_space(t_mat4 view_mat, t_vec3 v);
 

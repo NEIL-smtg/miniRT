@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 11:54:03 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:20:10 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,5 @@ t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 				final_color.b + (amb.b + specular.b + (obj->rgb.b * diffuse)));
 		light = light->next;
 	}
-	return (final_color);
+	// return (final_color);
 }

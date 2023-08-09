@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 15:56:27 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:54:03 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ double	get_diffuse_color(t_light *light, t_obj *obj, \
 	return (fmax(diff, 0));
 }
 
-bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
+bool	in_shadows(t_viewport *vp, t_vec3 inter, t_obj *obj, double diffuse)
 {
 	t_obj	*closest;
 	t_ray	ray;
@@ -76,10 +76,10 @@ bool	in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse)
 
 	if ((obj->type == CONE && diffuse <= 0.6) || diffuse == 0.0)
 		return (false);
-	ray.dir = vec3_sub(sc.light->pos, inter);
+	ray.dir = vec3_sub(vp->scene->light->pos, inter);
 	ray.origin = vec3_add(inter, vec3_mul(EPS, ray.dir));
 	closest = NULL;
-	t = get_closest_obj(ray, sc.obj, &closest);
+	t = get_closest_obj(ray, vp->scene->obj, &closest, vp->edit);
 	if (t != INFINITY)
 		return (true);
 	return (false);
@@ -111,21 +111,21 @@ t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 	sc = *vp->scene;
 	final_color = new_rgb(0, 0, 0);
 	light = sc.light;
-	while (sc.light)
+	while (light)
 	{
+		// printf("%f\n", light->brightness);
 		surface_normal = get_surface_normal(ray, obj, t, vp->texture);
 		inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
-		diffuse = get_diffuse_color(sc.light, obj, inter, surface_normal);
+		diffuse = get_diffuse_color(light, obj, inter, surface_normal);
 		specular = get_specular_light(sc, surface_normal, inter, obj);
 		amb = get_ambient_color(sc, obj, inter, surface_normal);
-		if (in_shadows(sc, inter, obj, diffuse))
+		if (in_shadows(vp, inter, obj, diffuse))
 			return (amb);
 		final_color = new_rgb(
 				final_color.r + (amb.r + specular.r + (obj->rgb.r * diffuse)),
 				final_color.g + (amb.g + specular.g + (obj->rgb.g * diffuse)),
 				final_color.b + (amb.b + specular.b + (obj->rgb.b * diffuse)));
-		sc.light = sc.light->next;
+		light = light->next;
 	}
-	sc.light = light;
 	return (final_color);
 }

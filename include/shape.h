@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 18:13:48 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:24:33 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ enum	e_type
 	LIGHT
 };
 
+typedef struct s_light
+{
+	int				fix;
+	t_vec3			pos;
+	double			brightness;
+	t_rgb			rgb;
+	double			(*light_intersects)(t_ray ray, struct s_light *light);
+	struct s_light	*next;
+}	t_light;
+
 typedef struct s_obj
 {
 	bool			edit_h;
@@ -58,6 +68,7 @@ typedef struct s_obj
 	double			cone_angle;
 	t_rgb			rgb;
 	t_rgb			tmp_color;
+	struct s_light	*light;
 	struct s_obj	*next;
 	double			(*get_intersects)(t_ray ray, struct s_obj *obj);
 	void			(*get_uv)(const t_vec3 *point, double *u, \

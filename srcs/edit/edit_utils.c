@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 22:40:46 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/02 20:42:42 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 11:21:33 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	selected_msg(t_obj *selected)
 		printf("\nSPHERE selected\n");
 	else if (selected->type == PLANE)
 		printf("\nPLANE selected\n");
+	else if (selected->type == LIGHT)
+		printf("\nLIGHT selected\n");
 	else if (selected->type == CYLINDER)
 		printf("\nCYLINDER selected\n");
 	printf("Press:\n\tkey 1-6 for rotation\n");

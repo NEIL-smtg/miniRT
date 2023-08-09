@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/06 23:51:36 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 11:31:17 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_rgb	checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 		get_sphere_uv(&stuff.inter, &uv.u, &uv.v, obj);
 		stuff.color = checkerboard_color(uv.u, uv.v, obj);
 		stuff.amb = get_amb_color(*vp->scene, stuff.color);
-		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
+		if (in_shadows(vp, stuff.inter, obj, stuff.diffuse))
 			return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
 		return (new_rgb(
 				stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),
@@ -110,7 +110,7 @@ t_rgb	checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 		get_plane_uv(&stuff.inter, &uv.u, &uv.v, obj);
 		stuff.color = checkerboard_color(uv.u, uv.v, obj);
 		stuff.amb = get_amb_color(*vp->scene, stuff.color);
-		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
+		if (in_shadows(vp, stuff.inter, obj, stuff.diffuse))
 			return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
 		return (new_rgb(
 				stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),
@@ -122,7 +122,7 @@ t_rgb	checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 		get_cylinder_uv(&stuff.inter, &uv.u, &uv.v, obj);
 		stuff.color = checkerboard_color(uv.u, uv.v, obj);
 		stuff.amb = get_amb_color(*vp->scene, stuff.color);
-		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
+		if (in_shadows(vp, stuff.inter, obj, stuff.diffuse))
 			return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
 		return (new_rgb(
 				stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),
@@ -134,7 +134,7 @@ t_rgb	checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 		get_sphere_uv(&stuff.inter, &uv.u, &uv.v, obj);
 		stuff.color = checkerboard_color(uv.u, uv.v, obj);
 		stuff.amb = get_amb_color(*vp->scene, stuff.color);
-		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
+		if (in_shadows(vp, stuff.inter, obj, stuff.diffuse))
 			return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
 		return (new_rgb(
 				stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),

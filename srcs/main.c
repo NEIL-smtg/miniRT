@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:57:43 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 17:47:48 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:34:26 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int ac, char **av)
 		exit (1);
 	init_viewport(&vp, scene.cam);
 	world_to_camera(vp.inv_view_mat, &scene);
-	// print_scene(&scene);
+	print_scene(&scene);
 	create_mlx(&vp, &scene);
 	render(&vp, scene);
 	hooks(&vp);

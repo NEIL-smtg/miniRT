@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 17:53:07 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:26:54 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ typedef struct s_camera
 	double		fov;
 }	t_camera;
 
-typedef struct s_light
-{
-	int				fix;
-	t_vec3			pos;
-	double			brightness;
-	t_rgb			rgb;
-	double			(*light_intersects)(t_ray ray, struct s_light *light);
-	struct s_light	*next;
-}	t_light;
+// typedef struct s_light
+// {
+// 	int				fix;
+// 	t_vec3			pos;
+// 	double			brightness;
+// 	t_rgb			rgb;
+// 	double			(*light_intersects)(t_ray ray, struct s_light *light);
+// 	struct s_light	*next;
+// }	t_light;
 
 typedef struct s_scene
 {
@@ -85,5 +85,6 @@ void	edit_property(int key, t_obj *selected);
 void	selected_msg(t_obj *selected);
 
 double	light_intersection(t_ray ray, t_light *obj);
+double	light_intersection_obj(t_ray ray, t_obj *obj);
 
 #endif

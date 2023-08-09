@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 17:47:31 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:44:54 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void	world_to_camera(t_mat4 inv_view_mat, t_scene *sc)
 
 	sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
 	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
-	// lg = sc->light;
-	// while (lg)
-	// {
-	// 	lg->pos = convert_to_view_space(inv_view_mat, lg->pos);
-	// 	lg = lg->next;
-	// }
+	lg = sc->light;
+	while (lg)
+	{
+		lg->pos = convert_to_view_space(inv_view_mat, lg->pos);
+		lg = lg->next;
+	}
 	tmp = sc->obj;
 	while (tmp)
 	{

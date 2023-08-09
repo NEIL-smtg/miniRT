@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by                   #+#    #+#             */
-/*   Updated: 2023/08/07 16:17:36 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:30:50 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		selected_msg(t_obj *selected);
 //	render
 void		render(t_viewport *vp, t_scene sc);
 t_vec3		get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin);
-double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest);
+double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest, bool edit);
 void		fill_color(t_rgb color, t_viewport *vp, int pixel[2]);
 
 //	utils
@@ -88,7 +88,7 @@ t_rgb		get_specular_light(t_scene sc, t_vec3 surface_normal, \
 		t_vec3 inter, t_obj *obj);
 double		get_diffuse_color(t_light *light, t_obj *obj, \
 		t_vec3 inter, t_vec3 surface_normal);
-bool		in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse);
+bool		in_shadows(t_viewport *vp, t_vec3 inter, t_obj *obj, double diffuse);
 
 //	getting surface normal for rendering the correct color
 t_vec3		get_surface_normal(t_ray ray, t_obj *obj, double t, t_img texture);

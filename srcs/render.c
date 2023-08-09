@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 18:01:48 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:32:10 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_vec3	get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin)
 			)));
 }
 
-double	get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest)
+double	get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest, bool edit)
 {
 	t_obj	*tmp_obj;
 	double	dist[2];
@@ -40,6 +40,11 @@ double	get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest)
 	dist[0] = INFINITY;
 	while (tmp_obj)
 	{
+		if (tmp_obj->type == LIGHT && edit == false)
+		{
+			tmp_obj = tmp_obj->next;
+			continue ;
+		}
 		dist[1] = tmp_obj->get_intersects(ray, tmp_obj);
 		if (dist[1] != INFINITY && dist[1] < dist[0])
 		{
@@ -76,7 +81,7 @@ static void	width_loop(int pixel[2], t_viewport *vp)
 	{
 		closest = NULL;
 		ray.dir = get_ray_dir(pixel, vp, ray.origin);
-		t = get_closest_obj(ray, vp->scene->obj, &closest);
+		t = get_closest_obj(ray, vp->scene->obj, &closest, vp->edit);
 		if (closest && !vp->edit)
 		{
 			if (closest->checkerboard)
@@ -87,8 +92,8 @@ static void	width_loop(int pixel[2], t_viewport *vp)
 		}
 		else if (vp->edit && vp->selected && vp->selected == closest)
 			fill_color(vp->selected->tmp_color, vp, pixel);
-		else if (vp->edit)
-			fill_color(edit_mode(vp, ray, closest, t), vp, pixel);
+		else if (vp->edit && closest)
+			fill_color(closest->rgb, vp, pixel);
 		pixel[0] += vp->edit * 2 + 1;
 	}
 }

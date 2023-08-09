@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:28:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 11:45:46 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:35:34 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	print_scene(t_scene *sc)
 			printf("PLANE\t{\n");
 		else if (tmp->type == CONE)
 			printf("CONE\t{\n");
+		else if (tmp->type == LIGHT)
+			printf("LIGHT\t{\n");
 		else
 			printf("CYLINDER\t{\n");
 		print_vec(tmp->center, 1);

@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:13:15 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/07 17:52:12 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:41:28 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	new_light(char *line, t_light *new)
 
 	sp = rt_split(line);
 	xyz = ft_split(sp[1], ',');
-	// new->type = LIGHT;
 	new->pos.x = ft_atof(xyz[0]);
 	new->pos.y = ft_atof(xyz[1]);
 	new->pos.z = ft_atof(xyz[2]);
@@ -82,13 +81,39 @@ void	new_light(char *line, t_light *new)
 	ft_free2d(sp);
 }
 
+// int	set_light(t_scene *sc, char *line)
+// {
+// 	t_light	*new;
+
+// 	new = malloc(sizeof(t_light));
+// 	if (!new)
+// 		ft_error("malloc failed on t_light", NULL);
+// 	new->fix = 0;
+// 	if (*line == 'L')
+// 		new->fix = 1;
+// 	if (!valid_light(rt_split(line)))
+// 	{
+// 		ft_putstr_fd("Error !!\nInvalid arguments for light.", 2);
+// 		return (0);
+// 	}
+// 	new_light(line, new);
+// 	// objlst_addback(&(sc->obj), new);
+// 	lglst_addback(&(sc->light), new);
+// 	return (1);
+// }
+
 int	set_light(t_scene *sc, char *line)
 {
 	t_light	*new;
+	t_obj	*lg;
 
 	new = malloc(sizeof(t_light));
 	if (!new)
 		ft_error("malloc failed on t_light", NULL);
+	lg = malloc(sizeof(t_obj));
+	lg->light = malloc(sizeof(t_light));
+	if (!lg || !lg->light)
+		ft_error("malloc failed on obj t_light", NULL);
 	new->fix = 0;
 	if (*line == 'L')
 		new->fix = 1;
@@ -98,7 +123,17 @@ int	set_light(t_scene *sc, char *line)
 		return (0);
 	}
 	new_light(line, new);
-	// objlst_addback(&(sc->obj), new);
 	lglst_addback(&(sc->light), new);
+	lg->type = LIGHT;
+	lg->center.x = new->pos.x;
+	lg->center.y = new->pos.y;
+	lg->center.z = new->pos.z;
+	lg->rgb.r = new->rgb.r;
+	lg->rgb.g = new->rgb.g;
+	lg->rgb.b = new->rgb.b;
+	lg->light = new;
+	lg->get_intersects = light_intersection_obj;
+	lg->next = NULL;
+	objlst_addback(&(sc->obj), lg);
 	return (1);
 }

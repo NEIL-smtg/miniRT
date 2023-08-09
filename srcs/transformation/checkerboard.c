@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/09 00:19:50 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:58:40 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,52 +94,19 @@ t_rgb	checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 	stuff.t = t;
 	get_stuff(vp, ray, obj, &stuff);
 	if (obj->checkerboard && obj->type == SPHERE)
-	{
 		get_sphere_uv(&stuff.inter, &uv.u, &uv.v, obj);
-		stuff.color = checkerboard_color(uv.u, uv.v, obj);
-		stuff.amb = get_amb_color(*vp->scene, stuff.color);
-		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
-			return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
-		return (new_rgb(
-				stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),
-				stuff.amb.g + stuff.specular.g + (stuff.color.g * stuff.diffuse),
-				stuff.amb.b + stuff.specular.b + (stuff.color.b * stuff.diffuse)));
-	}
 	else if (obj->checkerboard && obj->type == PLANE)
-	{
 		get_plane_uv(&stuff.inter, &uv.u, &uv.v, obj);
-		stuff.color = checkerboard_color(uv.u, uv.v, obj);
-		stuff.amb = get_amb_color(*vp->scene, stuff.color);
-		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
-			return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
-		return (new_rgb(
-				stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),
-				stuff.amb.g + stuff.specular.g + (stuff.color.g * stuff.diffuse),
-				stuff.amb.b + stuff.specular.b + (stuff.color.b * stuff.diffuse)));
-	}
 	else if (obj->checkerboard && obj->type == CYLINDER)
-	{
 		get_cylinder_uv(&stuff.inter, &uv.u, &uv.v, obj);
-		stuff.color = checkerboard_color(uv.u, uv.v, obj);
-		stuff.amb = get_amb_color(*vp->scene, stuff.color);
-		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
-			return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
-		return (new_rgb(
-				stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),
-				stuff.amb.g + stuff.specular.g + (stuff.color.g * stuff.diffuse),
-				stuff.amb.b + stuff.specular.b + (stuff.color.b * stuff.diffuse)));
-	}
 	else if (obj->checkerboard && obj->type == CONE)
-	{
 		get_sphere_uv(&stuff.inter, &uv.u, &uv.v, obj);
-		stuff.color = checkerboard_color(uv.u, uv.v, obj);
-		stuff.amb = get_amb_color(*vp->scene, stuff.color);
-		if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
-			return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
-		return (new_rgb(
-				stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),
-				stuff.amb.g + stuff.specular.g + (stuff.color.g * stuff.diffuse),
-				stuff.amb.b + stuff.specular.b + (stuff.color.b * stuff.diffuse)));
-	}
-	return (new_rgb(255, 255, 255));
+	stuff.color = checkerboard_color(uv.u, uv.v, obj);
+	stuff.amb = get_amb_color(*vp->scene, stuff.color);
+	if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
+		return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));
+	return (new_rgb(
+			stuff.amb.r + stuff.specular.r + (stuff.color.r * stuff.diffuse),
+			stuff.amb.g + stuff.specular.g + (stuff.color.g * stuff.diffuse),
+			stuff.amb.b + stuff.specular.b + (stuff.color.b * stuff.diffuse)));
 }

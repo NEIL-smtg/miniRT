@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:28:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 11:45:46 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:00:35 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,15 @@ void	print_scene(t_scene *sc)
 	tmp = sc->obj;
 	while (tmp)
 	{
-		if (tmp->type == SPHERE)
-			printf("SPHERE\t{\n");
-		else if (tmp->type == PLANE)
-			printf("PLANE\t{\n");
-		else if (tmp->type == CONE)
-			printf("CONE\t{\n");
-		else
-			printf("CYLINDER\t{\n");
+		print_obj(tmp);
 		print_vec(tmp->center, 1);
-		if (tmp->type != SPHERE)
+		if (tmp->type != SPHERE || tmp->type != LIGHT)
 			print_vec(tmp->dir, 2);
-		if (tmp->type != PLANE)
+		if (tmp->type != PLANE || tmp->type != LIGHT)
 			printf("\tdiameter : %f\n", tmp->d);
-		if (tmp->type == CYLINDER || tmp->type == CONE)
+		if (tmp->type == CYLINDER || tmp->type == CONE || tmp->type != LIGHT)
 			printf("\theight : %f\n", tmp->h);
-		if (tmp->type == CONE)
+		if (tmp->type == CONE || tmp->type != LIGHT)
 			printf("\tangle : %f\n", tmp->cone_angle);
 		print_rgb(tmp->rgb);
 		tmp = tmp->next;

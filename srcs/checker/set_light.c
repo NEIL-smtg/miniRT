@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_light.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:13:15 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/09 00:17:33 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 13:02:08 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	ft_error(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	printf("Error!\n");
-	printf("%s", s1);
-	if (s2)
-		printf("%s", s1);
-	printf("\n");
-	exit(1);
-}
 
 void	lglst_addback(t_light **lst, t_light *new)
 {
@@ -81,13 +68,32 @@ void	new_light(char *line, t_light *new)
 	ft_free2d(sp);
 }
 
+void	new_light_obj(t_light *new, t_obj *lg)
+{
+	lg->type = LIGHT;
+	lg->center.x = new->pos.x;
+	lg->center.y = new->pos.y;
+	lg->center.z = new->pos.z;
+	lg->rgb.r = new->rgb.r;
+	lg->rgb.g = new->rgb.g;
+	lg->rgb.b = new->rgb.b;
+	lg->light = new;
+	lg->get_intersects = cube_intersection_obj;
+	lg->next = NULL;
+}
+
 int	set_light(t_scene *sc, char *line)
 {
 	t_light	*new;
+	t_obj	*lg;
 
-	new = ft_calloc(1, sizeof(t_light));
+	new = malloc(sizeof(t_light));
 	if (!new)
 		ft_error("malloc failed on t_light", NULL);
+	lg = malloc(sizeof(t_obj));
+	lg->light = malloc(sizeof(t_light));
+	if (!lg || !lg->light)
+		ft_error("malloc failed on obj t_light", NULL);
 	new->fix = 0;
 	if (*line == 'L')
 		new->fix = 1;
@@ -98,5 +104,7 @@ int	set_light(t_scene *sc, char *line)
 	}
 	new_light(line, new);
 	lglst_addback(&(sc->light), new);
+	new_light_obj(new, lg);
+	objlst_addback(&(sc->obj), lg);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 21:34:41 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/10 00:25:39 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		selected_msg(t_obj *selected);
 //	render
 void		render(t_viewport *vp, t_scene sc);
 t_vec3		get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin);
-double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest);
+double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest, bool edit);
 void		fill_color(t_rgb color, t_viewport *vp, int pixel[2]);
 
 //	utils
@@ -60,6 +60,7 @@ char		**rt_split(char const *s);
 void		print_mat4(t_mat4 mat);
 void		clean_img(t_viewport *vp);
 double		nb_clamp(double n, double min, double max);
+void		ft_error(char *s1, char *s2);
 
 //valid arg, getting inputs
 int			valid_arg(int ac, char **av);
@@ -83,6 +84,9 @@ int			valid_range(double from, double to, double nb);
 int			valid_xyz(char *s);
 int			valid_fov(int fov);
 int			valid_vec3(char *s);
+
+// printing
+void		print_obj(t_obj *tmp);
 
 //phong
 t_vec3		reflect(t_vec3 incident, t_vec3 surface_normal);

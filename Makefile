@@ -7,6 +7,7 @@ OBJS_DIR		=	objs/
 FILES			=	main render hooks \
 					edit/edit_property edit/edit_mode edit/edit_utils\
 					utils/ft_atof utils/rt_split utils/utils utils/printing\
+					utils/printing_utils \
 					color/color color/phong color/edit_mode color/shadows \
 					color/phong_utils color/color2\
 					checker/validator checker/get_input checker/checkers checker/settings \

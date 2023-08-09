@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 23:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 18:45:43 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:35:46 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	mouse_event(int button, int x, int y, t_viewport *vp)
 	pixel[1] = y;
 	ray.origin = vp->scene->cam.pos;
 	ray.dir = get_ray_dir(pixel, vp, ray.origin);
-	get_closest_obj(ray, vp->scene->obj, &select);
+	get_closest_obj(ray, vp->scene->obj, &select, vp->edit);
 	if (select != vp->selected)
 	{
 		reset_selected_object(&vp->selected, select);

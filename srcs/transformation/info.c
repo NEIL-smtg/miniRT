@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 01:43:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 12:41:53 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:08:31 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	transformation_info(t_obj *selected, t_camera cam)
 		else if (selected->type == CYLINDER)
 			printf("CYLINDER\n");
 		else if (selected->type == LIGHT)
-			printf("CYLINDER\n");
+			printf("LIGHT\n");
 		else
 			printf("CONE\n");
 		print_vec3(selected->center, "POSITION");

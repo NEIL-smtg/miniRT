@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 02:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 01:00:00 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 13:02:44 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+// exit with error message s1 or/with s2
+void	ft_error(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	printf("Error!\n");
+	printf("%s", s1);
+	if (s2)
+		printf("%s", s1);
+	printf("\n");
+	exit(1);
+}
 
 void	clean_img(t_viewport *vp)
 {

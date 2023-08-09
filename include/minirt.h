@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 12:38:25 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:59:23 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char		**rt_split(char const *s);
 void		print_mat4(t_mat4 mat);
 void		clean_img(t_viewport *vp);
 double		nb_clamp(double n, double min, double max);
+void		ft_error(char *s1, char *s2);
 
 //valid arg, getting inputs
 int			valid_arg(int ac, char **av);
@@ -82,6 +83,9 @@ int			valid_range(double from, double to, double nb);
 int			valid_xyz(char *s);
 int			valid_fov(int fov);
 int			valid_vec3(char *s);
+
+// printing
+void		print_obj(t_obj *tmp);
 
 //phong
 t_vec3		reflect(t_vec3 incident, t_vec3 surface_normal);

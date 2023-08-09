@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 23:41:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 21:19:09 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 23:57:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
 double	get_diffuse_color(t_light *light, t_vec3 inter, \
 	t_vec3 surface_normal)
 {	
-	double	angle;
 	double	diff;
 	t_vec3	light_dir;
 

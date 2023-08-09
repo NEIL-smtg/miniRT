@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:12:48 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 21:16:07 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/09 23:51:19 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,7 @@ t_mat4	get_view_matrix(t_camera cam)
 	view_mat.r1 = vec4_from_vec3(right, 0.0f);
 	view_mat.r2 = vec4_from_vec3(up, 0.0f);
 	view_mat.r3 = vec4_from_vec3(vec3_mul(-1.0f, forward), 0.0f);
-	view_mat.r4 = new_vec4(
-			-vec3_dot(right, cam.pos),
-			-vec3_dot(up, cam.pos),
-			-vec3_dot(forward, cam.pos) * -1.0f,
-			1.0f
-			);
+	view_mat.r4 = new_vec4(0, 0, 0, 1);
 	return (mat4_transposition(view_mat));
 }
 
@@ -44,8 +39,6 @@ t_vec3	convert_to_view_space(t_mat4 view_mat, t_vec3 v)
 	t_vec4	after;
 	t_vec3	res;
 
-	if (v.x == 0 && v.y == -1 && v.z == 0)
-		return (v);
 	p = vec4_from_vec3(v, 1.0f);
 	after = mat44_mul_mat41(view_mat, p);
 	res = vec3_from_vec4(after);
@@ -59,20 +52,20 @@ void	world_to_camera(t_mat4 inv_view_mat, t_mat4 view_mat, t_scene *sc)
 	t_obj	*tmp;
 	t_light	*lg;
 
-	// sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
-	// sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
+	sc->cam.pos = convert_to_view_space(inv_view_mat, sc->cam.pos);
+	sc->cam.dir = normalize(convert_to_view_space(inv_view_mat, sc->cam.dir));
 	lg = sc->light;
 	while (lg)
 	{
-		lg->pos = convert_to_view_space(view_mat, lg->pos);
+		lg->pos = convert_to_view_space(inv_view_mat, lg->pos);
 		lg = lg->next;
 	}
 	tmp = sc->obj;
 	while (tmp)
 	{
-		tmp->center = convert_to_view_space(view_mat, tmp->center);
-		// if (tmp->type != SPHERE)
-		// 	tmp->dir = normalize(convert_to_view_space(view_mat, tmp->dir));
+		tmp->center = convert_to_view_space(inv_view_mat, tmp->center);
+		if (tmp->type != SPHERE)
+			tmp->dir = normalize(convert_to_view_space(inv_view_mat, tmp->dir));
 		tmp = tmp->next;
 	}
 }

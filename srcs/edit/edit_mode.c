@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_mode.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:30:19 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/09 13:04:28 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/10 19:48:14 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	is_edit_key(int keycode, t_viewport *vp)
 		camera_mode(&vp->selected);
 	else if (vp->selected && keycode == KEY_B)
 		checkerboard_mode(&vp->selected);
-	else if (vp->selected && keycode == KEY_V)
+	else if (vp->selected && keycode == KEY_V && vp->texture.bump_map)
 		bump_mode(&vp->selected);
 	else if (vp->selected)
 		edit_property(keycode, vp->selected);

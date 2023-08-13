@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/10 00:29:06 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/14 02:32:35 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "shape.h"
 # include "color.h"
 # include "matrix.h"
+# include <pthread.h>
 # include <stdbool.h>
 
 typedef struct s_amblight
@@ -79,6 +80,8 @@ typedef struct s_viewport
 	t_mat4	inv_view_mat;
 	t_scene	*scene;
 	t_obj	*selected;
+	int		pixel[2];
+	pthread_mutex_t	render;
 }	t_viewport;
 
 void	edit_property(int key, t_obj *selected);

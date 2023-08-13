@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 23:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/10 00:32:43 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/14 02:05:58 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	key_pressed(int keycode, t_viewport *vp)
 		return (0);
 	if (!is_edit_key(keycode, vp))
 		return (0);
-	render(vp, *vp->scene);
+	render(vp);
 	return (0);
 }
 
@@ -65,7 +65,7 @@ static int	mouse_event(int button, int x, int y, t_viewport *vp)
 	}
 	else
 		printf("\nYou are editing the same object.\n");
-	render(vp, *vp->scene);
+	render(vp);
 	return (0);
 }
 

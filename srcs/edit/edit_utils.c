@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 22:40:46 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 12:42:33 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/14 01:05:14 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ void	ft_edit(t_viewport *vp)
 	edit_info_msg();
 	selected_msg(vp->selected);
 	vp->edit = true;
-	render(vp, *vp->scene);
+	render(vp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   panning.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/12 23:48:57 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/14 21:51:36 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double	angle_handler(int keycode, t_obj *selected)
 	t_vec3	n;
 	double	angle;
 
-	if (keycode % 2 != 0)
+	if (keycode % 2 == 0)
 		angle = -ANGLE_ROTATION;
 	else
 		angle = ANGLE_ROTATION;
@@ -122,28 +122,14 @@ static void	start_panning(int keycode, t_viewport *vp)
 		rot_center = vp->selected->center;
 	else
 		rot_center = vp->scene->cam.pos;
-	// origin_translation(vp, rot_center, to_origin);
+	origin_translation(vp, rot_center, to_origin);
 	rot_axis = get_rotation_axis(keycode, vp, &angle);
 	q = get_quaternion(get_radian(angle), rot_axis);
 	if (vp->selected)
 		vp->selected->dir = normalize(rotate(vp->selected->dir, q));
 	else
 		rotate_scene(q, vp);
-	// origin_translation(vp, rot_center, revert);
-}
-
-void	smtg(int key, t_viewport *vp)
-{
-	double	angle;
-	t_vec4	euler;
-	t_quat	q;
-	t_vec4	rot;
-
-	angle = angle_handler(key, vp->selected);
-	euler = quaternion_euler(0, 0, 0);
-	q = get_quaternion(get_radian(angle), new_vec3(0.1,0,0));
-	rot = qmul(euler, q.quaternion);
-	vp->selected->dir = normalize(vec3_from_vec4(rot));
+	origin_translation(vp, rot_center, revert);
 }
 
 void	panning(int key, t_viewport *vp)
@@ -155,9 +141,6 @@ void	panning(int key, t_viewport *vp)
 		return ;
 	}
 	else
-	// else if (!vp->selected)
 		start_panning(key, vp);
-	// else
-	// 	smtg(key, vp);
 	transformation_info(vp->selected, vp->scene->cam);
 }

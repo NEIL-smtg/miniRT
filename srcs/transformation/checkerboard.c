@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/10 01:19:02 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/10 13:14:08 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	get_uv_square(int *u_square, int *v_square, t_vec2	*uv, t_obj *obj)
 {
 	double	square_size;
 
-	if (obj->type == SPHERE || obj->type == CYLINDER || obj->type == CONE)
+	if (obj->type == CYLINDER || obj->type == CONE)
 	{
 		square_size = 0.2f;
 		*u_square = floor(uv->u / square_size);
@@ -68,6 +68,12 @@ t_rgb	checkerboard_color(float u, float v, t_obj *obj)
 
 	uv.u = u;
 	uv.v = v;
+	if (obj->type == SPHERE)
+	{
+		if ((((int)u + (int)v) % 2) == 0)
+			return (new_rgb(255, 255, 255));
+		return (new_rgb(50, 50, 50));
+	}
 	get_uv_square(&u_square, &v_square, &uv, obj);
 	if (((u_square + v_square) % 2) == 0)
 	{
@@ -86,22 +92,36 @@ void	get_stuff(t_viewport *vp, t_ray ray, t_obj *obj, t_stuff *stuff)
 			stuff->inter, obj);
 }
 
+static void	init_g(t_tuv *g, t_obj *obj, t_stuff *stuff)
+{
+	g->ci = vec3_sub(stuff->inter, obj->center);
+	g->r = obj->d / 2.0;
+	g->h = obj->h;
+	g->t_height = 10;
+	g->t_width = 10;
+}
+
 t_rgb	checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 {
 	t_vec2	uv;
 	t_stuff	stuff;
+	t_tuv	g;
 
 	stuff.t = t;
 	get_stuff(vp, ray, obj, &stuff);
+	init_g(&g, obj, &stuff);
 	if (obj->checkerboard && obj->type == SPHERE)
-		get_sphere_uv(&stuff.inter, &uv.u, &uv.v, obj);
+		obj->get_uv(&g);
 	else if (obj->checkerboard && obj->type == PLANE)
 		get_plane_uv(&stuff.inter, &uv.u, &uv.v, obj);
 	else if (obj->checkerboard && obj->type == CYLINDER)
 		get_cylinder_uv(&stuff.inter, &uv.u, &uv.v, obj);
 	else if (obj->checkerboard && obj->type == CONE)
 		get_sphere_uv(&stuff.inter, &uv.u, &uv.v, obj);
-	stuff.color = checkerboard_color(uv.u, uv.v, obj);
+	if (obj->type == SPHERE)
+		stuff.color = checkerboard_color(g.u, g.v, obj);
+	else
+		stuff.color = checkerboard_color(uv.u, uv.v, obj);
 	stuff.amb = get_amb_color(*vp->scene, stuff.color);
 	if (in_shadows(*vp->scene, stuff.inter, obj, stuff.diffuse))
 		return (new_rgb(stuff.amb.r, stuff.amb.g, stuff.amb.b));

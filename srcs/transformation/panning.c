@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   panning.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 03:55:30 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/14 11:57:18 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,11 @@ static void	start_panning(int keycode, t_viewport *vp)
 
 void	panning(int key, t_viewport *vp)
 {
-	if (vp->selected && vp->selected->type == SPHERE)
+	if (vp->selected && (vp->selected->type == SPHERE
+			|| vp->selected->type == LIGHT))
 	{
-		printf("\nSphere cannot be rotated !!\n");
-		printf("Please choose CYLINDER or PLANE for rotation.\n\n");
+		printf("\nSphere and light cannot be rotated !!\n");
+		printf("Please choose CYLINDER, CONE or PLANE for rotation.\n\n");
 		return ;
 	}
 	else

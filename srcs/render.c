@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 15:12:19 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/14 23:10:33 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,12 +147,12 @@ static void	width_loop(int pixel[2], t_viewport *vp)
 	pixel[0] = 0;
 	while (pixel[0] < (int) vp->w)
 	{
-		if (!vp->edit)
-		{
-			anti_aliasing(pixel, vp);
-			pixel[0] += vp->edit * 2 + 1;
-			continue ;
-		}
+		// if (!vp->edit)
+		// {
+		// 	anti_aliasing(pixel, vp);
+		// 	pixel[0] += vp->edit * 2 + 1;
+		// 	continue ;
+		// }
 		closest = NULL;
 		ray.dir = get_ray_dir(pixel, vp, ray.origin);
 		t = get_closest_obj(ray, vp->scene->obj, &closest, vp->edit);

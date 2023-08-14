@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 02:40:27 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/14 19:04:01 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	anti_aliasing(int pixel[2], t_viewport *vp)
 	t_rgb			final;
 
 	ray.origin = vp->scene->cam.pos;
-	final = new_rgb(0, 0 , 0);
+	final = new_rgb(0, 0, 0);
 	offset[1] = 0;
 	while (offset[1] < 1.0)
 	{

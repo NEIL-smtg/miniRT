@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:31:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 15:24:45 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:02:36 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static t_vec3	get_cy_surface_normal(t_obj *obj, \
 
 	ci = vec3_sub(inter, obj->center);
 	h = vec3_dot(ci, obj->dir);
-	if (h <= 0.0 || h >= obj->h)
-		return (obj->dir);
+	// if (h <= 0.0 || h >= obj->h)
+	// 	return (obj->dir);
 	projection = vec3_mul(h, obj->dir);
 	n = vec3_sub(ci, projection);
 	return (normalize(n));

@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/11 00:04:38 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/14 02:33:07 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define TITLE			"miniRT"
 # define HEIGHT			540
 # define WIDTH			960
+
+# ifndef THREAD_NUM
+#  define THREAD_NUM 8
+# endif
 
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
@@ -47,7 +51,7 @@ bool		is_edit_key(int keycode, t_viewport *vp);
 void		selected_msg(t_obj *selected);
 
 //	render
-void		render(t_viewport *vp, t_scene sc);
+void		render(t_viewport *vp);
 t_vec3		get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin);
 double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest, bool edit);
 void		fill_color(t_rgb color, t_viewport *vp, int pixel[2]);

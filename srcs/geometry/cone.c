@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/08 18:16:09 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/14 15:19:42 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ static double	cone_decider(t_ray ray, double t, t_obj *obj)
 	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
 	proj_h = vec3_sub(inter, obj->center);
 	h = vec3_dot(proj_h, obj->dir);
-	if (h == obj->h || h <= 0.0)
-		return (INFINITY);
+	// if (h == obj->h || h <= 0.0)
+	// 	return (INFINITY);
+	
 	if (h > obj->h)
 		return (cone_base(ray, obj));
 	return (t);

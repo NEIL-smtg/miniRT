@@ -37,11 +37,17 @@ INCL			=	-I include/
 MLX_H			=	-I /usr/X11/include
 OS				=	$(shell uname -s)
 
+ifeq ($(OS),Darwin)
+	THREADS			=	-D THREAD_NUM=$(shell sysctl -n hw.ncpu)
+else
+	THREADS			=	-D THREAD_NUM=$(shell nproc)
+endif
+
 # Define the compilation commands for each operating system
 ifeq ($(OS),Darwin)
-    COMPILER = $(CC) $(FSAN) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
+    COMPILER = $(CC) $(THREADS) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH) -pthread
 else
-    COMPILER = $(CC) $(FSAN) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
+    COMPILER = $(CC) $(THREADS) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH) -pthread
 endif
 
 all:

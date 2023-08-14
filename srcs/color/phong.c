@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 21:20:45 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/15 03:23:34 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_rgb	get_phong_color(t_scene sc, t_obj *obj, t_vec3 inter, \
 	return (rgb_add_3(amb, specular, rgb_scale(diffuse, obj->rgb)));
 }
 
+t_rgb	transparent(t_obj *obj, t_vec3 surface_normal, t_scene sc, t_vec3 inter);
+
 t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 {
 	t_vec3	inter;
@@ -60,6 +62,8 @@ t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 	sc = *vp->scene;
 	while (sc.light)
 	{
+		// if (obj->type == SPHERE)
+		// 	return (transparent(obj, surface_normal, *vp->scene, inter));
 		diffuse = get_diffuse_color(sc.light, inter, surface_normal);
 		if (in_shadows(sc, inter, obj, diffuse))
 			return (get_ambient_color(sc.amblight, obj->rgb));

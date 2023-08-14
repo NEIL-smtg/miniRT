@@ -6,13 +6,11 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 02:08:19 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 23:50:47 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/11 00:43:04 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "matrix.h"
-#include <stdbool.h>
-#include "../../Libft/include/libft.h"
+#include "minirt.h"
 
 double	invf(int i, int j, const double *m)
 {

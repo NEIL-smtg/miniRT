@@ -6,18 +6,39 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 11:57:18 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:07:32 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+double	angle_handler(int keycode, t_obj *selected)
+{
+	t_vec3	n;
+	double	angle;
+
+	if (keycode % 2 != 0)
+		angle = -ANGLE_ROTATION;
+	else
+		angle = ANGLE_ROTATION;
+	if (selected)
+	{
+		n = selected->dir;
+		if (keycode == KEY_ONE && (n.y > EPS || n.x == -1.0))
+			angle *= -1;
+		else if (keycode == KEY_TWO && n.x != 1.0 && n.y >= -EPS)
+			angle *= -1;
+		else if (keycode == KEY_THREE && (n.z > EPS || n.y == -1.0))
+			angle *= -1;
+		else if (keycode == KEY_FOUR && n.y != 1.0 && n.z >= -EPS)
+			angle *= -1;
+	}
+	return (angle);
+}
+
 static t_vec3	get_rotation_axis(int keycode, t_viewport *vp, int *angle)
 {
-	if (keycode % 2 == 0)
-		*angle = -ANGLE_ROTATION;
-	else
-		*angle = ANGLE_ROTATION;
+	*angle = angle_handler(keycode, vp->selected);
 	if (keycode == KEY_ONE || keycode == KEY_TWO)
 	{
 		printf("\nROTATING in X-AXIS\n");

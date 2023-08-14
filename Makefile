@@ -18,8 +18,9 @@ FILES			=	main render hooks \
 					matrix/view_matrix matrix/view_matrix2\
 					geometry/sphere geometry/plane geometry/cylinder geometry/cone\
 					geometry/surface_normal geometry/cube\
-					transformation/info transformation/translation transformation/checkerboard\
-					transformation/panning transformation/get_uv transformation/xyz\
+					transformation/info transformation/translation \
+					transformation/panning  transformation/xyz\
+					checkerboard/checkerboard checkerboard/get_uv \
 					quaternion/quaternion \
 					texture/bump texture/init_texture texture/texture_uv
 
@@ -47,7 +48,7 @@ all:
 	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/color $(OBJS_DIR)/edit
 	@mkdir -p $(OBJS_DIR)checker $(OBJS_DIR)utils $(OBJS_DIR)vector
 	@mkdir -p $(OBJS_DIR)matrix $(OBJS_DIR)geometry $(OBJS_DIR)transformation
-	@mkdir -p $(OBJS_DIR)quaternion $(OBJS_DIR)texture
+	@mkdir -p $(OBJS_DIR)quaternion $(OBJS_DIR)texture $(OBJS_DIR)checkerboard
 	@make $(LIBFT)
 	make $(NAME)
 

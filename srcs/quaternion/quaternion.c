@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 23:43:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 03:55:36 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/11 00:10:04 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_vec3	rotate(t_vec3 pt, t_quat q)
 {
 	t_vec4	p;
 
-	p = vec4_from_vec3(pt, 1.0f);
+	p = vec4_from_vec3(pt, 0.0);
 	p = qmul(qmul(q.quaternion, p), q.conjugate);
 	return (vec3_from_vec4(p));
 }

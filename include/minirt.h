@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/10 01:16:37 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/11 00:04:38 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@
 void		init_texture(char *xpm, t_img *texture, void *mlx);
 
 //	transformation
-void		world_to_camera(t_mat4 inv_view_mat, t_mat4 view_mat, t_scene *sc);
-// void		world_to_camera(t_mat4 inv_view_mat, t_scene *sc);
+void		world_to_camera(t_mat4 inv_view_mat, t_scene *sc);
 t_mat4		get_view_matrix(t_camera cam);
 t_vec3		convert_to_view_space(t_mat4 view_mat, t_vec3 v);
 
@@ -93,7 +92,8 @@ t_vec3		reflect(t_vec3 incident, t_vec3 surface_normal);
 t_rgb		get_specular_light(t_scene sc, t_vec3 surface_normal, \
 		t_vec3 inter, t_obj *obj);
 double		get_diffuse_color(t_light *light, t_vec3 inter, \
-		t_obj *obj, t_vec3 surface_normal);
+		t_vec3 surface_normal);
+t_rgb		get_ambient_color(t_amblight amb, t_rgb color);
 bool		in_shadows(t_scene sc, t_vec3 inter, t_obj *obj, double diffuse);
 
 //	getting surface normal for rendering the correct color

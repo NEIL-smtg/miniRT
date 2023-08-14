@@ -2,7 +2,7 @@
 #	ratio	|	color
 A	0.3			255,255,255
 
-# camera
+# camera 3 down 4 up
 #	pos		|	normal	|	fov
 C	0,3,-3		0,0,1		70
 

@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 02:33:07 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/16 00:59:51 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,9 @@ t_vec3		get_bump_effect_normal(t_obj *obj, t_vec3 inter, t_vec3 n, \
 t_rgb		phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 t_rgb		checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 t_rgb		edit_mode(t_viewport *vp, t_ray ray, t_obj *obj, double t);
+
+
+//	material
+t_rgb		bounce(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 
 #endif

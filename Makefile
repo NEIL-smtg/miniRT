@@ -9,7 +9,7 @@ FILES			=	main render hooks \
 					utils/ft_atof utils/rt_split utils/utils utils/printing\
 					utils/printing_utils \
 					color/color color/phong color/edit_mode color/shadows \
-					color/phong_utils color/color2\
+					color/phong_utils color/color2 color/material\
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
 					checker/set_cone checker/is_fix checker/set_light\
@@ -45,7 +45,7 @@ endif
 
 # Define the compilation commands for each operating system
 ifeq ($(OS),Darwin)
-    COMPILER = $(CC) $(THREADS) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH) -pthread
+    COMPILER = $(CC) $(FSAN) $(THREADS) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH) -pthread
 else
     COMPILER = $(CC) $(THREADS) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH) -pthread
 endif

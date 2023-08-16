@@ -6,11 +6,10 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 19:31:36 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:53:45 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shape.h"
 #include "minirt.h"
 
 // a   = D|D - (1+k*k)*(D|V)^2
@@ -59,7 +58,6 @@ double	cone_base(t_ray ray, t_obj *obj)
 
 static double	cone_decider(t_ray ray, double t, t_obj *obj)
 {
-	t_vec3	proj_h;
 	t_vec3	inter;
 	t_ray	ray2;
 	t_obj	*close;
@@ -67,22 +65,16 @@ static double	cone_decider(t_ray ray, double t, t_obj *obj)
 	double	t2;
 
 	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
-	proj_h = vec3_sub(inter, obj->center);
-	h = vec3_dot(proj_h, obj->dir);
-	// if (h == obj->h || h <= 0.0)
-	// 	return (INFINITY);
+	h = vec3_dot(vec3_sub(inter, obj->center), obj->dir);
+	close = NULL;
 	if (h <= 0.0)
 	{
-		ray2.origin = vec3_add(inter, vec3_mul(EPS, ray.dir));
-		ray2.dir = ray.dir;
-		t2 = get_closest_obj(ray2, obj, &close, false);
-		// t2 = cone_intersection(ray2, obj);
-		if (t2 != INFINITY)
-		{
+		inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
+		ray.origin = vec3_add(inter, vec3_mul(EPS, ray.dir));
+		t2 = get_closest_obj(ray, obj, &close, false);
+		if (close)
 			return (t + t2);
-		}
-		else
-			return (INFINITY);
+		return (INFINITY);
 	}
 	if (h > obj->h)
 		return (cone_base(ray, obj));

@@ -4,7 +4,8 @@ LIBFT			=	libft.a
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
 
-FILES			=	main render hooks \
+FILES			=	main hooks \
+					render/render render/anti_aliasing render/threading \
 					edit/edit_property edit/edit_mode edit/edit_utils\
 					utils/ft_atof utils/rt_split utils/utils utils/printing\
 					utils/printing_utils \
@@ -55,6 +56,7 @@ all:
 	@mkdir -p $(OBJS_DIR)checker $(OBJS_DIR)utils $(OBJS_DIR)vector
 	@mkdir -p $(OBJS_DIR)matrix $(OBJS_DIR)geometry $(OBJS_DIR)transformation
 	@mkdir -p $(OBJS_DIR)quaternion $(OBJS_DIR)texture $(OBJS_DIR)checkerboard
+	@mkdir -p $(OBJS_DIR)render
 	@make $(LIBFT)
 	make $(NAME)
 

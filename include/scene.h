@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 02:32:35 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 00:14:22 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_viewport
 	t_scene	*scene;
 	t_obj	*selected;
 	int		pixel[2];
-	pthread_mutex_t	render;
 }	t_viewport;
 
 void	edit_property(int key, t_obj *selected);

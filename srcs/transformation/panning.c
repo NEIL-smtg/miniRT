@@ -6,51 +6,11 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 23:27:59 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 00:12:54 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int	angle_handler(int keycode, t_obj *selected)
-{
-	t_vec3	n;
-	int		angle;
-
-	if (keycode % 2 == 0)
-		angle = -ANGLE_ROTATION;
-	else
-		angle = ANGLE_ROTATION;
-	if (selected)
-	{
-		n = selected->dir;
-		if (keycode == KEY_THREE && n.y < 0.0)
-			angle *= -1;
-		else if (keycode == KEY_FOUR && n.y < 0.0)
-			angle *= -1;
-	}
-	return (angle);
-}
-
-static t_vec3	get_rotation_axis(int keycode, t_viewport *vp, int *angle)
-{
-	*angle = angle_handler(keycode, vp->selected);
-	if (keycode == KEY_ONE || keycode == KEY_TWO)
-	{
-		printf("\nROTATING in X-AXIS\n");
-		return (get_up(vp->selected, vp->view_mat));
-	}
-	else if (keycode == KEY_THREE || keycode == KEY_FOUR)
-	{
-		printf("\nROTATING in Y-AXIS\n");
-		return (get_right(vp->selected, vp->view_mat));
-	}
-	else
-	{
-		printf("\nROTATING in Z-AXIS\n");
-		return (get_forward(vp->selected, vp->view_mat));
-	}
-}
 
 static void	origin_translation(t_viewport *vp, t_vec3 rot_center, \
 	enum e_rotation rot)

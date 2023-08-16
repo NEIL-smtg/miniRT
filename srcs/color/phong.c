@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 02:47:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 00:10:39 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_rgb	get_phong_color(t_scene sc, t_obj *obj, t_vec3 inter, \
 	return (rgb_add_3(amb, specular, rgb_scale(diffuse, obj->rgb)));
 }
 
-t_rgb	transparent(t_obj *obj, t_vec3 surface_normal, t_scene sc, t_vec3 inter);
+t_rgb	transparent(t_vec3 surface_normal, t_vec3 inter, t_viewport *vp, t_obj *obj);
 
 t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 {
@@ -61,6 +61,8 @@ t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 	surface_normal = get_surface_normal(ray, obj, t, vp->texture);
 	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
 	sc = *vp->scene;
+	// if (obj->type == SPHERE)
+	// 	return (transparent(surface_normal, inter, vp, obj));
 	while (sc.light)
 	{
 		diffuse = get_diffuse_color(sc.light, inter, surface_normal);

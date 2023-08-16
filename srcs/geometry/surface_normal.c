@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   surface_normal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:31:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 21:43:48 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 00:18:33 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,51 @@
 
 //	cc = len of center to camera
 //	ci = len of center to intersection
-bool	cam_inside(t_ray ray, t_obj *obj, t_vec3 inter)
+static bool	inside_sp(t_ray ray, t_obj *obj, t_vec3 inter)
 {
 	double	cc;
 	double	ci;
-	t_vec3	co;
+
+	cc = vec3_len(vec3_sub(ray.origin, obj->center));
+	ci = vec3_len(vec3_sub(inter, obj->center));
+	return (cc < ci);
+}
+
+static bool	inside_cy(t_ray ray, t_obj *obj, t_vec3 inter)
+{
+	double	cc;
+	double	ci;
 	t_vec3	proj;
+	t_vec3	co;
+
+	co = vec3_sub(ray.origin, obj->center);
+	cc = vec3_dot(co, obj->dir);
+	if (cc <= 0.0 || cc >= obj->h)
+		return (false);
+	proj = vec3_mul(cc, obj->dir);
+	ci = vec3_len(vec3_sub(co, proj));
+	return (ci < obj->d / 2.0);
+}
+
+bool	cam_inside(t_ray ray, t_obj *obj, t_vec3 inter)
+{
+	double	dot;
+	double	cc;
+	double	d;
+	t_vec3	co;
 
 	if (obj->type == PLANE)
 		return (false);
 	co = vec3_sub(ray.origin, obj->center);
 	if (obj->type == SPHERE)
-	{
-		cc = vec3_len(vec3_sub(ray.origin, obj->center));
-		ci = vec3_len(vec3_sub(inter, obj->center));
-		return (cc < ci);
-	}
+		return (inside_sp(ray, obj, inter));
 	else if (obj->type == CYLINDER)
-	{
-		cc = vec3_dot(co, obj->dir);
-		if (cc <= 0.0 || cc >= obj->h)
-			return (false);
-		proj = vec3_mul(cc, obj->dir);
-		ci = vec3_len(vec3_sub(co, proj));
-		return (ci < obj->d / 2.0);
-	}
-	else
-	{
-		double dot = vec3_dot(co, obj->dir);
-		cc = vec3_len(co);
-		double d = tan(obj->cone_angle) * (obj->h - cc);
-		return (dot >= 0.0 && dot <= obj->h && cc <= obj->h && cc <= d);
-	}
+		return (inside_cy(ray, obj, inter));
+	co = vec3_sub(ray.origin, obj->center);
+	dot = vec3_dot(co, obj->dir);
+	cc = vec3_len(co);
+	d = tan(obj->cone_angle) * (obj->h - cc);
+	return (dot >= 0.0 && dot <= obj->h && cc <= obj->h && cc <= d);
 }
 
 static t_vec3	get_cy_surface_normal(t_obj *obj, \
@@ -60,7 +73,7 @@ static t_vec3	get_cy_surface_normal(t_obj *obj, \
 	h = vec3_dot(ci, obj->dir);
 	if (h >= obj->h - EPS)
 		return (obj->dir);
-	if (h <= EPS) 
+	if (h <= EPS)
 		return (vec3_mul(-1.0, obj->dir));
 	projection = vec3_mul(h, obj->dir);
 	n = vec3_sub(ci, projection);
@@ -79,10 +92,10 @@ t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t, t_img texture)
 		n = normalize(vec3_sub(inter, obj->center));
 	else if (obj->type == PLANE)
 	{
-		if (obj->center.x >= EPS)
-			n = obj->dir;
-		else
+		if (vec3_dot(obj->dir, ray.dir) >= 0.0)
 			n = vec3_mul(-1.0, obj->dir);
+		else
+			n = obj->dir;
 	}
 	else
 		n = get_cy_surface_normal(obj, inter, t);

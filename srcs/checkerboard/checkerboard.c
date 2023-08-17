@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/14 12:14:14 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:08:08 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,5 @@ t_rgb	checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 		return (stuff.amb);
 	return (rgb_add_3(
 			stuff.amb,
-			stuff.specular,
-			rgb_scale(stuff.diffuse, stuff.color)
-		));
+			stuff.specular, rgb_scale(stuff.diffuse, stuff.color)));
 }

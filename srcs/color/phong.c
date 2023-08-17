@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 02:47:18 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/16 19:09:40 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 			return (get_ambient_color(sc.amblight, obj->rgb));
 		final = rgb_add(
 				final,
-				get_phong_color(sc, obj, inter, surface_normal)
-				);
+				get_phong_color(sc, obj, inter, surface_normal));
 		sc.light = sc.light->next;
 	}
 	return (final);

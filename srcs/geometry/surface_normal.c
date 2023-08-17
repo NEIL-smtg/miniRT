@@ -6,46 +6,59 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:31:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 11:54:16 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:40:30 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-//	cc = len of center to camera
-//	ci = len of center to intersection
-bool	cam_inside(t_ray ray, t_obj *obj, t_vec3 inter)
+typedef struct s_var
 {
 	double	cc;
 	double	ci;
 	t_vec3	co;
 	t_vec3	proj;
+	double	dot;
+	double	d;
+}	t_var;
 
-	if (obj->type == PLANE)
-		return (false);
-	co = vec3_sub(ray.origin, obj->center);
-	if (obj->type == SPHERE)
+bool	cam_inside_extend(t_ray ray, t_obj *obj, t_vec3 inter, t_var *var)
+{
+	if (obj->type == CYLINDER)
 	{
-		cc = vec3_len(vec3_sub(ray.origin, obj->center));
-		ci = vec3_len(vec3_sub(inter, obj->center));
-		return (cc < ci);
-	}
-	else if (obj->type == CYLINDER)
-	{
-		cc = vec3_dot(co, obj->dir);
-		if (cc <= 0.0 || cc >= obj->h)
+		var->cc = vec3_dot(var->co, obj->dir);
+		if (var->cc <= 0.0 || var->cc >= obj->h)
 			return (false);
-		proj = vec3_mul(cc, obj->dir);
-		ci = vec3_len(vec3_sub(co, proj));
-		return (ci < obj->d / 2.0);
+		var->proj = vec3_mul(var->cc, obj->dir);
+		var->ci = vec3_len(vec3_sub(var->co, var->proj));
+		return (var->ci < obj->d / 2.0);
 	}
 	else
 	{
-		double dot = vec3_dot(co, obj->dir);
-		cc = vec3_len(co);
-		double d = tan(obj->cone_angle) * (obj->h - cc);
-		return (dot >= 0.0 && dot <= obj->h && cc <= obj->h && cc <= d);
+		var->dot = vec3_dot(var->co, obj->dir);
+		var->cc = vec3_len(var->co);
+		var->d = tan(obj->cone_angle) * (obj->h - var->cc);
+		return (var->dot >= 0.0 && var->dot <= obj->h
+			&& var->cc <= obj->h && var->cc <= var->d);
 	}
+}
+
+//	cc = len of center to camera
+//	ci = len of center to intersection
+bool	cam_inside(t_ray ray, t_obj *obj, t_vec3 inter)
+{
+	t_var	var;
+
+	if (obj->type == PLANE)
+		return (false);
+	var.co = vec3_sub(ray.origin, obj->center);
+	if (obj->type == SPHERE)
+	{
+		var.cc = vec3_len(vec3_sub(ray.origin, obj->center));
+		var.ci = vec3_len(vec3_sub(inter, obj->center));
+		return (var.cc < var.ci);
+	}
+	return (cam_inside_extend(ray, obj, inter, &var));
 }
 
 static t_vec3	get_cy_surface_normal(t_obj *obj, \

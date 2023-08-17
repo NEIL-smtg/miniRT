@@ -6,13 +6,13 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:37:58 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 11:54:25 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:56:42 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	angle_handler(int keycode, t_obj *selected)
+static int	angle_handler(int keycode, t_obj *selected)
 {
 	t_vec3	n;
 	int		angle;
@@ -104,7 +104,7 @@ static void	rotate_scene(t_quat q, t_viewport *vp)
 	vp->scene->cam.dir = normalize(rotate(vp->scene->cam.dir, q));
 }
 
-static void	start_panning(int keycode, t_viewport *vp)
+void	start_panning(int keycode, t_viewport *vp)
 {
 	t_quat	q;
 	t_vec3	rot_center;
@@ -123,18 +123,4 @@ static void	start_panning(int keycode, t_viewport *vp)
 	else
 		rotate_scene(q, vp);
 	origin_translation(vp, rot_center, revert);
-}
-
-void	panning(int key, t_viewport *vp)
-{
-	if (vp->selected && (vp->selected->type == SPHERE
-			|| vp->selected->type == LIGHT))
-	{
-		printf("\nSphere and light cannot be rotated !!\n");
-		printf("Please choose CYLINDER, CONE or PLANE for rotation.\n\n");
-		return ;
-	}
-	else
-		start_panning(key, vp);
-	transformation_info(vp->selected, vp->scene->cam);
 }

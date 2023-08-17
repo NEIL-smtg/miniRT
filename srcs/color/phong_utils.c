@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 23:41:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/15 03:22:24 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/16 17:44:27 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vec3	refract(t_vec3 incident, t_vec3 surface_normal, double n1, double n2)
 	// ref = vec3_sub(ref, vec3_mul(cos(theta2), surface_normal));
 	// return (normalize(ref));
 
-	 double cos_theta1 = vec3_dot(incident, surface_normal);
+	double cos_theta1 = vec3_dot(incident, surface_normal);
     double n = n1 / n2;
 
     if (cos_theta1 < 0.0)
@@ -93,7 +93,7 @@ double	get_diffuse_color(t_light *light, t_vec3 inter, \
 	return (fmax(diff, 0));
 }
 
-double fresnel(t_vec3 normal, t_vec3 incident_dir, double n1, double n2)
+double	fresnel(t_vec3 normal, t_vec3 incident_dir, double n1, double n2)
 {
     double cos_theta_i = -vec3_dot(incident_dir, normal);
     double sin_theta_t = (n1 / n2) * sqrt(1.0 - cos_theta_i * cos_theta_i);
@@ -123,7 +123,7 @@ double fresnel(t_vec3 normal, t_vec3 incident_dir, double n1, double n2)
 t_rgb	transparent(t_obj *obj, t_vec3 surface_normal, t_scene sc, t_vec3 inter)
 {
 	t_vec3	refl;
-	t_vec3  refr;
+	t_vec3	refr;
 	t_vec3	light_dir;
 	double	refl_amount;
 	double	refr_amount;

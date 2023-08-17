@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 11:53:45 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/17 19:11:44 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ double	cone_base(t_ray ray, t_obj *obj)
 	t = vec3_dot(oc, obj->dir) / ray_proj;
 	if (t <= 0.0f || t == INFINITY)
 		return (INFINITY);
-	inter = vec3_add(vec3_mul(t, ray.dir), ray.origin);
-	if (vec3_len(vec3_sub(inter, top_center)) <= obj->d / 2.0)
+	inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
+	if (vec3_len(vec3_sub(inter, top_center)) <= (obj->d / 2.0))
 		return (t);
 	return (INFINITY);
 }
@@ -90,12 +90,15 @@ double	cone_intersection(t_ray ray, t_obj *obj)
 	double	h;
 
 	oc = vec3_sub(obj->center, ray.origin);
+	proj_h = vec3_sub(ray.dir, oc);
+	h = vec3_dot(proj_h, obj->dir);
+	if (h > obj->h - EPS && obj->dir.z > 0.7)
+		return (cone_base(ray, obj));
 	k = 1 + pow(tan(obj->cone_angle), 2);
 	t = solve_quadratic(
 			get_ac_coeff(ray.dir, obj->dir, k),
 			get_b_coef(ray.dir, obj->dir, oc, k),
-			get_ac_coeff(oc, obj->dir, k)
-			);
+			get_ac_coeff(oc, obj->dir, k));
 	if (t == INFINITY)
 		return (INFINITY);
 	return (cone_decider(ray, t, obj));

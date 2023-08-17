@@ -3,21 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 00:16:39 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 02:41:57 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/16 17:47:05 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <time.h>
 
-double randfrom(double min, double max) 
+double	randfrom(double min, double max)
 {
-    double range = (max - min); 
-    double div = RAND_MAX / range;
-    return min + (rand() / div);
+	double	range;
+	double	div;
+
+	range = (max - min);
+	div = RAND_MAX / range;
+	return (min + rand() / div);
 }
 
 typedef struct s_bounce
@@ -63,13 +66,12 @@ t_rgb	bounce(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 	t_rgb		color;
 	t_rgb		amb;
 	double		diffuse;
-	
+
 	b.inter = vec3_add(ray.origin, vec3_mul(t, ray.dir));
 	b.color = new_rgb(0, 0, 0);
 	b.vp = vp;
 	b.surface_normal = get_surface_normal(ray, obj, t, vp->texture);
 	b.objlst = vp->scene->obj;
-	
 	amb = get_ambient_color(vp->scene->amblight, obj->rgb);
 	diffuse = get_diffuse_color(vp->scene->light, b.inter, b.surface_normal);
 	if (diffuse <= EPS)

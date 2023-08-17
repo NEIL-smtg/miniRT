@@ -1,7 +1,10 @@
 lib/
 Libft/
-.vscode/
-objs/
+mandatory/objs/
+bonus/objs/
 miniRT.dSYM/
-miniRT
+bonus_miniRT.dSYM/
+mandatory/miniRT
+bonus/bonus_miniRT
+.vscode/
 .DS_Store

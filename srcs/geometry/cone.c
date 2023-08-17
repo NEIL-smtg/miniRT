@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 20:10:53 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 19:10:48 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ double	cone_base(t_ray ray, t_obj *obj)
 	top_center = vec3_add(obj->center, vec3_mul(obj->h, obj->dir));
 	oc = vec3_sub(top_center, ray.origin);
 	ray_proj = vec3_dot(ray.dir, obj->dir);
-	if (ray_proj == 0.0f)
+	if (ray_proj == 0.0)
 		return (INFINITY);
 	t = vec3_dot(oc, obj->dir) / ray_proj;
-	if (t <= 0.0f || t == INFINITY)
+	if (t <= EPS || t == INFINITY)
 		return (INFINITY);
 	inter = vec3_add(vec3_mul(t, ray.dir), ray.origin);
 	if (vec3_len(vec3_sub(inter, top_center)) <= obj->d / 2.0)
@@ -89,6 +89,10 @@ double	cone_intersection(t_ray ray, t_obj *obj)
 	double	h;
 
 	oc = vec3_sub(obj->center, ray.origin);
+	proj_h = vec3_sub(ray.dir, oc);
+	h = vec3_dot(proj_h, obj->dir);
+	if (h >= obj->h - EPS && obj->dir.z > 0.7)
+		return (cone_base(ray, obj));
 	k = 1 + pow(tan(obj->cone_angle), 2);
 	t = solve_quadratic(
 			get_ac_coeff(ray.dir, obj->dir, k),

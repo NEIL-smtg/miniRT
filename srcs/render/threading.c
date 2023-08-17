@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threading.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 00:07:16 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/17 00:07:22 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 16:27:30 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ void	render(t_viewport *vp)
 	if (vp->edit)
 	{
 		clean_img(vp);
-		data.start_y = 0;
-		data.end_y = (int) vp->h;
-		data.vp = vp;
-		routine(&data);
+		// data.start_y = 0;
+		// data.end_y = (int) vp->h;
+		// data.vp = vp;
+		// routine(&data);
 	}
 	else
 	{
 		printf("\n######## RENDERING ########\n");
-		thread_runner(vp);
 	}
+	thread_runner(vp);
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);
 	if (!vp->edit)
 	{

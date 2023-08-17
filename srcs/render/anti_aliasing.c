@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anti_aliasing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 00:01:04 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/17 00:38:03 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 19:11:48 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	anti_aliasing(int pixel[2], t_viewport *vp, int *x)
 			ray.dir = get_ray_dir_offset(pixel, vp, ray.origin, offset);
 			t = get_closest_obj(ray, vp->scene->obj, &closest, vp->edit);
 			final = rgb_add(final, pixel_color(vp, ray, closest, t));
-			offset[0] += SAMPLE_STEP;
+			offset[0] += 1.0 / SAMPLE_STEP;
 		}
-		offset[1] += SAMPLE_STEP;
+		offset[1] += 1.0 / SAMPLE_STEP;
 	}
-	fill_color(rgb_scale(pow(SAMPLE_STEP, 2), final), vp, pixel);
+	fill_color(rgb_scale(pow(1.0 / SAMPLE_STEP, 2), final), vp, pixel);
 	*x += vp->edit * 2 + 1;
 }

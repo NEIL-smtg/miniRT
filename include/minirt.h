@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/17 00:38:28 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 19:11:14 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define TITLE			"miniRT"
 # define HEIGHT			540
 # define WIDTH			960
-# define SAMPLE_STEP	1.0 / 4.0
+# define SAMPLE_STEP	4.0
 
 # ifndef THREAD_NUM
 #  define THREAD_NUM 8

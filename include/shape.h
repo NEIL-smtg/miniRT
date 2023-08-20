@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 01:18:20 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/18 01:50:17 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/21 03:51:05 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@
 # define PL_DIFFUSE_TERM 0.25
 # define PL_SPECULAR_TERM 5.0
 
+typedef struct s_img
+{
+	void	*ptr;
+	char	*data_addr;
+	int		bpp;
+	int		line_size;
+	int		endian;
+	int		width;
+	int		height;
+	double	**bump_map;
+}	t_img;
+
 typedef struct s_tuv
 {
 	t_vec3	ci;
@@ -36,6 +48,7 @@ typedef struct s_tuv
 	double	h;
 	int		t_width;
 	int		t_height;
+	t_img	texture;
 }	t_tuv;
 
 typedef struct s_ray
@@ -69,6 +82,7 @@ typedef struct s_obj
 	double			cone_angle;
 	t_rgb			rgb;
 	t_rgb			tmp_color;
+	t_rgb			tx;
 	struct s_obj	*next;
 	struct s_light	*light;
 	double			(*get_intersects)(t_ray ray, struct s_obj *obj);

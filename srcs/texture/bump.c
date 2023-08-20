@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 17:56:28 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/18 02:12:39 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/21 04:01:53 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	init_handler(t_tuv *g, t_obj *obj, t_vec3 inter, \
 	g->h = obj->h;
 	g->t_height = texture.height;
 	g->t_width = texture.width;
+	g->texture = texture;
 }
 
 //	get_right
@@ -52,6 +53,8 @@ t_vec3	get_bump_offset(t_vec3 n, double bump_val)
 	return (bump_offset);
 }
 
+t_rgb	filter_bilinear(t_tuv g);
+
 t_vec3	get_bump_effect_normal(t_obj *obj, t_vec3 inter, t_vec3 n, \
 		t_img texture)
 {
@@ -64,6 +67,7 @@ t_vec3	get_bump_effect_normal(t_obj *obj, t_vec3 inter, t_vec3 n, \
 		return (n);
 	init_handler(&g, obj, inter, texture);
 	obj->get_uv(&g);
+	obj->tx = filter_bilinear(g);
 	bump_val = texture.bump_map[(int) g.v][(int) g.u] * 1.618;
 	bump_offset = get_bump_offset(n, bump_val);
 	perbuted = normalize(vec3_add(n, bump_offset));

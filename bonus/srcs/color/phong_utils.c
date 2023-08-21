@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 23:41:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/21 12:20:03 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:52:49 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
 			);
 	angle = fmax(0.0f, angle);
 	specular = rgb_scale(sc.light->brightness, sc.light->rgb);
-	if (obj->type == PLANE)
-		return (rgb_scale(pow(angle, 3), specular));
 	specular = rgb_scale(pow(angle, 11), specular);
 	return (specular);
 }
@@ -51,6 +49,6 @@ double	get_diffuse_color(t_light *light, t_vec3 inter, \
 	t_vec3	light_dir;
 
 	light_dir = normalize(vec3_sub(light->pos, inter));
-	diff = vec3_dot(surface_normal, light_dir);
+	diff = vec3_dot(surface_normal, light_dir) * light->brightness;
 	return (fmax(diff, 0));
 }

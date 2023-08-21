@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/21 17:07:36 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:57:12 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ t_rgb	get_ambient_color(t_amblight amb, t_rgb color)
 	t_rgb	a;
 	double	ratio;
 
-	ratio = amb.ratio * 0.15;
-	a = rgb_scale(ratio, rgb_add(color, amb.rgb));
+	ratio = amb.ratio * 0.5;
+	a = rgb_scale(1 / 255.0, rgb_scale(ratio, amb.rgb));
+	a = rgb_mul(a, color);
 	return (a);
 }
 
@@ -62,10 +63,12 @@ t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 	{
 		diffuse = get_diffuse_color(sc.light, inter, surface_normal);
 		if (in_shadows(sc, inter, obj, diffuse))
-			return (get_ambient_color(sc.amblight, obj->rgb));
-		final = rgb_add(
-				final,
-				get_phong_color(sc, obj, inter, surface_normal));
+			final = rgb_add(get_ambient_color(sc.amblight, obj->rgb), final);
+		else
+		{
+			final = rgb_add(final,
+					get_phong_color(sc, obj, inter, surface_normal));
+		}
 		sc.light = sc.light->next;
 	}
 	return (final);

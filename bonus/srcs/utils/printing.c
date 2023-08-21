@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:28:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 14:00:35 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:57:39 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,21 @@ static void	print_vec(t_vec3 v, int type)
 
 static void	print_setting(t_scene *sc)
 {
+	t_light	*lg;
+
 	printf("############## Settings ##############\n");
 	printf("Ambient Light\t{\n");
 	printf("\tLightning ratio : %f\n", sc->amblight.ratio);
 	print_rgb(sc->amblight.rgb);
-	printf("Light\t{\n");
-	print_vec(sc->light->pos, 1);
-	printf("\tbrightness : %f\n", sc->light->brightness);
-	print_rgb(sc->light->rgb);
+	lg = sc->light;
+	while (lg)
+	{
+		printf("Light\t{\n");
+		print_vec(lg->pos, 1);
+		printf("\tbrightness : %f\n", lg->brightness);
+		print_rgb(lg->rgb);
+		lg = lg->next;
+	}
 	printf("Camera\t{\n");
 	print_vec(sc->cam.pos, 1);
 	print_vec(sc->cam.dir, 2);

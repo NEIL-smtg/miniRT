@@ -134,7 +134,7 @@ re: fclean clean all
 
 bre: bfclean bclean bonus
 
-norm:
+norm: bnorm
 	@norminette -R CheckForbiddenSourceHeader $(SRCS) mandatory/include/
 
 bnorm:

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:37:34 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 12:12:03 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/21 03:47:57 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,36 +52,23 @@ typedef struct s_scene
 	t_light		*light;
 }	t_scene;
 
-typedef struct s_img
-{
-	void	*ptr;
-	char	*data_addr;
-	int		bpp;
-	int		line_size;
-	int		endian;
-	int		width;
-	int		height;
-	double	**bump_map;
-}	t_img;
-
 typedef struct s_viewport
 {
-	double			w;
-	double			h;
-	double			focal;
-	double			aspect_ratio;
-	void			*mlx;
-	void			*win;
-	bool			edit;
-	bool			checkerboard;
-	t_img			img;
-	t_img			texture;
-	t_mat4			view_mat;
-	t_mat4			inv_view_mat;
-	t_scene			*scene;
-	t_obj			*selected;
-	int				pixel[2];
-	pthread_mutex_t	render;
+	double	w;
+	double	h;
+	double	focal;
+	double	aspect_ratio;
+	void	*mlx;
+	void	*win;
+	bool	edit;
+	bool	checkerboard;
+	t_img	img;
+	t_img	texture;
+	t_mat4	view_mat;
+	t_mat4	inv_view_mat;
+	t_scene	*scene;
+	t_obj	*selected;
+	int		pixel[2];
 }	t_viewport;
 
 void	edit_property(int key, t_obj *selected);

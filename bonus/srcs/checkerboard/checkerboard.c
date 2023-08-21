@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/16 17:08:08 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/21 16:38:13 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	get_stuff(t_viewport *vp, t_ray ray, t_obj *obj, t_stuff *stuff)
 
 static void	init_g(t_tuv *g, t_obj *obj, t_stuff *stuff)
 {
-	g->ci = vec3_sub(stuff->inter, obj->center);
+	g->ci = normalize(vec3_sub(stuff->inter, obj->center));
 	g->r = obj->d / 2.0;
 	g->h = obj->h;
 	g->t_height = 10;

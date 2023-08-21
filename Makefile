@@ -27,12 +27,14 @@ FILES				=	main render hooks \
 						quaternion/quaternion \
 						texture/bump texture/init_texture texture/texture_uv
 
-BONUS_FILES			=	main render render_utils hooks \
+BONUS_FILES			=	main hooks \
+						render/render render/anti_aliasing render/threading \
 						edit/edit_property edit/edit_mode edit/edit_utils\
+						transformation/panning_utils \
 						utils/ft_atof utils/rt_split utils/utils utils/printing\
 						utils/printing_utils \
 						color/color color/phong color/edit_mode color/shadows \
-						color/phong_utils color/color2 color/material\
+						color/phong_utils color/color2 \
 						checker/validator checker/get_input checker/checkers checker/settings \
 						checker/set_cylinder checker/set_plane checker/set_sphere \
 						checker/set_cone checker/is_fix checker/set_light\
@@ -41,7 +43,7 @@ BONUS_FILES			=	main render render_utils hooks \
 						matrix/view_matrix matrix/view_matrix2\
 						geometry/sphere geometry/plane geometry/cylinder geometry/cone\
 						geometry/surface_normal geometry/cube\
-						transformation/info transformation/translation transformation/panning_utils\
+						transformation/info transformation/translation \
 						transformation/panning  transformation/xyz\
 						checkerboard/checkerboard checkerboard/get_uv \
 						quaternion/quaternion \

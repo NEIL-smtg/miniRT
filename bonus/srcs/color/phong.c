@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 19:09:40 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:07:36 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,8 @@ t_rgb	get_phong_color(t_scene sc, t_obj *obj, t_vec3 inter, \
 	return (rgb_add_3(amb, specular, rgb_scale(diffuse, obj->rgb)));
 }
 
-t_rgb	transparent(t_obj *obj, t_vec3 surface_normal, t_scene sc, t_vec3 inter);
-
 t_rgb	phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 {
-	// return (bounce(vp, ray, obj, t));
 	t_vec3	inter;
 	t_vec3	surface_normal;
 	t_rgb	final;

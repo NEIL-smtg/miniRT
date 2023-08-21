@@ -4,7 +4,7 @@ LIBFT			=	libft.a
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
 
-FILES			=	main hooks render_utils render\
+FILES			=	main hooks \
 					render/render render/anti_aliasing render/threading \
 					edit/edit_property edit/edit_mode edit/edit_utils\
 					utils/ft_atof utils/rt_split utils/utils utils/printing\
@@ -48,7 +48,7 @@ endif
 ifeq ($(OS),Darwin)
     COMPILER = $(CC) $(FSAN) $(THREADS) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH) -pthread
 else
-    COMPILER = $(CC) $(THREADS) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH) -pthread
+    COMPILER = $(CC) $(FSAN) $(THREADS) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH) -pthread
 endif
 
 all:

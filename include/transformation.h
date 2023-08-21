@@ -6,7 +6,7 @@
 /*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:41:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 03:54:04 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 00:13:39 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	panning(int key, t_viewport *vp);
 // translation
 bool	is_translation_key(int keycode);
 void	translation(int keycode, t_viewport *vp);
+t_vec3	get_rotation_axis(int keycode, t_viewport *vp, int *angle);
 
 //	up right forward
 t_vec3	get_up(t_obj *selected, t_mat4 view_mat);

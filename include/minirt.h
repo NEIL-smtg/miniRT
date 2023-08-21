@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 00:59:51 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/17 19:11:14 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,27 @@
 # define TITLE			"miniRT"
 # define HEIGHT			540
 # define WIDTH			960
+# define SAMPLE_STEP	4.0
 
 # ifndef THREAD_NUM
 #  define THREAD_NUM 8
 # endif
+
+//	render struct
+typedef struct s_th
+{
+	t_viewport	*vp;
+	int			start_y;
+	int			end_y;
+}	t_th;
+
+typedef struct s_render
+{
+	pthread_t	th[THREAD_NUM];
+	t_th		data[THREAD_NUM];
+	int			lines_per_thread;
+	int			remaining_lines;
+}	t_render;
 
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
@@ -52,6 +69,8 @@ void		selected_msg(t_obj *selected);
 
 //	render
 void		render(t_viewport *vp);
+void		*routine(void *arg);
+void		anti_aliasing(int pixel[2], t_viewport *vp, int *x);
 t_vec3		get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin);
 double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest, bool edit);
 void		fill_color(t_rgb color, t_viewport *vp, int pixel[2]);
@@ -111,7 +130,6 @@ t_vec3		get_bump_effect_normal(t_obj *obj, t_vec3 inter, t_vec3 n, \
 t_rgb		phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 t_rgb		checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 t_rgb		edit_mode(t_viewport *vp, t_ray ray, t_obj *obj, double t);
-
 
 //	material
 t_rgb		bounce(t_viewport *vp, t_ray ray, t_obj *obj, double t);

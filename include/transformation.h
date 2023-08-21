@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformation.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:41:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/17 00:13:39 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/21 16:22:48 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	transformation_info(t_obj *selected, t_camera cam);
 
 // rotation
 void	panning(int key, t_viewport *vp);
+void	start_panning(int keycode, t_viewport *vp);
 
 // translation
 bool	is_translation_key(int keycode);

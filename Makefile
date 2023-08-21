@@ -7,10 +7,11 @@ OBJS_DIR		=	objs/
 FILES			=	main hooks \
 					render/render render/anti_aliasing render/threading \
 					edit/edit_property edit/edit_mode edit/edit_utils\
+					transformation/panning_utils \
 					utils/ft_atof utils/rt_split utils/utils utils/printing\
 					utils/printing_utils \
 					color/color color/phong color/edit_mode color/shadows \
-					color/phong_utils color/color2 color/material\
+					color/phong_utils color/color2 \
 					checker/validator checker/get_input checker/checkers checker/settings \
 					checker/set_cylinder checker/set_plane checker/set_sphere \
 					checker/set_cone checker/is_fix checker/set_light\

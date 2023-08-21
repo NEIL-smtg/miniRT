@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bump.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 17:56:28 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/21 04:01:53 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/21 16:48:26 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ static void	init_handler(t_tuv *g, t_obj *obj, t_vec3 inter, \
 //	get_right
 static t_vec3	get_tangent(t_vec3 n)
 {
-	// if (vec3_dot(n, new_vec3(0, 1, 0)))
-	// 	return (normalize(vec3_cross(n, new_vec3(0, 0, 1))));
-	// else
 	return (normalize(vec3_cross(n, new_vec3(1, 1, 0))));
 }
 
@@ -67,8 +64,11 @@ t_vec3	get_bump_effect_normal(t_obj *obj, t_vec3 inter, t_vec3 n, \
 		return (n);
 	init_handler(&g, obj, inter, texture);
 	obj->get_uv(&g);
-	obj->tx = filter_bilinear(g);
-	bump_val = texture.bump_map[(int) g.v][(int) g.u] * 1.618;
+	bump_val = texture.bump_map[(int) g.v][(int) g.u];
+	if (bump_val < 0.05)
+		bump_val *= 10.0;
+	else
+		bump_val *= 1.618;
 	bump_offset = get_bump_offset(n, bump_val);
 	perbuted = normalize(vec3_add(n, bump_offset));
 	return (perbuted);

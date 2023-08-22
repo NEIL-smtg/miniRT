@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 15:28:56 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:29:37 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "color.h"
 
-t_vec3	get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin)
+t_vec3	get_ray_dir(int pixel[2], t_viewport *vp)
 {
 	double	ndc_x;
 	double	ndc_y;
@@ -80,7 +80,7 @@ static void	width_loop(int pixel[2], t_viewport *vp)
 	while (pixel[0] < (int) vp->w)
 	{
 		closest = NULL;
-		ray.dir = get_ray_dir(pixel, vp, ray.origin);
+		ray.dir = get_ray_dir(pixel, vp);
 		t = get_closest_obj(ray, vp->scene->obj, &closest, vp->edit);
 		if (closest && !vp->edit)
 		{

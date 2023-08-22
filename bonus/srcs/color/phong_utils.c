@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 23:41:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/22 12:27:53 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:54:00 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_vec3	reflect(t_vec3 incident, t_vec3 surface_normal)
 }
 
 t_rgb	get_specular_light(t_scene sc, t_vec3 surface_normal, \
-		t_vec3 inter, t_obj *obj)
+		t_vec3 inter)
 {
 	double	angle;
 	t_vec3	view_dir;

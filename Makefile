@@ -56,7 +56,7 @@ OBJS				=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 BONUS_SRCS			=	$(addprefix $(BONUS_SRCS_DIR), $(addsuffix .c, $(BONUS_FILES)))
 BONUS_OBJS			=	$(addprefix $(BONUS_OBJS_DIR), $(addsuffix .o, $(BONUS_FILES)))
 CC					=	gcc
-CFLAGS				=	-Wall -Werror -Wextra
+CC					+=	-Wall -Werror -Wextra
 MATH				=	-lm
 FSAN				=	-fsanitize=address -g3
 RM					=	rm -rf
@@ -73,11 +73,11 @@ endif
 
 # Define the compilation commands for each operating system
 ifeq ($(OS),Darwin)
-    COMPILER	= $(CC) $(FSAN) $(THREADS) $(INCL) $(MLX_H) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH) -pthread
-	COMPILER2	= $(CC) $(FSAN) $(THREADS) $(BONUS_INCL) $(MLX_H) -o $(BONUS_NAME) $(BONUS_SRCS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH) -pthread
+    COMPILER	= $(CC) $(INCL) $(MLX_H) -o $(NAME) $(OBJS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH)
+	COMPILER2	= $(CC) $(THREADS) $(BONUS_INCL) $(MLX_H) -o $(BONUS_NAME) $(BONUS_OBJS) $(LIBFT_DIR)$(LIBFT) $(APPLE_MLX) $(MATH) -pthread
 else
-    COMPILER	= $(CC) $(THREADS) $(INCL) -o $(NAME) $(SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH) -pthread
-	COMPILER2	= $(CC) $(THREADS) $(BONUS_INCL) -o $(BONUS_NAME) $(BONUS_SRCS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH) -pthread
+    COMPILER	= $(CC) $(INCL) -o $(NAME) $(OBJS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH)
+	COMPILER2	= $(CC) $(THREADS) $(BONUS_INCL) -o $(BONUS_NAME) $(BONUS_OBJS) $(LIBFT_DIR)$(LIBFT) $(LINUX_MLX) $(MATH) -pthread
 endif
 
 .PHONY: bonus all
@@ -100,24 +100,25 @@ clean:
 	$(RM) $(OBJS_DIR)
 	@$(RM) miniRT.dSYM/
 
-fclean : clean
+fclean : clean bfclean
 	$(RM) $(NAME)
 
 bonus:
-	@mkdir -p $(BONUS_OBJS_DIR) $(BONUS_OBJS_DIR)/color $(BONUS_OBJS_DIR)/edit
+	@mkdir -p $(BONUS_OBJS_DIR) $(BONUS_OBJS_DIR)color $(BONUS_OBJS_DIR)edit
+	@mkdir -p $(BONUS_OBJS_DIR)render
 	@mkdir -p $(BONUS_OBJS_DIR)checker $(BONUS_OBJS_DIR)utils $(BONUS_OBJS_DIR)vector
 	@mkdir -p $(BONUS_OBJS_DIR)matrix $(BONUS_OBJS_DIR)geometry $(BONUS_OBJS_DIR)transformation
 	@mkdir -p $(BONUS_OBJS_DIR)quaternion $(BONUS_OBJS_DIR)texture $(BONUS_OBJS_DIR)checkerboard
 	@make $(LIBFT)
 	make $(BONUS_NAME)
 
-$(BONUS_OBJS_DIR)%.o:$(SRCS_DIR)%.c
+$(BONUS_OBJS_DIR)%.o:$(BONUS_SRCS_DIR)%.c
 	$(CC) $(BONUS_INCL) -c $< -o $@
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-$(BONUS_NAME): $(BONUS_SRCS_DIR)
+$(BONUS_NAME): $(BONUS_OBJS)
 	$(COMPILER2)
 
 bclean:

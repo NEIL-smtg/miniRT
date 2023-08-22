@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_uv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 19:29:45 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/02 15:35:01 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:34:09 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_sphere_uv(const t_vec3 *point, double *u, double *v, t_obj *obj)
 	*v = 1.0 - normalized_y;
 }
 
-void	get_plane_uv(const t_vec3 *point, double *u, double *v, t_obj *obj)
+void	get_plane_uv(const t_vec3 *point, double *u, double *v)
 {
 	*u = remainder(point->x, 1.0f) + 0.4;
 	*v = remainder(point->z, 1.0f) + 0.4;

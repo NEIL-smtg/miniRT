@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/22 16:15:32 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:32:58 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		selected_msg(t_obj *selected);
 void		render(t_viewport *vp);
 void		*routine(void *arg);
 void		anti_aliasing(int pixel[2], t_viewport *vp, int *x);
-t_vec3		get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin);
+t_vec3		get_ray_dir(int pixel[2], t_viewport *vp);
 double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest, bool edit);
 void		fill_color(t_rgb color, t_viewport *vp, int pixel[2]);
 
@@ -133,7 +133,7 @@ void		print_obj(t_obj *tmp);
 //phong
 t_vec3		reflect(t_vec3 incident, t_vec3 surface_normal);
 t_rgb		get_specular_light(t_scene sc, t_vec3 surface_normal, \
-		t_vec3 inter, t_obj *obj);
+		t_vec3 inter);
 double		get_diffuse_color(t_light *light, t_vec3 inter, \
 		t_vec3 surface_normal);
 t_rgb		get_ambient_color(t_amblight amb, t_rgb color);

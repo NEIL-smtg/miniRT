@@ -6,13 +6,13 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 00:01:04 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/17 19:11:48 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 16:56:53 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vec3	get_ray_dir_offset(int pixel[2], t_viewport *vp, t_vec3 cam_origin, \
+t_vec3	get_ray_dir_offset(int pixel[2], t_viewport *vp, \
 	double offset[2])
 {
 	double	ndc_x;
@@ -58,7 +58,7 @@ void	anti_aliasing(int pixel[2], t_viewport *vp, int *x)
 		while (offset[0] < 1.0)
 		{
 			closest = NULL;
-			ray.dir = get_ray_dir_offset(pixel, vp, ray.origin, offset);
+			ray.dir = get_ray_dir_offset(pixel, vp, offset);
 			t = get_closest_obj(ray, vp->scene->obj, &closest, vp->edit);
 			final = rgb_add(final, pixel_color(vp, ray, closest, t));
 			offset[0] += 1.0 / SAMPLE_STEP;

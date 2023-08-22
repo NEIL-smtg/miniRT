@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformation.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:41:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 16:59:33 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:34:33 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_vec3	get_forward(t_obj *selected, t_mat4 view_mat);
 
 // uv mapping
 void	get_sphere_uv(const t_vec3 *point, double *u, double *v, t_obj *obj);
-void	get_plane_uv(const t_vec3 *point, double *u, double *v, t_obj *obj);
+void	get_plane_uv(const t_vec3 *point, double *u, double *v);
 void	get_cylinder_uv(const t_vec3 *point, double *u, double *v, t_obj *obj);
 
 #endif

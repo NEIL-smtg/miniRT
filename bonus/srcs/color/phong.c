@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/21 19:57:12 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 16:58:39 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_rgb	get_phong_color(t_scene sc, t_obj *obj, t_vec3 inter, \
 	t_rgb	amb;
 
 	diffuse = get_diffuse_color(sc.light, inter, surface_normal);
-	specular = get_specular_light(sc, surface_normal, inter, obj);
+	specular = get_specular_light(sc, surface_normal, inter);
 	amb = get_ambient_color(sc.amblight, obj->rgb);
 	return (rgb_add_3(amb, specular, rgb_scale(diffuse, obj->rgb)));
 }

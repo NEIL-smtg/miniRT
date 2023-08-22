@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 23:07:37 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 02:05:58 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 17:12:15 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,15 @@ static int	mouse_event(int button, int x, int y, t_viewport *vp)
 	int		pixel[2];
 	t_ray	ray;
 	t_obj	*select;
-	t_light	*closest;
-	double	t[2];
 
+	(void) button;
 	if (!vp->edit)
 		return (0);
 	select = NULL;
 	pixel[0] = x;
 	pixel[1] = y;
 	ray.origin = vp->scene->cam.pos;
-	ray.dir = get_ray_dir(pixel, vp, ray.origin);
+	ray.dir = get_ray_dir(pixel, vp);
 	get_closest_obj(ray, vp->scene->obj, &select, vp->edit);
 	if (select != vp->selected)
 	{

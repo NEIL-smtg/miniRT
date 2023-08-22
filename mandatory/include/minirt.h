@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/22 16:55:39 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:32:50 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		selected_msg(t_obj *selected);
 
 //	render
 void		render(t_viewport *vp);
-t_vec3		get_ray_dir(int pixel[2], t_viewport *vp, t_vec3 cam_origin);
+t_vec3		get_ray_dir(int pixel[2], t_viewport *vp);
 double		get_closest_obj(t_ray ray, t_obj *obj, t_obj **closest, bool edit);
 void		fill_color(t_rgb color, t_viewport *vp, int pixel[2]);
 
@@ -114,8 +114,5 @@ t_vec3		get_bump_effect_normal(t_obj *obj, t_vec3 inter, t_vec3 n, \
 t_rgb		phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 t_rgb		checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 t_rgb		edit_mode(t_viewport *vp, t_ray ray, t_obj *obj, double t);
-
-//	material
-t_rgb		bounce(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 23:41:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 16:08:28 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:53:53 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ double	get_diffuse_color(t_light *light, t_vec3 inter, \
 	t_vec3	light_dir;
 
 	light_dir = normalize(vec3_sub(light->pos, inter));
-	diff = vec3_dot(surface_normal, light_dir);
+	diff = vec3_dot(surface_normal, light_dir) * light->brightness;
 	return (fmax(diff, 0));
 }

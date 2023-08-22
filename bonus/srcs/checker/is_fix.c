@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 20:54:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/22 14:45:10 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:47:26 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	is_fix(t_scene *sc, int *acl, int line)
 		free(acl);
 		return (0);
 	}
-	if (!acl[0] || !acl[1] || !acl[2] || !(acl[2] + acl[3]))
+	if (!acl[0] || !acl[1] || !(acl[2] + acl[3]))
 	{
 		printf("Error !!\n");
 		line_error(line);

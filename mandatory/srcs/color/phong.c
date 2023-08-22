@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:54:18 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 15:36:48 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:53:02 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ t_rgb	get_ambient_color(t_amblight amb, t_rgb color)
 	t_rgb	a;
 	double	ratio;
 
-	ratio = amb.ratio * 0.15;
-	a = rgb_scale(ratio, rgb_add(color, amb.rgb));
+	ratio = amb.ratio * 0.5;
+	a = rgb_scale(1 / 255.0, rgb_scale(ratio, amb.rgb));
+	a = rgb_mul(a, color);
 	return (a);
 }
 

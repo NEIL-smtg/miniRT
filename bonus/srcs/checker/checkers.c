@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 01:15:10 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/22 16:59:10 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:44:28 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	valid_rgb(char *s)
 	int		b;
 
 	sp = ft_split(s, ',');
-	if (get_2d_arr_size(sp) != 3 || !valid_num2d(sp, 1))
+	if (get_2d_arr_size(sp) != 3 || !valid_num2d(sp))
 	{
 		ft_free2d(sp);
 		return (0);
@@ -47,12 +47,10 @@ int	valid_xyz(char *s)
 {
 	char	**sp;
 	int		flag;
-	int		i;
-	int		j;
 
 	flag = 1;
 	sp = ft_split(s, ',');
-	if (get_2d_arr_size(sp) != 3 || !valid_num2d(sp, 2))
+	if (get_2d_arr_size(sp) != 3 || !valid_num2d(sp))
 		flag = 0;
 	ft_free2d(sp);
 	return (flag);
@@ -66,7 +64,7 @@ int	valid_vec3(char *s)
 	double	v3;
 
 	sp = ft_split(s, ',');
-	if (get_2d_arr_size(sp) != 3 || !valid_num2d(sp, 3))
+	if (get_2d_arr_size(sp) != 3 || !valid_num2d(sp))
 	{
 		ft_free2d(sp);
 		return (0);

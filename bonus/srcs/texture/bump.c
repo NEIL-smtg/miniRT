@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bump.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 17:56:28 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/21 16:48:26 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 12:32:19 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ t_vec3	get_bump_offset(t_vec3 n, double bump_val)
 	bump_offset = vec3_add(bump_offset, vec3_mul(bumping, bitangent));
 	return (bump_offset);
 }
-
-t_rgb	filter_bilinear(t_tuv g);
 
 t_vec3	get_bump_effect_normal(t_obj *obj, t_vec3 inter, t_vec3 n, \
 		t_img texture)

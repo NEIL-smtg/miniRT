@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/21 17:20:56 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 13:43:50 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,24 @@ typedef struct s_render
 	int			lines_per_thread;
 	int			remaining_lines;
 }	t_render;
+
+typedef struct s_vec2
+{
+	double	u;
+	double	v;
+}	t_vec2;
+
+typedef struct s_stuff
+{
+	t_vec3	inter;
+	double	t;
+	t_vec3	surface_normal;
+	double	diffuse;
+	t_rgb	specular;
+	t_rgb	color;
+	t_rgb	amb;
+	t_scene	sc;
+}	t_stuff;
 
 ////////////////////////////////////////////////////////
 /////////////////FUNCTION PROTOTYPE/////////////////////
@@ -129,9 +147,7 @@ t_vec3		get_bump_effect_normal(t_obj *obj, t_vec3 inter, t_vec3 n, \
 //colors
 t_rgb		phong_shading(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 t_rgb		checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t);
+t_rgb		checkerboard_extend(t_stuff	*stuff, t_obj *obj, t_tuv *g);
 t_rgb		edit_mode(t_viewport *vp, t_ray ray, t_obj *obj, double t);
-
-//	material
-t_rgb		bounce(t_viewport *vp, t_ray ray, t_obj *obj, double t);
 
 #endif

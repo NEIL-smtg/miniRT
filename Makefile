@@ -45,7 +45,7 @@ BONUS_FILES			=	main hooks \
 						geometry/surface_normal geometry/cube\
 						transformation/info transformation/translation \
 						transformation/panning  transformation/xyz\
-						checkerboard/checkerboard checkerboard/get_uv \
+						checkerboard/checkerboard checkerboard/get_uv checkerboard/checkerboard_utils \
 						quaternion/quaternion \
 						texture/bump texture/init_texture texture/texture_uv
 
@@ -134,8 +134,6 @@ re: fclean clean all
 
 bre: bfclean bclean bonus
 
-norm: bnorm
+norm: 
 	@norminette -R CheckForbiddenSourceHeader $(SRCS) mandatory/include/
-
-bnorm:
 	@norminette -R CheckForbiddenSourceHeader $(BONUS_SRCS) bonus/include/

@@ -15,7 +15,7 @@ FILES				=	main render hooks \
 						color/phong_utils color/color2\
 						checker/validator checker/get_input checker/checkers checker/settings \
 						checker/set_cylinder checker/set_plane checker/set_sphere \
-						checker/set_cone checker/is_fix checker/set_light\
+						checker/set_cone checker/is_fix checker/set_light checker/checkers_utils \
 						vector/vec3 vector/vec3_utils vector/convert vector/vec4 \
 						matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \
 						matrix/view_matrix matrix/view_matrix2\
@@ -36,7 +36,7 @@ BONUS_FILES			=	main hooks \
 						color/color color/phong color/edit_mode color/shadows \
 						color/phong_utils color/color2 \
 						checker/validator checker/get_input checker/checkers checker/settings \
-						checker/set_cylinder checker/set_plane checker/set_sphere \
+						checker/set_cylinder checker/set_plane checker/set_sphere checker/checkers_utils\
 						checker/set_cone checker/is_fix checker/set_light\
 						vector/vec3 vector/vec3_utils vector/convert vector/vec4 \
 						matrix/matrix matrix/matrix2 matrix/matrix4_mul matrix/matrix_inverse \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:03:41 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/08 00:27:43 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 17:00:01 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	set_sphere(t_scene *sc, char *line, int type)
 
 	s = rt_split(line);
 	if (get_2d_arr_size(s) != 4 || !valid_xyz(s[1])
-		|| !valid_range(0, DBL_MAX, ft_atof(s[2]))
+		|| !valid_range_str(0, DBL_MAX, s[2], NULL)
 		|| !valid_rgb(s[3]))
 	{
 		ft_free2d(s);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_light.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:13:15 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/21 16:56:46 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 16:50:40 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	valid_light(char **s)
 		flag = 0;
 	if (!valid_xyz(s[1]))
 		flag = 0;
-	if (!valid_range(0, 1, ft_atof(s[2])))
+	if (!valid_range_str(0, 1, s[2], NULL))
 		flag = 0;
 	if (size == 4 && !valid_rgb(s[3]))
 		flag = 0;
@@ -91,7 +91,8 @@ int	set_light(t_scene *sc, char *line)
 	if (!new)
 		ft_error("malloc failed on t_light", NULL);
 	lg = malloc(sizeof(t_obj));
-	if (!lg)
+	lg->light = malloc(sizeof(t_light));
+	if (!lg || !lg->light)
 		ft_error("malloc failed on obj t_light", NULL);
 	new->fix = 0;
 	if (*line == 'L')

@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/17 19:13:37 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:47:38 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ double	cone_intersection(t_ray ray, t_obj *obj)
 	oc = vec3_sub(obj->center, ray.origin);
 	proj_h = vec3_sub(ray.dir, oc);
 	h = vec3_dot(proj_h, obj->dir);
-	if (h > obj->h - EPS && obj->dir.z > 0.7)
+	if (h > obj->h - EPS && obj->dir.z > 0.78100000)
 		return (cone_base(ray, obj));
 	k = 1 + pow(tan(obj->cone_angle), 2);
 	t = solve_quadratic(

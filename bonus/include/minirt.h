@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/22 13:43:50 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:15:32 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,10 @@ int			set_cone(t_scene *sc, char *line, int type);
 void		objlst_addback(t_obj **lst, t_obj *new);
 
 //checkers
+bool		valid_num(char *sp, int flag);
+bool		valid_num2d(char **sp, int flag);
 int			valid_rgb(char *s);
-int			valid_range(double from, double to, double nb);
+int			valid_range(double from, double to, char *sp);
 int			valid_xyz(char *s);
 int			valid_fov(int fov);
 int			valid_vec3(char *s);

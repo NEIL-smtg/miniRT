@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:44:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/03 13:22:52 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:19:42 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	process_line(char *line, t_scene *sc)
 int	line_error(int line)
 {
 	ft_putstr_fd(" line : [", 2);
-	ft_putnbr_fd(line, 2);
+	ft_putnbr_fd(line - 1, 2);
 	ft_putendl_fd("]", 2);
 	return (0);
 }

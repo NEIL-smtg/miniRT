@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 17:39:16 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/08 00:27:54 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 16:59:45 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	set_cylinder(t_scene *sc, char *line, int type)
 	s = rt_split(line);
 	if (get_2d_arr_size(s) != 6 || !valid_xyz(s[1])
 		|| !valid_vec3(s[2])
-		|| !valid_range(0, DBL_MAX, ft_atof(s[3]))
-		|| !valid_range(0, DBL_MAX, ft_atof(s[4]))
+		|| !valid_range_str(0, DBL_MAX, s[3], NULL)
+		|| !valid_range_str(0, DBL_MAX, s[4], NULL)
 		|| !valid_rgb(s[5]))
 	{
 		ft_free2d(s);

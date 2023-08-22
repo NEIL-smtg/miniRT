@@ -6,7 +6,7 @@
 /*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:33:17 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/17 13:17:22 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:55:39 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ int			valid_range(double from, double to, double nb);
 int			valid_xyz(char *s);
 int			valid_fov(int fov);
 int			valid_vec3(char *s);
+int			valid_range_str(double from, double to, char *sp, char *sp2);
+bool		valid_num(char *sp, int flag);
+bool		valid_num2d(char **sp, int flag);
 
 // printing
 void		print_obj(t_obj *tmp);

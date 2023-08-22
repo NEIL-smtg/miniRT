@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_fix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 20:54:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/07 21:31:24 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 14:45:10 by mmuhamad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ int	is_fix(t_scene *sc, int *acl, int line)
 		free(acl);
 		return (0);
 	}
-	if (!acl[0] || !acl[1] || !(acl[2] + acl[3]))
+	if (!acl[0] || !acl[1] || !acl[2] || !(acl[2] + acl[3]))
 	{
 		printf("Error !!\n");
 		line_error(line);
-		printf("The scene must contain at least 1 camera,");
-		printf("light and ambient !!\n");
+		printf("The scene must contain at least 1 camera(C), ");
+		printf("light(L) and ambient(A) !!\n");
 		free(acl);
 		return (0);
 	}

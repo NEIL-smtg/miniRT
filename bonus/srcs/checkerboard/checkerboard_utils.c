@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:12:55 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/22 13:42:22 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:58:56 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	get_uv_square(int *u_square, int *v_square, t_vec2	*uv, t_obj *obj)
 
 t_rgb	checkerboard_color(float u, float v, t_obj *obj)
 {
-	double	square_size;
 	int		u_square;
 	int		v_square;
 	t_vec2	uv;
@@ -56,7 +55,7 @@ t_rgb	checkerboard_extend(t_stuff	*stuff, t_obj *obj, t_tuv *g)
 	t_vec2	uv;
 
 	if (obj->checkerboard && obj->type == PLANE)
-		get_plane_uv(&stuff->inter, &uv.u, &uv.v, obj);
+		get_plane_uv(&stuff->inter, &uv.u, &uv.v);
 	else if (obj->checkerboard && obj->type == CYLINDER)
 		get_cylinder_uv(&stuff->inter, &uv.u, &uv.v, obj);
 	else if (obj->checkerboard && obj->type == CONE)

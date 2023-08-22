@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:28:09 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/09 14:00:35 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:12:46 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	print_scene(t_scene *sc)
 	{
 		print_obj(tmp);
 		print_vec(tmp->center, 1);
-		if (tmp->type != SPHERE || tmp->type != LIGHT)
+		if (tmp->type != SPHERE && tmp->type != LIGHT)
 			print_vec(tmp->dir, 2);
-		if (tmp->type != PLANE || tmp->type != LIGHT)
+		if (tmp->type != PLANE && tmp->type != LIGHT)
 			printf("\tdiameter : %f\n", tmp->d);
-		if (tmp->type == CYLINDER || tmp->type == CONE || tmp->type != LIGHT)
+		if (tmp->type == CYLINDER || tmp->type == CONE)
 			printf("\theight : %f\n", tmp->h);
-		if (tmp->type == CONE || tmp->type != LIGHT)
+		if (tmp->type == CONE)
 			printf("\tangle : %f\n", tmp->cone_angle);
 		print_rgb(tmp->rgb);
 		tmp = tmp->next;

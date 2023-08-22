@@ -6,7 +6,7 @@
 /*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 00:07:16 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/21 16:27:28 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 17:19:59 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,21 @@ void	thread_runner(t_viewport *vp)
 
 void	render(t_viewport *vp)
 {
-	int			i;
-	t_th		data;
+	t_th	data;
 
 	if (vp->edit)
+	{
 		clean_img(vp);
+		data.vp = vp;
+		data.start_y = 0;
+		data.end_y = (int) vp->h;
+		routine(&data);
+	}
 	else
+	{
 		printf("\n######## RENDERING ########\n");
-	thread_runner(vp);
+		thread_runner(vp);
+	}
 	mlx_put_image_to_window(vp->mlx, vp->win, vp->img.ptr, 0, 0);
 	if (!vp->edit)
 	{

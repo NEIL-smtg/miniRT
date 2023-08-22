@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xyz.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 03:48:54 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 23:24:08 by suchua           ###   ########.fr       */
+/*   Updated: 2023/08/22 16:33:38 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_vec3	get_right(t_obj *selected, t_mat4 view_mat)
 {
 	t_vec3	right;
 	t_vec3	forward;
-	t_vec3	up;
 
 	if (!selected)
 		return (get_cam_right(view_mat));
@@ -47,8 +46,6 @@ t_vec3	get_right(t_obj *selected, t_mat4 view_mat)
 
 t_vec3	get_forward(t_obj *selected, t_mat4 view_mat)
 {
-	t_vec3	forward;
-
 	if (!selected)
 		return (get_cam_forward(view_mat));
 	return (selected->dir);

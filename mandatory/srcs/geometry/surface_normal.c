@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   surface_normal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 00:31:05 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/16 15:57:58 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:33:25 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_var
 	double	d;
 }	t_var;
 
-bool	cam_inside_extend(t_ray ray, t_obj *obj, t_vec3 inter, t_var *var)
+bool	cam_inside_extend(t_obj *obj, t_var *var)
 {
 	if (obj->type == CYLINDER)
 	{
@@ -58,11 +58,11 @@ bool	cam_inside(t_ray ray, t_obj *obj, t_vec3 inter)
 		var.ci = vec3_len(vec3_sub(inter, obj->center));
 		return (var.cc < var.ci);
 	}
-	return (cam_inside_extend(ray, obj, inter, &var));
+	return (cam_inside_extend(obj, &var));
 }
 
 static t_vec3	get_cy_surface_normal(t_obj *obj, \
-		t_vec3 inter, double t)
+		t_vec3 inter)
 {
 	t_vec3	ci;
 	double	h;
@@ -98,7 +98,7 @@ t_vec3	get_surface_normal(t_ray ray, t_obj *obj, double t, t_img texture)
 			n = vec3_mul(-1.0, obj->dir);
 	}
 	else
-		n = get_cy_surface_normal(obj, inter, t);
+		n = get_cy_surface_normal(obj, inter);
 	if (inside)
 		n = vec3_mul(-1.0, n);
 	return (get_bump_effect_normal(obj, inter, n, texture));

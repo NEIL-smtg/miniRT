@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:06:55 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/17 19:13:37 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:32:23 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ double	cone_base(t_ray ray, t_obj *obj)
 static double	cone_decider(t_ray ray, double t, t_obj *obj)
 {
 	t_vec3	inter;
-	t_ray	ray2;
 	t_obj	*close;
 	double	h;
 	double	t2;

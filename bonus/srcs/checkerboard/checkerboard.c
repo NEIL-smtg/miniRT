@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:17:13 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/22 13:42:16 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:58:47 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_stuff(t_viewport *vp, t_ray ray, t_obj *obj, t_stuff *stuff)
 	stuff->specular = get_specular_light(
 			stuff->sc,
 			stuff->surface_normal,
-			stuff->inter, obj);
+			stuff->inter);
 }
 
 static void	init_g(t_tuv *g, t_obj *obj, t_stuff *stuff)
@@ -40,7 +40,6 @@ static void	init_g(t_tuv *g, t_obj *obj, t_stuff *stuff)
 
 t_rgb	checkerboard(t_viewport *vp, t_ray ray, t_obj *obj, double t)
 {
-	t_vec2	uv;
 	t_stuff	stuff;
 	t_tuv	g;
 	t_rgb	final;

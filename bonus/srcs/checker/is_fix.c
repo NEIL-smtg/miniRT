@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_fix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmuhamad <mmuhamad@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: neilsundae <suchua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 20:54:33 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/22 17:47:26 by mmuhamad         ###   ########.fr       */
+/*   Updated: 2023/09/08 02:28:49 by neilsundae       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static int	obj_is_fix(t_obj *obj, enum e_type shape, char *name, int line)
 	t_obj	*tmp;
 	int		count;
 	int		fix;
-	int		i;
 
-	i = -1;
 	tmp = obj;
 	count = 0;
 	fix = 0;

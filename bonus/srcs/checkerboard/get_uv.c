@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_uv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: neilsundae <suchua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 19:29:45 by mmuhamad          #+#    #+#             */
-/*   Updated: 2023/08/22 16:55:37 by suchua           ###   ########.fr       */
+/*   Updated: 2023/09/08 02:29:03 by neilsundae       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ void	get_sphere_uv(const t_vec3 *point, double *u, double *v, t_obj *obj)
 {
 	double	normalized_x;
 	double	normalized_y;
-	double	normalized_z;
 
 	normalized_x = (point->x + obj->d / 2.0) / obj->d;
 	normalized_y = (point->y + obj->d / 2.0) / obj->d;
-	normalized_z = (point->z + obj->d / 2.0) / obj->d;
 	*u = 1.0 - normalized_x;
 	*v = 1.0 - normalized_y;
 }
@@ -36,11 +34,9 @@ void	get_cylinder_uv(const t_vec3 *point, double *u, double *v, t_obj *obj)
 {
 	double	normalized_x;
 	double	normalized_y;
-	double	normalized_z;
 
 	normalized_x = (point->x + obj->d / 2.0) / obj->d;
 	normalized_y = (point->y + obj->d / 2.0) / obj->d;
-	normalized_z = (point->z + obj->d / 2.0) / obj->d;
 	*u = 1.0 - normalized_x;
 	*v = 1.0 - normalized_y;
 }

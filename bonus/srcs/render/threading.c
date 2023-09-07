@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threading.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua <suchua@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: neilsundae <suchua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 00:07:16 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/22 17:19:59 by suchua           ###   ########.fr       */
+/*   Updated: 2023/09/08 02:32:11 by neilsundae       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,16 @@ void	thread_runner(t_viewport *vp)
 
 void	render(t_viewport *vp)
 {
-	t_th	data;
+	// t_th	data;
 
 	if (vp->edit)
 	{
 		clean_img(vp);
-		data.vp = vp;
-		data.start_y = 0;
-		data.end_y = (int) vp->h;
-		routine(&data);
+		thread_runner(vp);
+		// data.vp = vp;
+		// data.start_y = 0;
+		// data.end_y = (int) vp->h;
+		// routine(&data);
 	}
 	else
 	{

@@ -8,9 +8,7 @@ C	0,3,-3		0,0,1		70
 
 #	light
 #	pos		|	brightness	|	color
-l	4,5,5			0.33		255,255,255
-l	-4,5,5			0.33		10,200,10
-l	0,5,5			0.66		255,255,255
+L	0,5,5			0.66		255,255,255
 
 #	GEOMETRYYYYY
 #	pos			|	normal		|	diameter	|	height	|	color

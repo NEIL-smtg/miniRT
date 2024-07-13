@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: suchua <suchua@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 15:47:56 by suchua            #+#    #+#             */
-/*   Updated: 2024/07/13 21:33:03 by suchua           ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/07/13 21:36:58 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minirt.h"
 #include "color.h"
@@ -78,11 +79,11 @@ static void	width_loop(int pixel[2], t_viewport *vp)
 	ray.origin = vp->scene->cam.pos;
 	while (pixel[0] < (int) vp->w)
 	{
-		if (!vp->edit)
-		{
-			anti_aliasing(pixel, vp, &pixel[0]);
-			continue ;
-		}
+		// if (!vp->edit)
+		// {
+		// 	anti_aliasing(pixel, vp, &pixel[0]);
+		// 	continue ;
+		// }
 		closest = NULL;
 		ray.dir = get_ray_dir(pixel, vp);
 		t = get_closest_obj(ray, vp->scene->obj, &closest, vp->edit);

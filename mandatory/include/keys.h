@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:30:36 by suchua            #+#    #+#             */
-/*   Updated: 2023/07/27 23:22:41 by suchua           ###   ########.fr       */
+/*   Updated: 2024/07/13 20:51:08 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@
 // #  define KEY_MINUS 78
 #  define KEY_LEFT 65363
 #  define KEY_RIGHT 65361
-#  define KEY_DOWN 65362
-#  define KEY_UP 65364
+#  define KEY_DOWN 65364
+#  define KEY_UP 65362
 #  define KEY_SHIFT 65506
 #  define KEY_MINUS 45
 #  define KEY_PLUS  61

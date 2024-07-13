@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   edit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suchua < suchua@student.42kl.edu.my>       +#+  +:+       +#+        */
+/*   By: suchua <suchua@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 22:40:46 by suchua            #+#    #+#             */
-/*   Updated: 2023/08/14 01:05:14 by suchua           ###   ########.fr       */
+/*   Updated: 2024/07/13 20:52:56 by suchua           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-//	if ori color is grey/white, return green
+//	returning opposite color of object's original color
 t_rgb	get_selected_color(t_rgb c)
 {
 	double	min;
